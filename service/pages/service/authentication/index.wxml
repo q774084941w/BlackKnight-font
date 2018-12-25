@@ -1,0 +1,76 @@
+<view class="container">
+    <picker  class="input-group"  rangeKey="name" >
+        <!-- <view style="color:#666;" wx:if="{{userType==''}}">請選擇</view> -->
+        <view >{{userType.name}}</view>
+    </picker>
+    <view class="input-group">
+        <input bindinput="changeInputData" data-name="name" placeholder="輸入真實姓名" type="text"></input>
+    </view>
+    <view class="input-group">
+        <input bindinput="changeInputData" data-name="idcard" placeholder="輸入身份證號" type="text"></input>
+    </view>
+    <view class="input-group" >
+        <input bindinput="changeInputData" data-name="carcodes" placeholder="輸入車牌號" type="text"></input>
+    </view>
+    <view class="input-group">拍攝身份證正面照<text class="page-help">（請確保所拍攝的照片清晰）</text>
+    </view>
+    <view class="img-group">
+        <view class="img-item">
+            <text>參攷照片</text>
+            <image src="https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads/img/1.png"></image>
+        </view>
+        <view class="img-item">
+            <text>你的正面照片</text>
+            <image bindtap="chooseCard" src="{{cardImg}}"></image>
+        </view>
+    </view>
+    <view class="input-group">拍摄身份证反面照<text class="page-help">（請確保所拍攝的照片清晰）</text>
+    </view>
+    <view class="img-group">
+        <view class="img-item">
+            <text>參攷照片</text>
+            <image src="https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads/img/2.png"></image>
+        </view>
+        <view class="img-item">
+            <text>你的反面照片</text>
+            <image bindtap="chooseCardf" src="{{cardImgf}}"></image>
+        </view>
+    </view>
+    <!-- <view class="input-group" wx:if="{{userType.id==2}}">拍摄健康证正面照<text class="page-help">（請確保所拍攝的照片清晰）</text>
+    </view>
+    <view class="img-group" wx:if="{{userType.id==2}}">
+        <view class="img-item">
+            <text>參攷照片</text>
+            <image src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=203348743,565912802&fm=27&gp=0.jpg"></image>
+        </view>
+        <view class="img-item">
+            <text>你的正面照片</text>
+            <image bindtap="chooseCarCard" src="{{carcardImg}}"></image>
+        </view>
+    </view> -->
+    <view class="input-group" >拍攝駕駛證正面照<text class="page-help">（請確保所拍攝的照片清晰）</text>
+    </view>
+    <view class="img-group" >
+        <view class="img-item">
+            <text>參攷照片</text>
+            <image src="https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads/img/3.png"></image>
+        </view>
+        <view class="img-item">
+            <text>你的正面照片</text>
+            <image bindtap="chooseCarCard" src="{{carcardImg}}"></image>
+        </view>
+    </view>
+    <view class="input-group" >拍攝行駛證反面照<text class="page-help">（請確保所拍攝的照片清晰）</text>
+    </view>
+    <view class="img-group" >
+        <view class="img-item">
+            <text>參攷照片</text>
+            <image src="https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads/img/5.png"></image>
+        </view>
+        <view class="img-item">
+            <text>你的反面照片</text>
+            <image bindtap="chooseCarCards" src="{{carcardImgf}}"></image>
+        </view>
+    </view>
+    <button bindtap="sendRequest" class="confirm">確認</button>
+</view>

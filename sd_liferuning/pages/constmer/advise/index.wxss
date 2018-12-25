@@ -1,0 +1,6 @@
+wx-body{ background: #F2F2F2; }
+.advise-module{ width: 710rpx; margin: 0 auto; }
+.user-advise{ position: relative; font-size: 26rpx; }
+.user-advise textarea{ width: 670rpx; height: 260rpx; background: #FFF; color: #202020; margin: 20rpx auto 50rpx; padding: 20rpx; }
+.user-tip{ position: absolute; bottom: 20rpx; right: 20rpx; color: #ababab; }
+.advise-module button{ width: 500rpx; height: 60rpx; line-height: 60rpx; background: #22ae22; color: #FFF; font-size: 30rpx; }

@@ -1,0 +1,27 @@
+<view wx:if="{{data}}">
+    <view class="container">
+        <view class="card-info">
+            <view class="card-info-left">
+                <text>{{data.bank}}</text>
+                <text>{{data.cardnumber}}</text>
+            </view>
+            <view class="card-info-right">
+                <text>{{data.name}}</text>
+                <text class="iconfont icon-dayuhao"></text>
+            </view>
+        </view>
+        <view class="input-group">
+            <text>可提現金額：<text class="iconfont icon-iconmoney color-read">{{data.money}}</text>
+            </text>
+            <input bindinput="changeInputData" data-name="balance" placeholder="請輸入提現金額" type="text"></input>
+        </view>
+        <button bindtap="sendRequest" class="confirm-btn">確認提現</button>
+        <text class="help-info">預計3個工作日到賬</text>
+    </view>
+</view>
+<view wx:else>
+    <view class="container">
+        <text class="tip-text">暫無綁定銀行卡</text>
+        <navigator class="nav-btn" url="/service/pages/service/bankcard-binding/index">立即前往綁定頁面</navigator>
+    </view>
+</view>

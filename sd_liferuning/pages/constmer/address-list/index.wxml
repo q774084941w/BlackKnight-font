@@ -1,0 +1,30 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:51 -->
+<view class="container">
+	<view class="con" style='margin-bottom:36px'>
+		<block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" >
+			<view class="list" data-id="{{item.uaid}}">
+				<view class="text">
+					<view class="name">
+						<text>{{item.name}}</text>
+						<text class="phone">{{item.phone}}</text>
+					</view>
+					<text class="address">{{item.address}}</text>
+				</view>
+				<view class="hr"></view>
+				<view class="bottom"> 
+					<view class="left" bindtap="radio" data-index="{{item.id}}" data-select="{{item.default}}" type="{{item.default}}">
+						<icon   size="24" type="{{item.default}}"></icon>
+						<text>設為默認</text>
+					</view>
+					<view class="right">
+						<icon bindtap="navToEdit" class="iconfont icon-icon_edit" data-id="{{item.id}}"></icon>
+						<icon bindtap="dellist" class="iconfont icon-shanchu" data-id="{{item.id}}" data-index="{{index}}"></icon>
+					</view>
+				</view>
+			</view>
+		</block>
+	</view>
+	<view class="address-btn">
+		<navigator url="/sd_liferuning/pages/constmer/address-insert/index">添加收貨地址</navigator>
+	</view>
+</view>

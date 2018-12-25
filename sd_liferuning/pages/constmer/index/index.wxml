@@ -1,0 +1,157 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:52 -->
+<view class="container">
+	<block wx:if="{{!authStatus}}">
+		<view class="auth-view">
+			<view class="authorize">
+				<image src="{{homeimg}}"></image>
+				<block wx:if="{{canIUse}}">
+					<button bindgetuserinfo="getUserInfo" class="authorize-btn" openType="getUserInfo" wx:if='{{phone!=0}}'>信息授權</button>
+          <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorize-btn" wx:if='{{phone==0}}'>電話授權</button>
+				</block>
+				<block wx:if="{{!canIUse}}">
+					<button bindtap="closePanel" class="authorize-btn">關閉</button>
+          
+				</block>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{pageConfig.mainConfig.templetType==1}}">
+		<view class="page-content">
+			<swiper autoplay="autoplay" class="banner">
+				<block wx:for="{{pageConfig.mainConfig.bannerGroups}}" wx:for-item="bannerItem" wx:for-index="index" >
+					<swiper-item>
+						<navigator style="width:100%;height:100%;" url="{{bannerItem.linkedUrl}}">
+							<image class="banner-image" src="{{bannerItem.imageUrl}}"></image>
+						</navigator>
+					</swiper-item>
+				</block>
+			</swiper>
+			<view class="search">
+				<image class="search-icon" src="{{icons}}/resource/common/image/customer/index/search.png"></image>
+				<input bindblur="setSearch" class="search-input" placeholder="{{pageConfig.mainConfig.searchConfig.searchHintText}}" value="{{search}}"></input>
+				<button bindtap="searchAct" class="search-btn" style="color: {{pageConfig.mainConfig.searchConfig.searchBtnFontColor}};background:{{pageConfig.mainConfig.searchConfig.searchBtnBgColor}};">提交</button>
+			</view>
+			<swiper autoplay="autoplay" circular="true" class="sys-notify" vertical="true">
+				<block wx:for="{{notice}}" wx:for-item="item" wx:for-index="index" >
+					<navigator url="/sd_liferuning/pages/constmer/notify-detail/index?id={{item.id}}">
+						<swiper-item class="sys-notify-item">
+							<image src="{{pageConfig.mainConfig.systemNotifyIconUrl}}"></image>
+							<text>系統公告:{{item.title}}</text>
+						</swiper-item>
+					</navigator>
+				</block>
+			</swiper>
+			<view class="switch-panel">
+				<scroll-view class="switch-panel-title" scrollWithAnimation="true" scrollX="true">
+					<block wx:for="{{pageConfig.mainConfig.ingressGroups.ingress}}" wx:for-item="ingressItem" wx:for-index="index" >
+						<view bindtap="switchPanel" class="switch-panel-title-item {{index==panel?'active':''}}" data-panel="{{index}}" style="color:{{pageConfig.mainConfig.ingressGroups.fontColor}};">{{ingressItem.name}}</view>
+					</block>
+				</scroll-view>
+				<view class="switch-panel-content">
+					<block wx:for="{{pageConfig.mainConfig.ingressGroups.ingress}}" wx:for-item="ingressItem" wx:for-index="index" >
+						<view class="switch-panel-content-item {{index==panel?'active':''}}" id="{{index}}">
+							<view class="ware-module">
+								<block wx:for="{{ingressItem.children}}" wx:for-item="ingressChildrenItem" wx:for-index="index" >
+									<navigator class="{{pageConfig.mainConfig.ingressGroups.columnSize==0?'item-col-3':'item-col-4'}}" style="border-color:{{pageConfig.mainConfig.ingressGroups.borderColor}};" url="{{ingressChildrenItem.linkedUrl}}?wareText={{ingressChildrenItem.name}} &&tags={{ingressChildrenItem.tagGroup.tags}}">
+										<view class="item-img">
+											<image src="{{ingressChildrenItem.iconUrl}}"></image>
+										</view>
+										<view class="item-text">{{ingressChildrenItem.name}}</view>
+									</navigator>
+								</block>
+							</view>
+						</view>
+					</block>
+				</view>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{pageConfig.mainConfig.templetType==2}}">
+		<view class="module-style2">
+			<view class="page-head" style="background:url('{{icons}}/resource/common/image/customer/index/module-style2/bg.png')no-repeat;background-size:100% 100%;">
+				<view class="city-tip">
+					<image class="icon" src="{{icons}}/resource/common/image/customer/index/module-style2/icon.png"></image>
+					<text>{{locationNow}}</text>
+				</view>
+				<view class="user-tip" style="background:{{pageConfig.mainConfig.nearbyConfig.bgColor}};color:{{pageConfig.mainConfig.nearbyConfig.fontColor}};">
+					<image class="icon" src="{{icons}}/resource/common/image/customer/index/module-style2/icon2.png"></image>
+					<text>{{pageConfig.mainConfig.nearbyConfig.hintText}}</text>
+				</view>
+				<view class="user-swiper" style="background:url('{{pageConfig.mainConfig.ingressGroups.bgImage}}') no-repeat;background-size:cover;">
+					<scroll-view class="scroll-view" scrollWithAnimation="true" scrollX="true">
+						<block wx:for="{{pageConfig.mainConfig.ingressGroups.ingress}}" wx:for-item="ingressItem" wx:for-index="index" >
+							<navigator class="scroll-view-item" url="{{ingressItem.linkedUrl}}?wareTexts={{ingressItem.name}}&&tags={{ingressItem.tagGroup.tags}}">
+								<image src="{{ingressItem.iconUrl}}"></image>
+								<text>{{ingressItem.name}}</text>
+							</navigator>
+						</block>
+					</scroll-view>
+					<view class="scroll-icon-group">
+						<view class="scroll-icon-item {{currentScrollIcon==1?'active':''}}"></view>
+						<view class="scroll-icon-item {{currentScrollIcon==2?'active':''}}"></view>
+						<view class="scroll-icon-item {{currentScrollIcon==3?'active':''}}"></view>
+					</view>
+				</view>
+			</view>
+			<map class="page-map {{authStatus!=''?1:'none'}}" latitude="{{mapData.latitude}}" longitude="{{mapData.longitude}}" markers="{{markers}}" scale="14" showLocation="true" style="{{iphoneModule?'height:600rpx':'height:570rpx'}}"></map>
+		</view>
+	</block>
+	<block wx:if="{{pageConfig.mainConfig.templetType==3}}">
+		<view class="module-style3">
+    <!-- <cover-view class="sys-notify" style='background:red;color:white;display:{{thisRed==1?"":"none"}}'  >
+					<cover-view class="sys-notify-info" >試運營期間服務時間早8:00到晚21:00</cover-view>
+				</cover-view> -->
+			<map class="page-map {{authStatus!=''?1:'none'}}" latitude="{{mapData.latitude}}" longitude="{{mapData.longitude}}" markers="{{markers}}" scale="14" showLocation="true" style="{{iphoneModule?'height:700rpx':'height:670rpx'}}"></map>
+			<cover-view class="map-upper-wrap" style="{{iphoneModule?'top:500rpx':'top:470rpx'}}">
+				<cover-view class="map-upper-btn-group">
+					<cover-image bindtap="getLocaltion" class="map-upper-btn-item" src="{{icons}}/resource/common/image/customer/index/module-style3/b-icon3.png"></cover-image>
+				</cover-view>
+				<!-- <cover-view class="sys-notify" >
+					<cover-image class="sys-notify-icon" src="{{pageConfig.mainConfig.systemNotifyIconUrl}}"></cover-image>
+					<cover-view class="sys-notify-info" >試運營期間服務時間早8:00到晚21:00</cover-view>
+				</cover-view> -->
+        	
+			</cover-view>
+      <swiper autoplay="autoplay" circular="true" class="sys-notify" vertical="true" >
+				<block wx:for="{{notice}}" wx:for-item="item" wx:for-index="index" >
+					<navigator url="/sd_liferuning/pages/constmer/notify-detail/index?id={{item.id}}">
+						<swiper-item class="sys-notify-item">
+							<image class="sys-notify-icon" src="{{pageConfig.mainConfig.systemNotifyIconUrl}}" style='top:-10rpx'></image>
+							<text class="sys-notify-info">系統公告:{{item.title}}</text>
+						</swiper-item>
+					</navigator>
+				</block>
+			</swiper>
+			<view class="user-ingress" style="background:url('https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads//diy/20181223/background2.jpg');background-size:cover;">
+				<scroll-view class="scroll-view" scrollWithAnimation="true" scrollY="true" >
+        
+					<block wx:for="{{pageConfig.mainConfig.ingressGroups.ingress}}" wx:for-item="ingressItem" wx:for-index="index" >
+          <form bindsubmit="formSubmit" report-submit="true" reportSubmit="true" data-url="{{ingressItem.linkedUrl}}?wareTexts={{ingressItem.name}}&&tags={{ingressItem.tagGroup.tags}}">
+            <button class="ingress-item" style="background:url('{{ingressItem.iconUrl}}') no-repeat;background-size:100% 100%;" url="{{ingressItem.linkedUrl}}?wareTexts={{ingressItem.name}}&&tags={{ingressItem.tagGroup.tags}}" form-type='submit'>
+							<view class="ingress-title">{{ingressItem.name}}</view>
+							<view class="ingress-tip">{{ingressItem.hint}}</view>
+						</button>
+            </form>
+					</block>
+          <!-- 商家发货 -->
+           <form bindsubmit="formSubmit" report-submit="true" reportSubmit="true" data-url='../seller/index'>
+          <button class="ingress-item" style="background:url('https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads//diy/20181223/5201de5b0357e6e2ec1a12a959c8a020.jpeg') no-repeat;background-size:100% 100%;') no-repeat;background-size:100% 100%;" url="../seller/index"  form-type='submit'>
+							<view class="ingress-title"></view>
+							<view class="ingress-tip"></view>
+						</button>
+            </form>
+            <!-- 电话落单 -->
+             <form bindsubmit="formSubmit" report-submit="true" reportSubmit="true">
+          <button class="ingress-item" style="background:url('https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads//diy/20181223/d1a71e811e2d937d8d3badce82ee460f.jpeg') no-repeat;background-size:100% 100%;') no-repeat;background-size:100% 100%;" url="" bindtap='tel' form-type='submit'>
+							<view class="ingress-title"></view>
+							<view class="ingress-tip"></view>
+						</button>
+            </form>
+				</scroll-view>
+			</view>
+		</view>
+
+	</block>
+	<include src="/sd_liferuning/template/nav/nav.wxml" />
+</view>
+

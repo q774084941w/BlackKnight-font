@@ -1,0 +1,34 @@
+body {
+    background: #F7F7F7;
+}
+
+.record-module {
+    background: #FFF;
+    width: 100%;
+    color: #666;
+    margin-bottom: 20rpx;
+}
+
+.record-module-item {
+    font-size: 28rpx;
+    text-align: center;
+    border-bottom: 1rpx solid #F7F7F7;
+    padding: 10rpx 0;
+}
+
+.record-module-item:nth-child(2n) {
+    background: lightseagreen;
+    color: #FFF;
+}
+
+.row-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 8rpx 10rpx;
+}
+
+.row-info text {
+    flex: 1;
+    text-align: left;
+}

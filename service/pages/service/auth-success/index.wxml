@@ -1,0 +1,4 @@
+<view class="page-content">
+    <icon size="40" type="success"></icon>
+    <text class="tip-font">管理員稽核中，請耐心等待</text>
+</view>

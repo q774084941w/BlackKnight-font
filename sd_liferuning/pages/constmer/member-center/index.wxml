@@ -1,0 +1,90 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:52 -->
+<view class="container">
+	<view class="page-content">
+		<block wx:if="{{icons}}">
+			<view class="user-face-module" style="background:url('{{icons}}/resource/common/image/customer/member-center/bg.png');background-size:100% 100%;">
+				<image class="user-face" src="{{head}}"></image>
+				<view class="user-name">
+					<block wx:if="{{!data.pic}}">
+						<text>會員等級：普通用戶</text>
+					</block>
+					<block wx:if="{{data.pic}}">
+						<text>會員等級：</text>
+					</block>
+					<image class="user-level-mark" src="{{data.pic}}"></image>
+				</view>
+				<view class="both-block">
+					<view>成長值：{{data.hyintegral}}</view>
+					<view>積分：{{data.integral}}</view>
+				</view>
+			</view>
+		</block>
+		<view class="sub-title-panel">
+			<view class="title">
+				<view class="color-block"></view>我的會員			</view>
+			<view class="content">
+				<view class="level-module">
+					<view class="level-mark">
+						<view class="mark" style="left:{{mark}}rpx;">
+							<block wx:if="{{icons}}">
+								<image class="icon" src="{{icons}}/resource/common/image/customer/member-center/mark.png"></image>
+							</block>
+							<text class="user-integral">{{data.hyintegral}}</text>
+						</view>
+					</view>
+					<progress active="true" activeColor="#edc711" activeMode="forwards" backgroundColor="#ccc" class="level-prog" percent="{{progressPercent}}" strokeWidth="3"></progress>
+					<view class="level-group">
+						<block wx:for="{{levelArr}}" wx:for-item="levelItem" wx:for-index="index" >
+							<view class="level-item">
+								<image class="icon" src="{{currentScore>=levelItem.needScore?levelItem.activeImg:levelItem.defaultImg}}"></image>
+							</view>
+						</block>
+					</view>
+					<view class="level-tip-font">距離下一等級需要{{data.juli}}成長值</view>
+				</view>
+			</view>
+		</view>
+		<view class="sub-title-panel">
+			<view class="title">
+				<view class="color-block"></view>成長值			</view>
+			<view class="content">
+				<view class="nav-group">
+					<navigator class="nav-item" url="/sd_liferuning/pages/constmer/member-purchase/index">
+						<block wx:if="{{icons}}">
+							<image class="nav-item-img" src="{{icons}}/resource/common/image/customer/member-center/nav-icon1.png"></image>
+						</block>
+						<view class="nav-item-title">會員購買</view>
+					</navigator>
+					<navigator class="nav-item" url="/sd_liferuning/pages/constmer/member-introduce/index">
+						<block wx:if="{{icons}}">
+							<image class="nav-item-img" src="{{icons}}/resource/common/image/customer/member-center/nav-icon2.png"></image>
+						</block>
+						<view class="nav-item-title">會員權益</view>
+					</navigator>
+					<navigator class="nav-item" url="/sd_liferuning/pages/constmer/sign-in/index">
+						<block wx:if="{{icons}}">
+							<image class="nav-item-img" src="{{icons}}/resource/common/image/customer/member-center/nav-icon3.png"></image>
+						</block>
+						<view class="nav-item-title">會員簽到</view>
+					</navigator>
+				</view>
+			</view>
+		</view>
+		<view class="sub-title-panel">
+			<view class="title">
+				<view class="color-block"></view>成長問答			</view>
+			<view class="content">
+				<view class="tip-group">
+					<view class="tip-item">
+						<view class="tip-title">1.如何快速新增成長值？</view>
+						<view class="tip-content">通過每日簽到可快速獲得成長值，簽到次數决定了成長值的分數。</view>
+					</view>
+					<view class="tip-item">
+						<view class="tip-title">2.怎麼快速新增會員積分？</view>
+						<view class="tip-content">會員可在平臺下單，下單完成後的金額决定了積分的大小，在您下次交易時，可使用積分抵現金。</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

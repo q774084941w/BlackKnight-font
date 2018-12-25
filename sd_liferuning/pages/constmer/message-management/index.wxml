@@ -1,0 +1,18 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:53 -->
+<view class="container">
+	<block wx:if="{{data.length<=0}}">
+		<view class="record-empty">
+			<view class="record-empty-line"></view>
+			<text>沒有找到數據</text>
+		</view>
+	</block>
+	<block wx:if="{{data.length>0}}">		<view class="record-module">
+			<block wx:for="{{data}}" wx:key="{{item.time}}" wx:for-item="item" wx:for-index="index" >
+				<view class="record-module-item">
+					<text>{{item.status}}</text>
+					<text>{{item.givetime}}</text>
+				</view>
+			</block>
+		</view>
+	</block>
+</view>

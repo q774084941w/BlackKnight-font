@@ -1,0 +1,22 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:52 -->
+<view class="container">
+	<block wx:if="{{showList}}">
+		<view class="coupon-group">
+			<block wx:for="{{couponArr}}" wx:for-item="couponItem" wx:for-index="index" >
+				<view class="coupon">
+					<view class="coupon-label" style="background: url('{{site}}/addons/sd_liferuning/tp/public/uploads/background/bg1.png') no-repeat;background-size:100% 100%;">
+						<text class="balance">{{couponItem.money}}<text class="small-font">元</text>
+						</text>
+						<text class="coupon-tip">抵扣紅包</text>
+					</view>
+					<view class="coupon-info" style="background: url('{{site}}/addons/sd_liferuning/tp/public/uploads/background/bg2.png') no-repeat;background-size:100% 100%;">
+						<text class="title">{{couponItem.ctitle}}</text>
+						<text class="font-style">開始時間:{{couponItem.createtime}}</text>
+						<text class="font-style">結束時間:{{couponItem.pasttime}}</text>
+					</view>
+					<view bindtap="receive" class="receive" data-createtime="{{couponItem.createtime}}" data-id="{{couponItem.disid}}" data-money="{{couponItem.money}}" data-pasttime="{{couponItem.pasttime}}">領取</view>
+				</view>
+			</block>
+		</view>
+	</block>
+</view>

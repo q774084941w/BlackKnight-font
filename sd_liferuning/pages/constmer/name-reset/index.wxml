@@ -1,0 +1,8 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:53 -->
+<view class="container">
+	<view class="input-group">
+		<text class="input-addo">用戶名:</text>
+		<input bindinput="inputChange" placeholder="請輸入用戶名" type="text"></input>
+	</view>
+	<button bindtap="confim" class="confim">確認</button>
+</view>

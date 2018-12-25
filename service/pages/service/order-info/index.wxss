@@ -1,0 +1,167 @@
+body {
+    background: #F2F2F2;
+}
+
+.container {
+    padding-bottom: 100rpx;
+}
+
+.map {
+    width: 100%;
+    height: 400rpx;
+}
+
+.order-module {
+    background: #FFF;
+    border-radius: 10rpx;
+    width: 90%;
+    margin: 20rpx auto;
+    padding: 10rpx 2.5%;
+    box-shadow: 0 0 10rpx #ccc;
+    overflow: hidden;
+}
+
+.order-module .inline {
+    display: flex;
+    font-size: 28rpx;
+    padding: 15rpx 0;
+}
+
+.title {
+    font-size: 35rpx;
+}
+
+.order-module .label {
+    line-height: 30px;
+    color: #666;
+    min-width: 150rpx;
+    width: 180rpx;
+    display: inline-block;
+}
+
+.order-module .info {
+    width: 500rpx;
+    color: #111;
+    line-height: 30px;
+}
+
+.info_mes {
+    height: 30rpx;
+    line-height: 30rpx;
+    color: #20AD20;
+}
+
+.phone-icon {
+    width: 30rpx;
+    height: 30rpx;
+    position: relative;
+    top: 5rpx;
+    padding: 0 5rpx;
+}
+
+.btn-group {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+}
+
+.order-btn {
+    display: block;
+    height: 60rpx;
+    line-height: 60rpx;
+    float: right;
+    background: green;
+    color: #FFF;
+    font-size: 28rpx;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+}
+
+.btn {
+    background: #20AD20;
+    color: #FFF;
+    height: 70rpx;
+    line-height: 70rpx;
+    font-size: 30rpx;
+    width: 600rpx;
+    margin: 15rpx auto;
+}
+
+.soundRecordingPlay {
+    height: 50rpx;
+    border-radius: 50rpx;
+    font-size: 20rpx;
+    line-height: 50rpx;
+    background: #eee;
+    padding: 0 30rpx;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 15rpx;
+}
+
+.soundRecordingPlay-left {
+    display: flex;
+}
+
+.soundRecording-icon {
+    width: 30rpx;
+    height: 30rpx;
+    padding: 10rpx;
+    display: inline-block;
+}
+
+.image-group {
+    overflow: hidden;
+}
+
+.image-group .image-item {
+    width: 150rpx;
+    height: 150rpx;
+    padding: 5rpx;
+    margin: 0 0 15rpx 15rpx;
+    border-radius: 15rpx;
+    background: #FFF;
+    box-shadow: 0 0 3rpx green;
+}
+
+.confirm-order {
+    background: #FFF;
+    position: fixed;
+    bottom: -150rpx;
+    width: 100%;
+    display: flex;
+    padding: 15rpx 0;
+    box-shadow: 0 0 3rpx #666;
+    transition: all 300ms ease 0s;
+}
+
+.confirm-order-show {
+    bottom: 0;
+}
+
+.confirm-order .input-text {
+    flex: 1;
+    background: #FFF;
+    border: 1px solid #ddd;
+    margin: 12rpx 15rpx;
+    padding: 8rpx 15rpx;
+    font-size: 25rpx;
+    border-radius: 5rpx;
+}
+
+.confirm-order .btn {
+    width: 150rpx;
+    margin-right: 15rpx;
+}
+
+.confirm-order .default {
+    background: #ddd;
+    color: #000;
+}
+
+.star {
+  width: 26px!important;
+  height: 26px!important;
+}

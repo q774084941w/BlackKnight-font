@@ -1,0 +1,21 @@
+<view class="switch-panel">
+    <swiper bindchange="changeSwiper" class="switch-panel-swiper">
+        <swiper-item itemId="list-1">
+            <scroll-view scrollY class="switch-panel-content">
+                <view class="record-empty" wx:if="{{data.length<=0}}">
+                    <view class="record-empty-line"></view>
+                    <text>沒有找到數據</text>
+                </view>
+                <navigator class="order-item" url="/service/pages/service/order-info/index?id={{item.id}}" wx:if="{{data.length>0}}" wx:for="{{data}}">
+                    <view class="order-item-block">
+                        <text class="order-item-ordernumber">訂單號：{{item.order_no}}</text>
+                        <text class="order-item-constomername">{{item.constomername}}</text>
+                    </view>
+                    <view class="order-item-block">
+                        <text class="order-item-startTime">時間：{{item.time}}</text>
+                    </view>
+                </navigator>
+            </scroll-view>
+        </swiper-item>
+    </swiper>
+</view>

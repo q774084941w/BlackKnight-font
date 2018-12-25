@@ -1,0 +1,10 @@
+wx-body{ background: #F2F2F2; }
+.page-content{ padding-bottom: 0rpx; }
+.sub-title-panel{ width: 95%; margin-bottom: 20rpx; margin: 0 auto; }
+.level-icon{ width: 35rpx; height: 35rpx; position: relative; top: 10rpx; margin-left: 20rpx; }
+.sub-title-panel .title{ height: 80rpx; line-height: 80rpx; font-size: 28rpx; color: #202020; }
+.sub-title-panel .content{ overflow: hidden; }
+.level-item{ padding: 0 20rpx; overflow: hidden; margin: 0 0 20rpx; background: #FFF; }
+.level-item-title{ margin: 20rpx 0 0 0; }
+.level-item-info{ font-size: 24rpx; color: #202020; padding: 30rpx 20rpx 50rpx; line-height: 1.5em; }
+.level-item .icon{ width: 35rpx; height: 35rpx; margin-right: 20rpx; }

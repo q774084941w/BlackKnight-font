@@ -1,0 +1,29 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:54 -->
+<view class="container">
+	<view class="column">
+		<view class="cell cell-title">
+			<view>跑腿費用共計(元）</view>
+			<view>{{money}}</view>
+		</view>
+		<view class="cell cell-info">
+			<view>積分抵扣</view>
+			<view>{{integral}}</view>
+		</view>
+		<view class="cell cell-info">
+			<view>會員折扣</view>
+			<view>{{vipprice}}</view>
+		</view>
+		<view class="cell cell-info">
+			<view>訂單保險</view>
+			<view>0.00</view>
+		</view>
+		<view class="cell cell-info">
+			<view>跑腿費</view>
+			<view>{{price}}</view>
+		</view>
+		<view class="cell cell-info">
+			<view>排隊費</view>
+			<view>{{lastPrice}}</view>
+		</view>
+	</view>
+</view>

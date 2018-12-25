@@ -1,0 +1,165 @@
+body {
+    background: #f2f2f2;
+}
+
+.switch-panel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    font-size: 30rpx;
+}
+
+.switch-panel-title {
+    background: #fff;
+    color: #333;
+    display: flex;
+    height: 100rpx;
+    line-height: 100rpx;
+}
+
+.switch-panel-title .active {
+    border-bottom: 1rpx solid #17ab1b;
+    color: #17ab1b;
+}
+
+.switch-panel-title-item {
+    flex: 1;
+    text-align: center;
+}
+
+.switch-panel-swiper {
+    width: 100%;
+    height: 1000rpx;
+}
+
+.switch-panel-content {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 100rpx;
+}
+
+.order-module {
+    background: #fff;
+    border-radius: 10rpx;
+    width: 90%;
+    margin: 20rpx auto;
+    padding: 10rpx 2.5%;
+    box-shadow: 0 0 10rpx #ccc;
+    overflow: hidden;
+}
+
+.title {
+    font-size: 35rpx;
+}
+
+.order-module .inline {
+    font-size: 28rpx;
+    padding: 10rpx 0;
+    overflow: hidden;
+}
+
+.order-module .inline-zi text {
+    color: #333;
+}
+
+.order-module .inline-zi {
+    color: #20AD20;
+    padding: 15rpx 0 10rpx;
+}
+
+.order-module .order-info {
+    display: flex;
+    width: 100%;
+}
+
+.order-module .order-info-item {
+    flex: 1;
+    text-align: center;
+}
+
+.order-module .order-info-item:first-child {
+    border-right: 1rpx solid #eee;
+}
+
+.order-info-tipVal,.order-info-tip {
+    margin: 10rpx 0;
+}
+
+.order-info-tipVal {
+    font-size: 35rpx;
+    color: #20ad20;
+}
+
+.order-info-tip {
+    font-size: 30rpx;
+    color: #868686;
+}
+
+.address-item {
+    text-align: left;
+    font-size: 30rpx;
+    width: 600rpx;
+    margin: 0 auto;
+}
+
+.order-info {
+    text-align: left;
+    font-size: 25rpx;
+    width: 600rpx;
+    margin: 30rpx auto;
+    overflow: hidden;
+}
+
+.text-r {
+    text-align: right;
+    float: right;
+    display: block;
+    font-size: 28rpx;
+}
+
+.order-info text:first-child,.order-info view:first-child {
+    color: green;
+}
+
+.address-icon {
+    width: 38rpx;
+    height: 38rpx;
+    position: relative;
+    top: 8rpx;
+}
+
+.btn {
+    background: #20AD20;
+    color: #FFF;
+    height: 70rpx;
+    line-height: 70rpx;
+    font-size: 30rpx;
+    width: 400rpx;
+    margin: 15rpx auto;
+}
+
+.soundRecordingPlay {
+    height: 50rpx;
+    border-radius: 50rpx;
+    font-size: 20rpx;
+    line-height: 50rpx;
+    background: #eee;
+    padding: 0 30rpx;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 15rpx;
+}
+
+.soundRecordingPlay-left {
+    display: flex;
+}
+
+.soundRecording-icon {
+    width: 30rpx;
+    height: 30rpx;
+    padding: 10rpx;
+    display: inline-block;
+}
+.statistics{ width: 40rpx;      height: 40rpx;      background-color:red;      border-radius: 50%;      -moz-border-radius: 50%;      -webkit-border-radius: 50%;position:relative;line-height:40rpx;font-size:20rpx;color:white;top:-85rpx;left:170rpx;}
+
+.time_load {float:right}

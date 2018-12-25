@@ -1,0 +1,134 @@
+<view class="container">
+    <view class="page-content">
+        <view class="user-face-module">
+            <view>
+                <image class="user-face" src="{{head}}"></image>
+            </view>
+            <view class="user-info">
+                <view class="info">
+                    <text bindtap="navToUser">{{userinfo.uname}}</text>
+                </view>
+                <view class="info">
+                    <text bindtap="navToUser">{{userinfo.tel}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="nav-module">
+            <navigator class="nav-item" url="/service/pages/service/bankcard-list/index">
+                <view>
+                    <image class="nav-icon" src="{{icons}}/resource/common/image/service/user/icon2.png" wx:if="{{icons}}"></image>
+                    <text>銀行卡設定</text>
+                </view>
+                <view>
+                    <image class="nav-flag" src="{{icons}}/resource/common/image/customer/user/flag1.png" wx:if="{{icons}}"></image>
+                </view>
+            </navigator>
+            <navigator class="nav-item" url="/service/pages/service/balance-management/index">
+                <view>
+                    <image class="nav-icon" src="{{icons}}/resource/common/image/service/user/icon3.png" wx:if="{{icons}}"></image>
+                    <text>資金管理</text>
+                </view>
+                <view>
+                    <image class="nav-flag" src="{{icons}}/resource/common/image/customer/user/flag1.png" wx:if="{{icons}}"></image>
+                </view>
+            </navigator>
+            <navigator class="nav-item" url="/service/pages/service/order-list/index">
+                <view>
+                    <image class="nav-icon" src="{{icons}}/resource/common/image/service/user/icon4.png" wx:if="{{icons}}"></image>
+                    <text>歷史訂單</text>
+                </view>
+                <view>
+                    <image class="nav-flag" src="{{icons}}/resource/common/image/customer/user/flag1.png" wx:if="{{icons}}"></image>
+                </view>
+            </navigator>
+        </view>
+        <view class="nav-module">
+            <navigator class="nav-item" url="/service/pages/service/userauth-pay/index">
+                <view>
+                    <image class="nav-icon" src="{{icons}}/resource/common/image/service/user/icon5.png" wx:if="{{icons}}"></image>
+                    <text>保證金</text>
+                </view>
+                <view>
+                    <image class="nav-flag" src="{{icons}}/resource/common/image/customer/user/flag1.png" wx:if="{{icons}}"></image>
+                </view>
+            </navigator>
+            <navigator class="nav-item" url="/service/pages/service/statistics-map/index">
+                <view>
+                    <image class="nav-icon" src="{{icons}}/resource/common/image/service/user/icon6.png" wx:if="{{icons}}"></image>
+                    <text>統計報表</text>
+                </view>
+                <view>
+                    <image class="nav-flag" src="{{icons}}/resource/common/image/customer/user/flag1.png" wx:if="{{icons}}"></image>
+                </view>
+            </navigator>
+            <navigator class="nav-item" url="/service/pages/service/message-management/index">
+                <view>
+                    <image class="nav-icon" src="{{icons}}/resource/common/image/service/user/icon7.png" wx:if="{{icons}}"></image>
+                    <text>消息管理</text>
+                </view>
+                <view>
+                    <image class="nav-flag" src="{{icons}}/resource/common/image/customer/user/flag1.png" wx:if="{{icons}}"></image>
+                </view>
+            </navigator>
+
+            
+             
+             
+           
+        </view>
+    </view>
+    
+    <view class="btn-group">
+
+              <view  wx:if="{{userinfo.is_form==1}}">
+                  <form  report-submit="true" reportSubmit="true" >
+                   
+                    <button class="nav-item2" style='bottom:240rpx' formType="submit">
+                      <text  class='text-type'>  下次搶單提醒</text>
+                      <view class='swiths-type'>
+                        <switch class='switch-button' checked='checked' name="switch"  /> 
+                       </view>
+                    </button>
+                  </form>
+              </view>
+
+            <view  wx:if="{{userinfo.is_form==0}}">
+                  <form bindsubmit="formSubmit" report-submit="true" reportSubmit="true">
+                   
+                    <button class="nav-item2" style='bottom:240rpx' formType="submit">
+                      <text  class='text-type'>  下次搶單提醒</text>
+                      <view class='swiths-type'>
+                        <switch class='switch-button'  name="switch"  /> 
+                       </view>
+                    </button>
+                  </form>
+              </view>
+
+          <button class="nav-item2" url="" wx:if="{{userinfo.is_on==1}}"   bindtap="isOn" data-id='0'  >
+              
+                    <text  class='text-type'>上班中</text>
+                     
+                <view class='swiths-type'>
+                 <switch class='switch-button'  checked name="switch"  /> 
+                </view>
+            </button>
+             <button class="nav-item2" url="" wx:else  bindtap="isOn" data-id='1' >
+              
+                    <text class='text-type'>下班中</text>
+                     
+                <view class='swiths-type'>
+                  <switch class='switch-button' name="switch" /> 
+                </view>
+              
+              </button>
+
+        <navigator class="btn-item" openType="redirect" url="/service/pages/service/index/index">
+            <image class="btn-group-icon" src="{{icons}}/resource/common/image/nav-icon/icon1.png" wx:if="{{icons}}"></image>
+            <text>訂單</text>
+        </navigator>
+        <navigator class="btn-item active" openType="redirect" url="/service/pages/service/user/index">
+            <image class="btn-group-icon" src="{{icons}}/resource/common/image/nav-icon/icon2-1.png" wx:if="{{icons}}"></image>
+            <text>個人</text>
+        </navigator>
+    </view>
+</view>

@@ -1,0 +1,18 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:54 -->
+<view class="container">
+	<view class="page-content">
+		<block wx:for="{{tagArr}}" wx:for-item="tagArrItem" wx:for-index="index" >
+			<view class="sub-title-panel">
+				<view class="title">{{tagArrItem.title}}</view>
+				<view class="content">
+					<view class="tag-group">
+						<block wx:for="{{tagArrItem.tagGroup}}" wx:for-item="tagItem" wx:for-index="index" >
+							<view bindtap="chooseTag" class="tag-item {{tagItem.select?'active':''}}" data-id="{{tagItem.id}}">{{tagItem.name}}</view>
+						</block>
+					</view>
+				</view>
+			</view>
+		</block>
+		<button bindtap="goBack">確認</button>
+	</view>
+</view>

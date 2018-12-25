@@ -1,0 +1,61 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:55 -->
+<view class="navbar flex-row" style="background-image: url({{_navbar.background_image}})">
+	<block wx:for="{{nav}}" wx:for-item="item" wx:for-index="index" >
+		<block wx:if="{{item.open_type=='wxapp'}}" >
+			<navigator appId="{{item.appid}}" class="flex-grow-1 flex-y-center" extraData="" openType="navigate" path="{{item.path}}" target="miniProgram" version="release">
+				<view>
+					<image class="navbar-icon" src="{{item.active?item.active_icon:item.icon}}"></image>
+					<view class="navbar-text" style="color: {{item.active?item.active_color:item.color}};">{{item.text}}</view>
+				</view>
+			</navigator>
+		</block>
+		<block wx:elif="{{item.open_type=='tel'}}">
+			<navigator bindtap="naveClick" class="flex-grow-1 flex-y-center" data-open_type="{{item.open_type}}" data-tel="{{item.tel}}" openType="tel" url="{{item.url}}">
+				<view>
+					<image class="navbar-icon" src="{{item.active?item.active_icon:item.icon}}"></image>
+					<view class="navbar-text" style="color: {{item.active?item.active_color:item.color}};">{{item.text}}</view>
+				</view>
+			</navigator>
+		</block>
+		<block wx:elif="{{item.open_type=='contact'}}">
+			<view class="flex-grow-1 flex-y-center" style="flex:1;padding-top:8rpx;">
+				<view style="width:100%;">
+					<button openType="contact" sessionFrom="{{_user_info.nickname}}|">
+						<image class="navbar-icon" src="{{item.active?item.active_icon:item.icon}}"></image>
+						<view class="navbar-text" style="color: {{item.active?item.active_color:item.color}};">{{item.text}}</view>
+					</button>
+				</view>
+			</view>
+		</block>
+		<block wx:elif="{{item.open_type=='web'}}">
+			<navigator class="flex-grow-1 flex-y-center" openType="navigate" url="/sd_liferuning/pages/constmer/web/web?url={{item.web}}">
+				<view>
+					<image class="navbar-icon" src="{{item.active?item.active_icon:item.icon}}"></image>
+					<view class="navbar-text" style="color: {{item.active?item.active_color:item.color}};">{{item.text}}</view>
+				</view>
+			</navigator>
+		</block>
+		<block wx:elif="{{item.open_type=='navigate'}}">
+			<navigator bindtap="naveClick" class="flex-grow-1 flex-y-center" data-open_type="{{item.open_type}}" data-tel="{{item.tel}}" data-url="{{item.url}}" openType="tel" url="{{item.url}}">
+				<view>
+					<image class="navbar-icon" src="{{item.active?item.active_icon:item.icon}}"></image>
+					<view class="navbar-text" style="color: {{item.active?item.active_color:item.color}};">{{item.text}}</view>
+				</view>
+			</navigator>
+		</block>
+		<block wx:else>
+			<navigator class="flex-grow-1 flex-y-center" data-open_type="{{item.open_type}}" openType="redirect" url="{{item.url}}">
+				<view>
+					<image class="navbar-icon" data-ss="{{item.active}}" src="{{item.active?item.active_icon:item.icon}}"></image>
+					<view class="navbar-text" style="color: {{item.active?item.active_color:item.color}};">{{item.text}}</view>
+				</view>
+			</navigator>
+		</block>
+	</block>
+      <navigator class="flex-grow-1 flex-y-center" url="/service/pages/service/index/index">
+				<view>
+					<image class="navbar-icon" src="https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads/icon/icon9.png"></image>
+					<view class="navbar-text" style="color: ">騎士中心</view>
+				</view>
+			</navigator>
+</view>

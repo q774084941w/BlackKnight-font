@@ -1,0 +1,33 @@
+<view class="container">
+    <view class="page-content" style="background:url(\"{{icons}}/resource/common/image/module-mananger/authentication/bg2.png\") no-repeat center bottom, url(\"{{icons}}/resource/common/image/module-mananger/authentication/bg1.png\")">
+        <view class="title">
+            <view class="font-big">歡迎進入模塊訂單管理系統</view>
+            <view class="font-small">Welcome into the modular management of running errands</view>
+        </view>
+        <view class="form-group">
+            <form bindsubmit="formSubmit">
+                <picker bindchange="bindModulePickerChange" class="input-group" name="j_name" range="{{moduleArr}}" rangeKey="j_name" value="{{moduleArr[moduleIndex].joint_id}}">
+                    <view class="picker">對接模塊：{{moduleArr[moduleIndex].j_name}}</view>
+                </picker>
+                <view class="input-group">
+                    <radio-group bindchange="userTypeBindChange" name="userType">是否為店鋪管理員：<radio value="0">是</radio>
+                        <radio checked="checked" value="1">否</radio>
+                    </radio-group>
+                </view>
+                <view class="input-group">
+                    <input name="wechatID" placeholder="請輸入小程式ID號"></input>
+                </view>
+                <view class="input-group">
+                    <input name="appID" placeholder="請輸入App ID號"></input>
+                </view>
+                <view class="input-group">
+                    <input name="appName" placeholder="請輸入小程式名稱"></input>
+                </view>
+                <view class="input-group" wx:if="{{isShow}}">
+                    <input name="shopName" placeholder="請輸入店鋪名稱"></input>
+                </view>
+                <button class="form-btn" formType="submit">提交申請</button>
+            </form>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,35 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:52 -->
+<view class="container">
+	<view class="page-content">
+		<view class="sub-title-panel">
+			<view class="title">您當前的會員等級為：<image class="level-icon" src="{{src}}"></image>
+			</view>
+			<view class="content">
+				<view class="level-module">
+					<block wx:if="{{src==''}}">
+						<view class="level-item">
+							<view class="level-item-info">
+								<text class="user-integral">請購買VIP1，（售價：{{data}}元)</text>
+							</view>
+							<view>
+								<button bindtap="pay" class="buy-btn" id="{{data}}">購買</button>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{src!=''}}">
+						<view class="level-item">
+							<view class="level-item-info">
+								<image class="icon" src="{{src}}"></image>
+								<text class="user-integral">(續費：{{data}}元)</text>
+							</view>
+							<view>
+								<button bindtap="pay" class="buy-btn" id="{{data}}">續費</button>
+							</view>
+						</view>
+					</block>
+				</view>
+			</view>
+		</view>
+		<view class="tip">每天簽到可快速升級會員，即可享受不一樣的會員權益</view>
+	</view>
+</view>

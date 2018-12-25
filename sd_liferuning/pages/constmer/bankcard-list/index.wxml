@@ -1,0 +1,39 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:51 -->
+<view class="container">
+	<view class="data-list">
+		<block wx:for="{{data}}" wx:for-item="item" wx:for-index="index" >
+			<view class="data-item">
+				<view class="bank-info">
+					<image class="bank-icon" src="{{item.pic}}"></image>
+					<view>
+						<view class="bank-name">{{item.uname}}</view>
+						<view>儲蓄卡（{{item.cardnumber}}）</view>
+					</view>
+				</view>
+				<block wx:if="{{item.click==1}}">
+					<view class="select-status">
+						<view class="default-font">（默認）</view>
+					</view>
+				</block>
+				<block wx:if="{{item.click==0}}">
+					<view class="select-status">
+						<view>
+							<button bindtap="bankSetup" class="checked-btn" data-id="{{item.id}}" data-name="{{item.uname}}">默認</button>
+						</view>
+						<view>
+							<button bindtap="del" class="del-btn" data-id="{{item.id}}" style="">删除</button>
+						</view>
+					</view>
+				</block>
+			</view>
+		</block>
+		<navigator class="data-item" url="/service/pages/service/bankcard-binding/index">
+			<view class="bank-info">
+				<block wx:if="{{icons}}">
+					<image class="bank-icon" src="{{icons}}/resource/common/image/customer/bankcard-list/icon2.png"></image>
+				</block>
+				<view class="add-bank">添加銀行卡</view>
+			</view>
+		</navigator>
+	</view>
+</view>

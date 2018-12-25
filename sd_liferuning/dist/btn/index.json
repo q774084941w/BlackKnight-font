@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "Button 按鈕",
+    "usingComponents": {
+        "zan-button": "/sd_liferuning/dist/btn/index"
+    }
+}

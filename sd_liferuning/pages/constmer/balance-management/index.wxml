@@ -1,0 +1,52 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:51 -->
+<view class="container">
+	<view class="balance-model" style="background:url('{{bgurl}}'); background-size:cover;">
+		<view class="balance-item">
+			<view class="balance-item">
+				<view class="title">餘額（元）</view>
+				<view class="price">{{money}}</view>
+			</view>
+		</view>
+	</view>
+	<view class="fn-btn-group">
+		<view bindtap="openActionsheet" class="fn-btn-item">
+			<block wx:if="{{icons}}">
+				<image src="{{icons}}/resource/common/image/customer/balance-management/icon1.png"></image>
+			</block>
+			<text>提現</text>
+		</view>
+		<button class="fn-btn-item" url="/sd_liferuning/pages/constmer/balance-recharge/index"  openType="contact">
+			<block wx:if="{{icons}}">
+				<image src="{{icons}}/resource/common/image/customer/balance-management/icon2.png"></image>
+			</block>
+			<text>充值</text>
+		</button>
+		<navigator class="fn-btn-item" url="/sd_liferuning/pages/constmer/bankcard-list/index">
+			<block wx:if="{{icons}}">
+				<image src="{{icons}}/resource/common/image/customer/balance-management/icon3.png"></image>
+			</block>
+			<text>銀行卡</text>
+		</navigator>
+	</view>
+	<view class="income-module">
+		<view class="income-module-title">
+			<view class="module-left">
+				<view class="title">
+					<text>收支明細</text>
+				</view>
+				<view class="info">
+					<text>本月支出: {{price}}元</text>
+				</view>
+			</view>
+			<view class="module-right"></view>
+		</view>
+		<block wx:for="{{datas}}" wx:for-item="item" wx:for-index="index" >
+			<view class="income-module-item">
+				<view>{{item.createtime}}</view>
+				<view>{{item.msg}}</view>
+				<view class="iconfont">{{item.money}}元</view>
+			</view>
+		</block>
+	</view>
+</view>
+<actionsheet actions="{{actions}}" bind:actionclick="clickAction" bind:cancel="closeActionSheet" cancelText="{{cancelText}}" cancelWithMask="{{cancelWithMask}}" maskClass="tiny" show="{{show}}"></actionsheet>

@@ -1,0 +1,93 @@
+{
+  "pages": [
+    
+    "sd_liferuning/pages/constmer/index/index",
+    "sd_liferuning/pages/constmer/other-order-list/index",
+    "sd_liferuning/pages/constmer/housekeeping/index",
+    "sd_liferuning/pages/constmer/transact/index",
+    "sd_liferuning/pages/constmer/driving/index",
+    "sd_liferuning/pages/constmer/address-insert/index",
+    "sd_liferuning/pages/constmer/user/index",
+    "sd_liferuning/pages/constmer/reward/index",
+    "sd_liferuning/pages/constmer/line-up/index",
+    "sd_liferuning/pages/constmer/largess/index",
+    "sd_liferuning/pages/constmer/take-things/index",
+    "sd_liferuning/pages/constmer/buy/index",
+    "sd_liferuning/pages/constmer/member-center/index",
+    "sd_liferuning/pages/constmer/withdraw-ali/index",
+    "sd_liferuning/pages/constmer/withdraw-wechat/index",
+    "sd_liferuning/pages/constmer/lingjuan/index",
+    "sd_liferuning/pages/constmer/price-breakdown/index",
+    "sd_liferuning/pages/constmer/choose-pic/index",
+    "sd_liferuning/pages/constmer/balance-management/index",
+    "sd_liferuning/pages/constmer/tag-config/index",
+    "sd_liferuning/pages/constmer/advise/index",
+    "sd_liferuning/pages/constmer/member-purchase/index",
+    "sd_liferuning/pages/constmer/member-introduce/index",
+    "sd_liferuning/pages/constmer/sign-in/index",
+    "sd_liferuning/pages/constmer/web/web",
+    "sd_liferuning/pages/constmer/balance-recharge/index",
+    "sd_liferuning/pages/constmer/withdraw-money/index",
+    "sd_liferuning/pages/constmer/bankcard-list/index",
+    "sd_liferuning/pages/constmer/bankcard-binding/index",
+    "sd_liferuning/pages/constmer/order-info/index",
+    
+    "sd_liferuning/pages/constmer/order-list/index",
+    "sd_liferuning/pages/constmer/notify-detail/index",
+    "sd_liferuning/pages/constmer/protocol-detail/index",
+    "sd_liferuning/pages/constmer/address-select/index",
+    "sd_liferuning/pages/constmer/coupon-management/index",
+    "sd_liferuning/pages/constmer/message-management/index",
+    "sd_liferuning/pages/constmer/address-list/index",
+    "sd_liferuning/pages/constmer/name-reset/index",
+    "sd_liferuning/pages/constmer/change-phone/index",
+    "sd_liferuning/pages/constmer/user-info/index",
+    "sd_liferuning/pages/login/login",
+    "sd_liferuning/pages/register/index",
+    "sd_liferuning/pages/resetpass/index",
+    "sd_liferuning/pages/constmer/seller/index",
+    "sd_liferuning/pages/constmer/seller/register"
+
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black"
+  },
+  "subPackages": [
+    {
+      "root": "service/",
+      "pages": [
+        "pages/service/index/index",
+        "pages/service/balance-management/index",
+        "pages/service/withdraw-ali/index",
+        "pages/service/withdraw-wechat/index",
+        "pages/service/bankcard-list/index",
+        "pages/service/order-info/index",
+       
+        "pages/service/user/index",
+        "pages/service/auth-success/index",
+        "pages/service/userauth-pay/index",
+        "pages/service/statistics-map/index",
+        "pages/service/message-management/index",
+        "pages/service/history-order/index",
+        "pages/service/reward-record/index",
+        "pages/service/balance-record/index",
+        "pages/service/withdraw-money/index",
+        "pages/service/data-management/index",
+        "pages/service/summary/index",
+        "pages/service/bankcard-binding/index",
+        "pages/service/authentication/index",
+        "pages/service/base-data/index",
+        "pages/service/phone-reset/index",
+        "pages/service/name-reset/index",
+        "pages/service/order-list/index",
+        "pages/service/order-list-filter/index",
+        "pages/module-mananger/index/index",
+        "pages/module-mananger/authentication/index",
+        "pages/module-mananger/auth-status/index",
+        "pages/service/update/index"
+      ]
+    }
+  ]
+}

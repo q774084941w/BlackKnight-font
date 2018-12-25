@@ -1,0 +1,43 @@
+<view class="container">
+    <view class="module-item">
+        <image class="face" src="{{info.head}}"></image>
+        <view class="user">
+            <text class="username">{{info.uname}}</text>
+            <text class="phonenumber">{{info.tel}}</text>
+        </view>
+    </view>
+    <view class="module-item">
+        <view class="module-item-text">
+            <text class="module-item-text-left">性別</text>
+            <text class="module-item-text-right">{{info.sex}}</text>
+        </view>
+    </view>
+    <view class="module-item">
+        <view class="module-item-text">
+            <text class="module-item-text-left">身份認證<text class="status"></text>
+            </text>
+            <text class="module-item-text-right" wx:if="{{info.status==3}}">（已認證）</text>
+            <text class="module-item-text-right" wx:else>（未認證）</text>
+        </view>
+    </view>
+    <navigator class="module-item" url="/service/pages/service/bankcard-binding/index">
+        <view class="module-item-text">
+            <text class="module-item-text-left">開戶行設定</text>
+            <text class="module-item-text-right">去設定</text>
+        </view>
+        <view class="iconfont icon-dayuhao"></view>
+    </navigator>
+    <navigator class="module-item" url="/service/pages/service/summary/index">
+        <view class="module-item-text">
+            <text class="module-item-text-left">個人簡介</text>
+            <text class="module-item-text-right">去設定</text>
+        </view>
+        <view class="iconfont icon-dayuhao"></view>
+    </navigator>
+    <navigator class="module-item" url="/service/pages/service/userauth-pay/index">
+        <view class="module-item-text">
+            <text class="module-item-text-left">保證金</text>
+        </view>
+        <view class="iconfont icon-dayuhao"></view>
+    </navigator>
+</view>

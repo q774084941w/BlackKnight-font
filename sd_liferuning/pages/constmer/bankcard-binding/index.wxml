@@ -1,0 +1,20 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:51 -->
+<view class="container">
+	<view class="input-group">
+		<picker bindchange="bindBankChange" range="{{bankArr}}" rangeKey="uname" value="{{index}}">
+			<text class="input-addo">開戶行：</text>
+			<text class="input-control">
+				<text class="debug">-</text>{{bank.uname}}			</text>
+			<text class="iconfont icon-xiala"></text>
+		</picker>
+	</view>
+	<view class="input-group">
+		<text class="input-addo">姓名：</text>
+		<input bindinput="changeInputData" class="input-control" data-name="bankName" placeholder="請輸入姓名" type="text" value="{{bankname}}"></input>
+	</view>
+	<view class="input-group">
+		<text class="input-addo">卡號：</text>
+		<input bindinput="changeInputData" class="input-control" data-name="bankAccount" placeholder="請輸入卡號" type="text" value="{{bankaccount}}"></input>
+	</view>
+	<button bindtap="sendRequest" class="confirm">確認</button>
+</view>

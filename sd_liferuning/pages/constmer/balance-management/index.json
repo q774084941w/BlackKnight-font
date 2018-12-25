@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "錢包",
+    "usingComponents": {
+        "actionsheet": "/sd_liferuning/dist/actionsheet/index",
+        "btn": "/sd_liferuning/dist/btn/index"
+    }
+}

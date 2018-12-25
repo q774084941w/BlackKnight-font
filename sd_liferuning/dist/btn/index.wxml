@@ -1,0 +1,4 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:51 -->
+<button appParameter="{{appParameter}}" bindcontact="bindcontact" binderror="binderror" bindgetphonenumber="bindgetphonenumber" bindgetuserinfo="bindgetuserinfo" bindtap="handleTap" class="custom-class zan-btn {{inGroup?'zan-btn--group':''}} {{isLast?'zan-btn--last':''}} {{size?'zan-btn--'+size:''}} {{size==='mini'?'zan-btn--plain':''}} {{plain?'zan-btn--plain':''}} {{type?'zan-btn--'+type:''}} {{loading?'zan-btn--loading':''}} {{disabled?'zan-btn--disabled':''}}" hoverStartTime="{{hoverStartTime}}" hoverStayTime="{{hoverStayTime}}" hoverStopPropagation="{{hoverStopPropagation}}" lang="{{lang}}" openType="{{openType}}" sendMessageImg="{{sendMessageImg}}" sendMessagePath="{{sendMessagePath}}" sendMessageTitle="{{sendMessageTitle}}" sessionFrom="{{sessionFrom}}" showMessageCard="{{showMessageCard}}">
+	<slot></slot>
+</button>

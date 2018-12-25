@@ -1,0 +1,32 @@
+<view class="container">
+    <!-- <picker bindchange="userTypePickerChange" class="input-group" range="{{userTypeArr}}" rangeKey="name" value="{{index}}">
+        <view style="color:#666;" wx:if="{{userType==''}}">請選擇</view>
+        <view wx:else>{{userType.name}}</view>
+    </picker> -->
+    <view class="input-group">
+        <input bindinput="changeInputData" data-name="name" placeholder="輸入負責人姓名" type="text"></input>
+    </view>
+    <view class="input-group">
+        <input bindinput="changeInputData" data-name="idcard" placeholder="輸入負責人電話" type="text"></input>
+    </view>
+    <view class="input-group">
+        <input bindinput="changeInputData" data-name="carname" placeholder="輸入商家名稱" type="text"></input>
+    </view>
+    <view class="input-group" >
+        <input bindinput="changeInputData" data-name="carcodes" placeholder="輸入商家地址" type="text"></input>
+    </view>
+    <view class="input-group">拍攝營業執照<text class="page-help">（請確保所拍攝的照片清晰11）</text>
+    </view>
+    <view class="img-group">
+        <view class="img-item">
+            <text>參攷照片</text>
+            <image src="https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads/img/1120.jpg"></image>
+        </view>
+        <view class="img-item">
+            <text>你的正面照片</text>
+            <image bindtap="chooseCard" src="{{cardImg}}"></image>
+        </view>
+    </view>
+    <button bindtap="sendRequest" class="confirm">確認</button>
+</view>
+

@@ -1,0 +1,43 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:51 -->
+<view class="container">
+	<view class="page-content">
+		<view class="recharge">
+			<!-- <view>充值金額：</view>
+			<view class="input-group">
+				<block wx:if="{{icons}}">
+					<image class="icon" src="{{icons}}/resource/common/image/customer/balance-recharge/icon.png"></image>
+				</block>
+				<input bindinput="changeInputData" data-name="money" placeholder="输入需要充值的金额"></input>
+			</view> -->
+      <!-- <view  style="text-align: center;font-size:17px;margin-top: 20px;font-weight:bold">
+           目前僅支持轉賬充值
+      </view>
+      <view  style="text-align: center;font-size:17px;margin-top: 20px;font-weight:bold">
+          賬戶：217-1-00922-5
+      </view>
+      <view  style="text-align: center;font-size:17px;margin-top: 20px;font-weight:bold">
+           戶名：澳門力安通科技有限公司
+      </view> -->
+      您好，由於充值通道正在升級，現線上充值功能正在調試階段暫不能使用。澳門居民僅能通過銀行轉賬到公司賬戶:<view>賬戶：217-1-00922-5</view> <view>戶名：澳門力安通科技有限公司</view> <view>开户行：大豐銀行</view>轉賬成功後發送憑證截圖進行人工充值！
+		</view>
+    <view class="recharge">
+      <view>大陸遊客如需充值餘額，</view>
+      <view>僅能掃描下方QR.code添加客服微信</view>
+      <view>（以便為您提供更多幫助）：</view>
+      
+    </view>
+		<!-- <view class="tip">
+			<view>本卡此次充值 {{money}} 元</view>
+		</view> 
+	   <button bindtap="sendRequest" class="sendRequest">確認充值</button> -->
+	</view>
+  <view class="recharge" >
+    <image bindtouchstart='timestart' bindtouchend='timeend' bindtap='saveImg' src='http://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads/img/1.jpg' style='width:290px;height:263px'></image>
+  </view>
+    <view class="page-content">
+      <view class="recharge">
+        <view>長按下載二維碼</view>
+        <view>用微信掃一掃識別圖片</view>
+      </view>
+    </view>
+</view>

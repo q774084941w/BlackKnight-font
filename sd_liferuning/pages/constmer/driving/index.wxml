@@ -1,0 +1,174 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:52 -->
+<form bindsubmit="formSubmit" reportSubmit="true">
+	<view class="container">
+		<view class="column">
+			<view class="textarea-module">
+				<textarea bindinput="changeInputData" data-name="wareText" placeholder="{{pageConfig.mainConfig.templet6.commodityConfig.hintText}}" value="{{wareText}}"></textarea>
+				<input class="item-content none" name="goodsname" type="text" value="{{wareText}}"></input>
+				<view class="hot-ware">
+					<block wx:for="{{tags}}" wx:for-item="item" wx:for-index="index" >
+						<view bindtap="addWareItem" class="ware-tag" data-tag="{{item}}">{{item}}</view>
+					</block>
+				</view>
+			</view>
+			<view class="multi-media-module">
+				<block wx:if="{{pictrueTempPath.length<=0}}">
+					<view bindtap="xphoto" class="takePictrue">
+						<image class="icon" src="{{pageConfig.mainConfig.templet6.commodityConfig.tackPictureIcon}}"></image>
+					</view>
+				</block>
+				<block wx:if="{{pictrueTempPath.length>0}}">					<view bindtap="xphotos" class="takePictrue" id="{{pictrueTempPath}}">
+						<image class="icon" name="xphoto" src="{{pictrueTempPath}}"></image>
+					</view>
+				</block>
+				<block wx:if="{{soundRecording.tempPath.length<=0}}">
+					<view bindtouchend="soundRecordingEnd" bindtouchstart="soundRecordingStart" class="soundRecording">
+						<image class="icon" src="{{pageConfig.mainConfig.templet6.commodityConfig.soundRecording}}"></image>
+					</view>
+				</block>
+				<block wx:if="{{soundRecording.tempPath.length>0}}">					<view class="soundRecordingPlay">
+						<view bindtap="soundRecordingPlay" class="soundRecordingPlay-left">
+							<block wx:if="{{!soundRecording.isPlay}}">
+								<image class="soundRecording-icon" name="yinpin" src="{{icons}}/resource/common/image/customer/icon/play-icon1.png"></image>
+							</block>
+							<block wx:if="{{soundRecording.isPlay}}">
+								<image class="soundRecording-icon" src="{{icons}}/resource/common/image/customer/icon/play-icon2.gif"></image>
+							</block>
+							<view>{{soundRecording.duration}}＂</view>
+						</view>
+						<view bindtap="soundRecordingRemove">
+							<image class="soundRecording-icon" src="{{icons}}/resource/common/image/customer/icon/play-icon3.png"></image>
+						</view>
+					</view>
+				</block>
+			</view>
+		</view>
+		<view class="column">
+			<view class="address-module">
+				<view class="address-item">
+					<view class="item-addo">
+						<image class="item-addo-img" src="{{pageConfig.mainConfig.templet6.mineAddressConfig.icon}}"></image>
+					</view>
+					<view class="item-content">
+						<view class="content-lines">
+							<input bindinput="changeInputData" bindtap="GetAddress" class="item-content" data-name="inputAddressText" disabled="disabled" name="mudadds" placeholder="{{pageConfig.mainConfig.templet6.mineAddressConfig.hintLocationText}}" placeholderClass="choose-address-placeholder" type="text" value="{{detail_infos}}"></input>
+							<input class="item-content none" data-name="inputAddressText" type="text" value="{{wd}}"></input>
+							<input class="item-content none" data-name="inputAddressText" type="text" value="{{jd}}"></input>
+						</view>
+					</view>
+					<view bindtap="GetAddress" class="selected-addo">
+						<block wx:if="{{icons}}">
+							<image class="nav-icon" src="{{icons}}/resource/common/image/customer/buy/icon11.png"></image>
+						</block>
+					</view>
+				</view>
+				<view class="address-item">
+					<view class="item-addo">
+						<image class="item-addo-img" src="{{pageConfig.mainConfig.templet6.targetAddressConfig.icon}}"></image>
+					</view>
+					<view class="item-content">
+						<view class="content-lines">
+							<input bindinput="changeInputData" bindtap="GetAddresss" class="item-content" data-name="inputAddressText" disabled="disabled" name="mudaddss" placeholder="{{pageConfig.mainConfig.templet6.targetAddressConfig.hintLocationText}}" placeholderClass="choose-address-placeholder" type="text" value="{{detail_infoss}}"></input>
+							<input class="item-content none" data-name="inputAddressText" type="text" value="{{wds}}"></input>
+							<input class="item-content none" data-name="inputAddressText" type="text" value="{{jds}}"></input>
+						</view>
+					</view>
+					<view bindtap="GetAddresss" class="selected-addo">
+						<block wx:if="{{icons}}">
+							<image class="nav-icon" src="{{icons}}/resource/common/image/customer/buy/icon11.png"></image>
+						</block>
+					</view>
+				</view>
+			</view>
+		</view>
+		<block wx:if="{{pageConfig.mainConfig.templet6.timeConfig.enabled==1}}">
+			<view class="column">
+				<picker bindchange="pickerSelector" bindcolumnchange="bindColumnChange" data-type="time" mode="multiSelector" range="{{timeArr}}" rangeKey="name">
+					<view class="picker-module">
+						<view>
+							<image class="picker-module-icon" src="{{pageConfig.mainConfig.templet6.timeConfig.icon}}"></image>{{pageConfig.mainConfig.templet6.timeConfig.textHint}}						</view>
+						<view>{{time.week.name}} {{time.hour.name}}<input class="item-content none" name="mytimes" type="text" value="{{time.week.name}}-{{time.hour.name}}"></input>
+							<block wx:if="{{icons}}">
+								<image class="nav-icon" src="{{icons}}/resource/common/image/customer/buy/icon11.png"></image>
+							</block>
+						</view>
+					</view>
+				</picker>
+			</view>
+		</block>
+		<view class="column">
+			<block wx:if="{{pageConfig.mainConfig.templet6.bargainingConfig.enabled==1}}">
+				<view class="picker-module">
+					<view>
+						<image class="picker-module-icon" src="{{pageConfig.mainConfig.templet6.bargainingConfig.icon}}"></image>{{pageConfig.mainConfig.templet6.bargainingConfig.textHint}}					</view>
+					<view>
+						<switch bindtap="isBargaining" checked="{{isBargaining}}" class="column-radio" color="green" name="isBargaining" value="1"></switch>
+					</view>
+				</view>
+			</block>
+			<block wx:if="{{huiyuan==1?'':'1'&&pageConfig.mainConfig.templet6.discountConfig.enabled==1}}">
+				<view class="picker-module">
+					<view>
+						<image class="picker-module-icon" src="{{pageConfig.mainConfig.templet6.discountConfig.icon}}"></image>{{pageConfig.mainConfig.templet6.discountConfig.textHint}}					</view>
+					<view>
+						<switch bindtap="isOpenPreference" checked="{{isOpenPreference}}" class="column-radio" color="green" name="isOpenPreference" value="1"></switch>
+					</view>
+				</view>
+			</block>
+			<block wx:if="{{huiyuan==1?'':'1'&&pageConfig.mainConfig.templet6.integralDeductionConfig.enabled==1}}">
+				<view class="picker-module">
+					<view>
+						<image class="picker-module-icon" src="{{pageConfig.mainConfig.templet6.integralDeductionConfig.icon}}"></image>{{pageConfig.mainConfig.templet6.integralDeductionConfig.textHint}}					</view>
+					<view>
+						<switch bindtap="isOpenIntegralDeduction" checked="{{isOpenIntegralDeduction}}" class="column-radio" color="green" name="isOpenIntegralDeduction" value="1"></switch>
+					</view>
+				</view>
+			</block>
+		</view>
+		<view class="column">
+			<view class="picker-module" if="{{pageConfig.mainConfig.templet6.gratuityConfig.enabled==1}}">
+				<view>
+					<image class="picker-module-icon" src="{{pageConfig.mainConfig.templet6.gratuityConfig.icon}}"></image>{{pageConfig.mainConfig.templet6.gratuityConfig.textHint}}				</view>
+				<view class="iconfont">
+					<stepper bind:change="handleStepperChange" data-component-id="stepper" max="9999" min="0" size="small" stepper="{{stepper.stepper}}"></stepper>
+				</view>
+				<input class="item-content none" type="text" value="{{stepper.stepper}}"></input>
+			</view>
+			<picker bindchange="pickerSelector" data-type="coupon" range="{{couponArr}}" rangeKey="text">
+				<view class="picker-module" if="{{pageConfig.mainConfig.templet6.couponConfig.enabled==1}}">
+					<view>
+						<image class="picker-module-icon" src="{{pageConfig.mainConfig.templet6.couponConfig.icon}}"></image>{{pageConfig.mainConfig.templet6.couponConfig.textHint}}					</view>
+					<view class="font-success">优惠{{coupon}}元<block wx:if="{{icons}}">
+							<image class="nav-icon" src="{{icons}}/resource/common/image/customer/buy/icon11.png"></image>
+						</block>
+					</view>
+					<input class="item-content none" name="redbao" type="text" value="{{coupon}}"></input>
+				</view>
+			</picker>
+			<view class="picker-module" if="{{pageConfig.mainConfig.templet6.leaveWordConfig.enabled==1}}">
+				<view>
+					<image class="picker-module-icon" src="{{pageConfig.mainConfig.templet6.leaveWordConfig.icon}}"></image>{{pageConfig.mainConfig.templet6.leaveWordConfig.textHint}}				</view>
+				<view>
+					<input class="picker-input" name="message" placeholder="{{pageConfig.mainConfig.templet6.leaveWordConfig.inputHint}}" type="text"></input>
+				</view>
+			</view>
+		</view>
+		<view class="column-normal">
+			<view class="link-group">
+				<radio-group bindtap="isRead">
+					<radio checked="{{isReadProtocol}}" class="read-radio" color="green"></radio>我已閱讀並同意				</radio-group>
+				<navigator class="aLink" style="color:{{pageConfig.mainConfig.templet6.protocolConfig.fontColor}};" url="/sd_liferuning/pages/constmer/protocol-detail/index?type={{pageConfig.mainConfig.templet6.protocolConfig.linkedUrl}}">{{pageConfig.mainConfig.templet6.protocolConfig.title}}</navigator>
+			</view>
+		</view>
+		<view class="btn-modulefill"></view>
+		<view class="btn-module">
+			<view class="price-info">共<text class="price-font">{{lastPrice}}</text>元<navigator class="btn-navigator" url="/sd_liferuning/pages/constmer/price-breakdown/index?money={{lastPrice}}&&price={{price}}&&vipprice={{vipprice}}&&integral={{integral}}">費用明細 ></navigator>
+				<input class="item-content none" name="price" type="text" value="{{lastPrice}}"></input>
+			</view>
+			<view>
+				<button class="btn" formType="submit">立即下單</button>
+			</view>
+		</view>
+	</view>
+</form>
+<actionsheet actions="{{actions}}" bind:actionclick="clickAction" bind:cancel="closeActionSheet" cancelText="{{cancelText}}" cancelWithMask="{{cancelWithMask}}" maskClass="tiny" show="{{show}}"></actionsheet>

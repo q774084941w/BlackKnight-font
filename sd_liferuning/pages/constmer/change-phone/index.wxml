@@ -1,0 +1,25 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:51 -->
+<view class="container">
+	<view class="select-panel">
+		<view class="input-group">
+			<view class="input-group-addo">
+				<text class="icon iconfont icon-shouji"></text>
+			</view>
+			<view class="input-control">
+				<input bindinput="changeInputData" data-name="phoneNumber" placeholder="請輸入新手機號" placeholderClass="placeholder-class" type="text"></input>
+				<button bindtap="getIdentifyingCode" class="getCode" disabled="{{btnType!=1?'disabled':''}}">{{btnType!=1?waitTime:defaultWaitText}}</button>
+			</view>
+		</view>
+		<view class="input-group">
+			<view class="input-group-addo">
+				<text class="icon iconfont icon-yuechi"></text>
+			</view>
+			<view class="input-control">
+				<input bindinput="changeInputData" data-name="identifyingCode" placeholder="請輸入驗證碼" placeholderClass="placeholder-class" type="text"></input>
+			</view>
+		</view>
+	</view>
+	<view class="select-btn-panel">
+		<button bindtap="sendRequest" class="select-btn">登入</button>
+	</view>
+</view>

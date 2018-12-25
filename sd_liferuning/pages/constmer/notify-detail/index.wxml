@@ -1,0 +1,9 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:53 -->
+<import  src="/wxParse/wxParse.wxml"  />
+<view class="container">
+	<view class="title">{{info.title}}</view>
+	<view class="notifaction-time">通知時間：{{info.times}}</view>
+	<view class="content">
+		<template  data="{{wxParseData:article.nodes}}" is="wxParse" />
+	</view>
+</view>

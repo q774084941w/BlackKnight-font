@@ -1,0 +1,69 @@
+、
+<form bindsubmit="formSubmit" report-submit="true" reportSubmit="true">
+<view class="container">
+ 
+    <view class="input-group">
+      <text class='fixed'>負責人姓名:</text>
+        <input style='float:left' bindinput="changeInputData" data-name="name" placeholder="輸入負責人姓名" type="text" value='{{name}}'></input>
+    </view>
+    <view class="input-group">
+     <text class='fixed'>負責人電話:</text>
+     <input style='float:left' bindinput="changeInputData" data-name="idcard" placeholder="輸入負責人電話" type="text" value='{{idcard}}'></input>
+    </view>
+      <view class="input-group">
+       <text class='fixed'>商家名稱:</text>
+       <input style='float:left' bindinput="changeInputData" data-name="carname" placeholder="輸入商家名稱" type="text" value='{{carname}}'></input>
+    </view>
+    <view class="input-group"  bindtap='chooseLocation'>
+    <text class='fixed'>商家地址:</text>
+    <input style='float:left' bindinput="changeInputData" data-name="carcodes" placeholder="輸入商家地址" type="text" value='{{carcodes}}'></input>
+    </view>
+
+   <view class="input-group" wx:if="{{thisType==2}}">
+    <picker bindchange="bindPickerChange2" value="{{sendNum}}" range="{{sendType}}">
+      <view class="picker">
+         配送方式：{{sendType[sendNum]}}
+      </view>
+    </picker>
+  </view>
+    
+    <view class="input-group" wx:if="{{thisType==2}}">請選擇配送區域</view>
+
+      <view class="input-group" wx:else>拍攝營業執照<text class="page-help">（請確保所拍攝的照片清晰）</text></view>
+
+      
+   <view class="input-group" wx:if="{{thisType==2}}">
+    <picker  bindchange="bindPickerChange0" value="{{brandindex}}" range="{{brands}}">
+      <view class="picker">
+        區域：{{brands[brandindex]}}
+      </view>
+    </picker>
+  </view>
+ 
+  <view class="input-group" wx:if="{{thisType==2}}">
+    <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{object}}">
+      <view class="picker">
+        位置：{{object[index1]}}
+      </view>
+    </picker>
+  </view>
+      <view class="img-group" wx:else>
+        <view class="img-item">
+          <text class='fixed'>參攷照片</text>
+          <image src="https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads/img/1120.jpg"></image>
+        </view>
+        <view class="img-item">
+              <text class='fixed'>您的照片</text>
+                <image bindtap="chooseCard" src="{{cardImg}}"></image>
+            </view>
+      </view>
+       <view class="input-group" wx:if="{{thisType==2}}">
+          <text class='fixed'> 預計距離：{{lessprice}}  ；預計價格： {{largeprice}}</text>
+      </view>
+         <view class="input-group" wx:if="{{thisType==2}}">
+          <text class='fixed'>（一切以導航最短的公里數為準）</text>
+      </view>
+      <button bindtap="sendRequest" class="confirm" formType="submit" wx:if="{{thisType==2}}">確認下單</button>
+      <button bindtap="sendRequest1" class="confirm" wx:else>確認</button>
+</view>
+</form>

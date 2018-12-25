@@ -1,0 +1,34 @@
+<view class="container">
+    <view class="page-module">
+        <view class="module-title">
+            <text>2018-04</text>
+        </view>
+        <view class="module-content">
+            <view class="module-info-item">
+                <text>外賣訂單共0筆</text>
+                <text class="iconfont icon-iconmoney">0</text>
+            </view>
+        </view>
+    </view>
+    <view class="page-module">
+        <view class="module-title">
+            <text>歷史訂單</text>
+        </view>
+        <view class="module-content">
+            <view class="record-empty" wx:if="{{data.length<=0}}">
+                <view class="record-empty-line"></view>
+                <text>沒有找到數據</text>
+            </view>
+            <navigator class="order-item" url="/service/pages/service/order-info/index" wx:if="{{data.length>0}}" wx:for="{{data}}" wx:key="{{data.orderId}}">
+                <view class="order-item-block">
+                    <text class="order-item-ordernumber">訂單號：{{item.orderId}}</text>
+                    <text class="order-item-constomername">{{item.constomername}}</text>
+                </view>
+                <view class="order-item-block">
+                    <text class="order-item-startTime">開始：{{item.startTime}}</text>
+                    <text class="order-item-endTime">結束：{{item.endTime}}</text>
+                </view>
+            </navigator>
+        </view>
+    </view>
+</view>

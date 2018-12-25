@@ -1,0 +1,13 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:51 -->
+<view class="container">
+	<view bindtap="checkItem" class="address-list-module" data-id="1">
+		<block wx:for="{{data}}" wx:for-item="item" wx:for-index="index" >
+			<view class="address-item">
+				<view>
+					<text class="text-line">{{item.phone}}</text>
+					<text class="text-line">{{item.address}}</text>
+				</view>
+			</view>
+		</block>
+	</view>
+</view>

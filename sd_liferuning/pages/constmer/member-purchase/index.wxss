@@ -1,0 +1,11 @@
+wx-body{ background: #F2F2F2; }
+.page-content{ padding-bottom: 0rpx; }
+.sub-title-panel{ width: 100%; margin-bottom: 20rpx; }
+.level-icon{ width: 35rpx; height: 35rpx; position: relative; top: 10rpx; margin-left: 20rpx; }
+.sub-title-panel .title{ height: 80rpx; line-height: 80rpx; font-size: 28rpx; padding: 0 20rpx; color: #202020; margin: 20rpx 0; background: #FFF; }
+.sub-title-panel .content{ overflow: hidden; background: #FFF; }
+.level-item{ display: -webkit-flex; display: flex; height: 100rpx; line-height: 100rpx; padding: 0 20rpx; -webkit-justify-content: space-between; justify-content: space-between; border-bottom: 1rpx solid #F2F2F2; }
+.level-item-info{ font-size: 24rpx; color: #202020; }
+.level-item .icon{ width: 35rpx; height: 35rpx; position: relative; top: 10rpx; margin-right: 20rpx; }
+.buy-btn{ width: 100rpx; height: 50rpx; line-height: 50rpx; font-size: 24rpx; color: #FFFFF9; background: #20af1f; margin: 30rpx 0; }
+.tip{ color: #202020; font-size: 22rpx; padding: 0 20rpx; }

@@ -1,0 +1,12 @@
+<view class="container">
+    <view class="record-empty" wx:if="{{data.length<=0}}">
+        <view class="record-empty-line"></view>
+        <text>沒有找到數據</text>
+    </view>
+    <view class="record-module" wx:if="{{data.length>0}}">
+        <view class="record-module-item" wx:for="{{data}}" wx:key="{{item.time}}">
+            <text>{{item.message}}</text>
+            <text>{{item.time}}</text>
+        </view>
+    </view>
+</view>

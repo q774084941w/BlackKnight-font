@@ -1,0 +1,23 @@
+
+<view class="login">
+	<view class="tit">
+		<image src="{{icons}}/resource/common/image/my_logo1.png"></image>
+	</view>
+	<form bindsubmit="showok">
+		<view class="left">
+			<input bindinput="blur1" class="tel" name="phone" placeholder="請輸入手機號" value="{{yhname}}"></input>
+		</view>
+		<view class="border">
+			<input bindinput="blur2" class="number" name="yz" placeholder="請輸入簡訊驗證碼" value="{{yhmima}}"></input>
+			<view class="right">
+				<block wx:if="{{showtime1}}">
+					<view bindtap="reg_yanzhengma_huoqu" class="reg_yanzhengma_time1">{{reg_hqyzm}}</view>
+				</block>
+				<block wx:if="{{showtime2}}">
+					<view class="reg_yanzhengma_time2">重新發送:{{countdown_time}}s</view>
+				</block>
+			</view>
+		</view>
+		<button class="button" formType="submit" style="background-color:{{bindcolor=='1'?'#00bcb8':'#00bcb8'}};">立即綁定</button>
+	</form>
+</view>

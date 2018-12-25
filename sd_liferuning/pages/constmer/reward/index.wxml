@@ -1,0 +1,180 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:54 -->
+<form bindsubmit="formSubmit">
+	<view class="container">
+		<view class="column">
+			<view class="textarea-module">
+				<textarea bindinput="changeInputData" data-name="wareText" placeholder="收入需要購買的商品" value="{{wareText}}"></textarea>
+				<input class="item-content none" name="goodsname" type="text" value="{{wareText}}"></input>
+				<view class="hot-ware">
+					<block wx:for="{{biaoqian}}" wx:for-item="item" wx:for-index="index" >
+						<view bindtap="addWareItem" class="ware-tag" data-tag="{{item}}">{{item}}</view>
+					</block>
+				</view>
+			</view>
+			<view class="multi-media-module">
+				<block wx:if="{{pictrueTempPath.length<=0}}">
+					<view bindtap="xphoto" class="takePictrue">
+						<image class="icon" src="{{icons}}/resource/common/image/customer/buy/b-icon1.png"></image>
+					</view>
+				</block>
+				<block wx:if="{{pictrueTempPath.length>0}}">					<view bindtap="xphotos" class="takePictrue" id="{{pictrueTempPath}}">
+						<image class="icon" name="xphoto" src="{{pictrueTempPath}}"></image>
+					</view>
+				</block>
+				<block wx:if="{{soundRecording.tempPath.length<=0}}">
+					<view bindtouchend="soundRecordingEnd" bindtouchstart="soundRecordingStart" class="soundRecording">
+						<image class="icon" src="{{icons}}/resource/common/image/customer/buy/b-icon2.png"></image>
+					</view>
+				</block>
+				<block wx:if="{{soundRecording.tempPath.length>0}}">					<view class="soundRecordingPlay">
+						<view bindtap="soundRecordingPlay" class="soundRecordingPlay-left">
+							<block wx:if="{{!soundRecording.isPlay}}">
+								<image class="soundRecording-icon" src="{{icons}}/resource/common/image/customer/icon/play-icon1.png"></image>
+							</block>
+							<block wx:if="{{soundRecording.isPlay}}">
+								<image class="soundRecording-icon" src="{{icons}}/resource/common/image/customer/icon/play-icon2.gif"></image>
+							</block>
+							<view>{{soundRecording.duration}}＂</view>
+						</view>
+						<view bindtap="soundRecordingRemove">
+							<image class="soundRecording-icon" src="{{icons}}/resource/common/image/customer/icon/play-icon3.png"></image>
+						</view>
+					</view>
+				</block>
+			</view>
+		</view>
+		<view class="column">
+			<view class="address-module">
+				<view class="address-item">
+					<view class="item-addo">
+						<image class="item-addo-img" src="{{icons}}/resource/common/image/customer/reward/b-icon1.png"></image>
+					</view>
+					<view class="item-content">
+						<view class="content-lines">
+							<input bindinput="changeInputData" class="item-content" data-name="inputAddressText" name="mudadds" placeholder="點擊選擇購買地址（自動生成）" type="text" value="{{detail_infos}}"></input>
+							<input class="item-content none" data-name="inputAddressText" type="text" value="{{wd}}"></input>
+							<input class="item-content none" data-name="inputAddressText" type="text" value="{{jd}}"></input>
+						</view>
+						<view class="content-lines">
+							<input class="item-content" name="mudaddsinfo" placeholder="請輸入詳細地址，如樓層門牌號" type="text"></input>
+						</view>
+					</view>
+					<view bindtap="GetAddress" class="selected-addo">
+						<image class="nav-icon" src="{{icons}}/resource/common/image/customer/buy/icon11.png"></image>
+					</view>
+				</view>
+			</view>
+			<view class="address-module">
+				<view class="address-item">
+					<view class="item-addo">
+						<image class="item-addo-img" src="{{icons}}/resource/common/image/customer/buy/b-icon4.png"></image>
+					</view>
+					<view class="item-content">
+						<view class="content-lines">
+							<input bindinput="changeInputData" class="item-content" data-name="inputAddressText" placeholder="點擊選擇我的地址" type="text" value="{{detail_info}}"></input>
+							<input class="item-content none" name="myadds" type="text" value="{{detail_info}}"></input>
+						</view>
+						<view class="content-lines">
+							<view class="content-lines">
+								<input class="item-content" disabled="true" name="mudaddsinfo" placeholder="收貨人姓名，聯繫電話" type="text" value="{{username&&phone?username+'，'+phone:''}}"></input>
+							</view>
+							<input class="item-content none" name="username" type="text" value="{{username}}"></input>
+							<input class="item-content none" name="phone" type="text" value="{{phone}}"></input>
+						</view>
+					</view>
+					<navigator class="selected-addo" url="/sd_liferuning/pages/constmer/address-list/index">
+						<button class="selected-addo-btn">常用</button>
+					</navigator>
+				</view>
+			</view>
+		</view>
+		<view class="column">
+			<picker bindchange="pickerSelector" bindcolumnchange="bindColumnChange" data-type="time" mode="multiSelector" range="{{timeArr}}" rangeKey="name">
+				<view class="picker-module">
+					<view>
+						<image class="picker-module-icon" src="{{icons}}/resource/common/image/customer/reward/icon10.png"></image>選擇配送時間					</view>
+					<view>{{time.week.name}} {{time.hour.name}}<input class="item-content none" name="mytimes" type="text" value="{{time.hour.timechuo}}"></input>
+						<image class="nav-icon" src="{{icons}}/resource/common/image/customer/buy/icon11.png"></image>
+					</view>
+				</view>
+			</picker>
+		</view>
+		<view class="column">
+			<view class="picker-module">
+				<view>
+					<image class="picker-module-icon" src="{{icons}}/resource/common/image/customer/buy/icon7.png"></image>是否接受議價				</view>
+				<view>
+					<switch bindtap="isBargaining" checked="{{isBargaining}}" class="column-radio" color="green" name="isBargaining" value="1"></switch>
+				</view>
+			</view>
+			<block wx:if="{{huiyuan==1?'':'1'}}">
+				<view class="picker-module">
+					<view>
+						<image class="picker-module-icon" src="{{icons}}/resource/common/image/customer/buy/icon14.png"></image>會員折扣					</view>
+					<view>
+						<switch bindtap="isOpenPreference" checked="{{isOpenPreference}}" class="column-radio" color="green" name="isOpenPreference" value="1"></switch>
+					</view>
+				</view>
+			</block>
+			<block wx:if="{{huiyuan==1?'':'1'}}">
+				<view class="picker-module">
+					<view>
+						<image class="picker-module-icon" src="{{icons}}/resource/common/image/customer/buy/icon15.png"></image>積分折扣					</view>
+					<view>
+						<switch bindtap="isOpenIntegralDeduction" checked="{{isOpenIntegralDeduction}}" class="column-radio" color="green" name="isOpenIntegralDeduction" value="1"></switch>
+					</view>
+				</view>
+			</block>
+		</view>
+		<view class="column">
+			<view class="picker-module">
+				<view>
+					<image class="picker-module-icon" src="{{icons}}/resource/common/image/customer/reward/icon3.png"></image>懸賞金額				</view>
+				<view class="user-hint">{{data}}元</view>
+			</view>
+			<view class="picker-module">
+				<view>
+					<image class="picker-module-icon" src="{{icons}}/resource/common/image/customer/reward/icon7.png"></image>小費				</view>
+				<view class="iconfont">
+					<stepper bind:change="handleStepperChange" data-component-id="stepper" max="9999" min="0" size="small" stepper="{{stepper.stepper}}"></stepper>
+				</view>
+				<input class="item-content none" type="text" value="{{stepper.stepper}}"></input>
+			</view>
+			<picker bindchange="pickerSelector" data-type="coupon" range="{{couponArr}}" rangeKey="text">
+				<view class="picker-module">
+					<view>
+						<image class="picker-module-icon" src="{{icons}}/resource/common/image/customer/reward/icon8.png"></image>紅包					</view>
+					<view class="font-success">優惠{{coupon}}元<image class="nav-icon" src="/sd_liferuning/resource/common/image/customer/buy/icon11.png"></image>
+					</view>
+					<input class="item-content none" name="redbao" type="text" value="{{coupon}}"></input>
+				</view>
+			</picker>
+			<view class="picker-module">
+				<view>
+					<image class="picker-module-icon" src="{{icons}}/resource/common/image/customer/reward/icon11.png"></image>留言				</view>
+				<view>
+					<input class="picker-input" name="message" placeholder="請輸入補充留言" type="text"></input>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="column-normal">
+		<view class="link-group">
+			<radio-group bindtap="isRead">
+				<radio checked="{{isReadProtocol}}" class="read-radio" color="green"></radio>我已閱讀並同意			</radio-group>
+			<navigator class="aLink" url="/sd_liferuning/pages/constmer/protocol-detail/index?type=1">《黑騎士服務協定》</navigator>
+		</view>
+		<view class="btn-modulefill"></view>
+		<view class="btn-module">
+			<view class="price-info">共<text class="price-font">{{lastPrice}}</text>元<navigator class="btn-navigator" url="/sd_liferuning/pages/constmer/price-breakdown/index">費用明細 ></navigator>
+				<input class="item-content none" name="price" type="text" value="{{lastPrice}}"></input>
+			</view>
+			<view>
+				<button class="btn" formType="submit">發佈懸賞訂單</button>
+			</view>
+		</view>
+	</view>
+</form>
+<actionsheet actions="{{actions}}" bind:actionclick="clickAction" bind:cancel="closeActionSheet" cancelText="{{cancelText}}" cancelWithMask="{{cancelWithMask}}" maskClass="tiny" show="{{show}}"></actionsheet>
+<include src="/sd_liferuning/template/nav/nav.wxml" />
+

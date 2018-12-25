@@ -1,0 +1,7 @@
+<view class="container">
+    <view class="input-group">
+        <input bindinput="inputChange" placeholder="請輸入姓名" type="text"></input>
+        <button bindtap="confim">確認</button>
+    </view>
+    <text>特別提示：姓名必須與身份證相符</text>
+</view>

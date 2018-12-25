@@ -1,0 +1,326 @@
+<web-view src="{{service_url}}" wx:if="{{service_url}}"></web-view>
+<view class="container">
+    <view class="page-content">
+        <view class="switch-panel">
+            <view class="switch-panel-title">
+                <view bindtap="selectSwiper" class="switch-panel-title-item {{currentItemId==1?'active':''}}" data-listid="1">
+                    <text>待搶單</text>
+                    <view class='statistics'>{{data_count.waiting}}</view>
+                </view>
+                <view bindtap="selectSwiper" class="switch-panel-title-item {{currentItemId==2?'active':''}}" data-listid="2">
+                    <text>待取貨</text>
+                    <view class='statistics'>{{data_count.received}}</view>
+                </view>
+                <view bindtap="selectSwiper" class="switch-panel-title-item {{currentItemId==3?'active':''}}" data-listid="3">
+                    <text>已完成</text>
+                    <view class='statistics'>{{data_count.completed}}</view>
+                </view>
+            </view>
+            <swiper bindchange="changeSwiper" class="switch-panel-swiper" currentItemId="{{currentItemId}}">
+                <swiper-item itemId="1">
+                    <scroll-view bindscrolltolower="refreshData" class="switch-panel-content" scrollY="true">
+                        <view catchtap="navToUrl" class="order-module" data-url="/service/pages/service/order-info/index?id={{item.id}}" wx:for="{{data}}">
+                            <view class="inline">
+                                <view class="title">
+                                    <text>{{item.type}}</text>
+                                     <text class='time_load' wx:if="{{item.look_time}}" >{{item.look_time}}</text>
+                                </view>
+                            </view>
+                            <view class='inline' wx:if="{{item.type=='商家点单'}}">
+                                  <view class="inline">
+                                    <view class="address-item">
+                                       商家地址： {{item.myadds}}
+                                    </view>
+                                  </view>
+                                  <view class="inline">
+                                    <view class="address-item">
+                                       送貨區域： {{item.mudadds}}
+                                    </view>
+                                  </view>
+                                  <view class="inline">
+                                    <button catchtap="GiveOrder" class="btn" data-id="{{item.id}}" data-order_no="{{item.order_no}}">立即接單</button>
+                                  </view>
+                            </view>
+                            <view class="inline" wx:else>
+                                <view class="order-info">
+                                    <view class="order-info-item">
+                                        <view class="order-info-tipVal">{{item.price}}元</view>
+                                        <view class="order-info-tip">本次收入</view>
+                                    </view>
+                                    <view class="order-info-item">
+                                        <view class="order-info-tipVal">{{item.times}}</view>
+                                        <view class="order-info-tip">期望送到時間</view>
+                                    </view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='帮我送'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/icon1.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代驾'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/qi.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代排队'||item.type=='排队'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/dai.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='帮我买'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/mai.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='家政'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/dai.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代办'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/dai.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代排队'||item.type=='帮我送'||item.type=='帮我买'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/icon2.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代排队'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/icon2.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代驾'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/zhong.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline">
+                                    <view class="order-info">
+                                        <text>訂單內容：</text>
+                                        <text>{{item.goodsname}}</text>
+                                    </view>
+                                    <view class="order-info" wx:if="{{item.yinpin!=''&&item.yinpin!=0}}">
+                                        <view>訂單語音：</view>
+                                        <view>
+                                            <view class="soundRecordingPlay">
+                                                <view catchtap="soundRecordingPlay" class="soundRecordingPlay-left" data-value="{{item}}">
+                                                    <image class="soundRecording-icon" name="yinpin" src="{{icons}}/resource/common/image/customer/icon/play-icon1.png" wx:if="{{!soundRecording.isPlay}}"></image>
+                                                    <image class="soundRecording-icon" src="{{icons}}/resource/common/image/customer/icon/play-icon2.gif" wx:if="{{soundRecording.isPlay}}"></image>
+                                                    <view>{{item.audiotime}}＂</view>
+                                                </view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                    <view class="order-info" wx:if="{{item.xphoto!=''&&item.xphoto!=0}}">
+                                        <view>商品圖片：</view>
+                                        <view>
+                                            <image catchtap="previewPic" data-value="{{item}}" src="{{item.xphoto}}" style="width:200rpx;height:200rpx;overflow:hidden;"></image>
+                                        </view>
+                                    </view>
+                                     <view class="order-info" wx:if="{{item.select_name!=''&&item.select_name!=0}}">
+                                        <view>方式：</view>
+                                        <view>
+                                            {{item.select_name}}
+                                        </view>
+                                    </view>
+                                </view>
+                                <view class="inline">
+                                    <button catchtap="GiveOrder" class="btn" data-id="{{item.id}}" data-order_no="{{item.order_no}}">立即接單</button>
+                                </view>
+                            </view>
+                        </view>
+                    </scroll-view>
+                </swiper-item>
+                <swiper-item itemId="2">
+                    <scroll-view bindscrolltolower="refreshData" class="switch-panel-content" scrollY="true">
+                        <view catchtap="navToUrl" class="order-module" data-url="/service/pages/service/order-info/index?id={{item.id}}" wx:for="{{data}}">
+                            <view class="inline">
+                                <view class="title">
+                                    <text>{{item.type}}</text> 
+                                    <text class="text-r">您已接單{{item.look_time}}</text>
+                                </view>
+                            </view>
+                            <view class="inline">
+                                <view class="order-info">
+                                    <view class="order-info-item">
+                                        <view class="order-info-tipVal">{{item.price}}元</view>
+                                        <view class="order-info-tip">本次收入</view>
+                                    </view>
+                                    <view class="order-info-item">
+                                        <view class="order-info-tipVal">{{item.times}}</view>
+                                        <view class="order-info-tip">剩餘時間</view>
+                                    </view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='帮我送'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/icon1.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代驾'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/qi.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代排队'||item.type=='排队'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/dai.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='帮我买'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/mai.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='家政'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/dai.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代办'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/dai.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代排队'||item.type=='帮我买'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/icon2.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代排队'||item.type=='帮我送'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/icon2.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代驾'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/zhong.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline">
+                                    <view class="order-info">
+                                        <text>訂單內容：</text>
+                                        <text>{{item.goodsname}}</text>
+                                    </view>
+                                    <view class="order-info" wx:if="{{item.yinpin!=''&&item.yinpin!=0}}">
+                                        <view>訂單語音：</view>
+                                        <view>
+                                            <view class="soundRecordingPlay">
+                                                <view catchtap="soundRecordingPlay" class="soundRecordingPlay-left" data-value="{{item}}">
+                                                    <image class="soundRecording-icon" name="yinpin" src="{{icons}}/resource/common/image/customer/icon/play-icon1.png" wx:if="{{!soundRecording.isPlay}}"></image>
+                                                    <image class="soundRecording-icon" src="{{icons}}/resource/common/image/customer/icon/play-icon2.gif" wx:if="{{soundRecording.isPlay}}"></image>
+                                                    <view>{{item.audiotime}}＂</view>
+                                                </view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                    <view class="order-info" wx:if="{{item.xphoto!=''&&item.xphoto!=0}}">
+                                        <view>商品圖片：</view>
+                                        <view>
+                                            <image catchtap="previewPic" data-value="{{item}}" src="{{item.xphoto}}" style="width:200rpx;height:200rpx;overflow:hidden;"></image>
+                                        </view>
+                                    </view>
+                                    <view class="order-info" wx:if="{{item.select_name!=''&&item.select_name!=0}}">
+                                        <view>方式：</view>
+                                        <view>
+                                            {{item.select_name}}
+                                        </view>
+                                    </view>
+                                </view>
+                                <view class="inline" wx:if="{{item.succ}}">
+                                    <button class="btn">等待確認</button>
+                                </view>
+                                <view class="inline" wx:else>
+                                <navigator wx:if="{{item.seller_type==1 && item.price==0.01 && item.goodsname==''}}" url='/service/pages/service/update/index?id={{item.id}}'  data-id="{{item.id}}">
+                                <button class="btn">
+                                完善訂單
+                                </button>
+                                </navigator>
+                                    <button class="btn" data-id="{{item.id}}" wx:else>完成訂單</button>
+                                </view>
+                            </view>
+                        </view>
+                    </scroll-view>
+                </swiper-item>
+                <swiper-item itemId="3">
+                    <scroll-view bindscrolltolower="refreshData" class="switch-panel-content" scrollY="true">
+                        <navigator class="order-module" url="/service/pages/service/order-info/index?id={{item.id}}" wx:for="{{data}}">
+                            <view class="inline">
+                                <view class="title">
+                                    <text>{{item.type}}</text>
+                                     <text class='time_load' wx:if="{{item.look_time}}" >{{item.look_time}}</text>
+                                </view>
+                            </view>
+                            <view class="inline">
+                                <view class="order-info">
+                                    <view class="order-info-item">
+                                        <view class="order-info-tipVal">{{item.price}}元</view>
+                                        <view class="order-info-tip">本次收入</view>
+                                    </view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='帮我送'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/icon1.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代驾'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/qi.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代排队'||item.type=='排队'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/dai.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='帮我买'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/mai.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='家政'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/dai.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代办'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/dai.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代排队'||item.type=='帮我送'||item.type=='帮我买'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/icon2.png" wx:if="{{icons}}"></image>{{item.mudadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代排队'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/icon2.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline" wx:if="{{item.type=='代驾'}}">
+                                    <view class="address-item">
+                                        <image class="address-icon" src="{{icons}}/resource/common/image/service/index/zhong.png" wx:if="{{icons}}"></image>{{item.myadds}}</view>
+                                </view>
+                                <view class="inline inline-zi">訂單內容：<view class="order-info">
+                                        <text></text>
+                                        <text>{{item.goodsname}}</text>
+                                    </view>
+                                    <view class="order-info" wx:if="{{item.yinpin!=''&&item.yinpin!=0}}">
+                                        <view>訂單語音：</view>
+                                        <view>
+                                            <view class="soundRecordingPlay">
+                                                <view catchtap="soundRecordingPlay" class="soundRecordingPlay-left" data-value="{{item}}">
+                                                    <image class="soundRecording-icon" name="yinpin" src="{{icons}}/resource/common/image/customer/icon/play-icon1.png" wx:if="{{!soundRecording.isPlay}}"></image>
+                                                    <image class="soundRecording-icon" src="{{icons}}/resource/common/image/customer/icon/play-icon2.gif" wx:if="{{soundRecording.isPlay}}"></image>
+                                                </view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                    <view class="order-info" wx:if="{{item.xphoto!=''&&item.xphoto!=0}}">
+                                        <view>商品圖片：</view>
+                                        <view>
+                                            <image catchtap="previewPic" data-value="{{item}}" src="{{item.xphoto}}" style="width:200rpx;height:200rpx;overflow:hidden;"></image>
+                                        </view>
+                                    </view>
+                                    <view class="order-info" wx:if="{{item.select_name!=''&&item.select_name!=0}}">
+                                        <view>方式：</view>
+                                        <view>
+                                            {{item.select_name}}
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </navigator>
+                    </scroll-view>
+                </swiper-item>
+            </swiper>
+        </view>
+    </view>
+    <view class="btn-group">
+        <navigator class="btn-item active" openType="redirect" url="/service/pages/service/index/index">
+            <image class="btn-group-icon" src="{{icons}}/resource/common/image/nav-icon/icon1-1.png" wx:if="{{icons}}"></image>
+            <text>訂單</text>
+        </navigator>
+        <navigator class="btn-item" openType="redirect" url="/service/pages/service/user/index">
+            <image class="btn-group-icon" src="{{icons}}/resource/common/image/nav-icon/icon2.png" wx:if="{{icons}}"></image>
+            <text>個人</text>
+        </navigator>
+    </view>
+</view>

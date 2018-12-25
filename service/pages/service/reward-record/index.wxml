@@ -1,0 +1,13 @@
+<view class="container">
+    <view class="record-empty" wx:if="{{data.length<=0}}">
+        <view class="record-empty-line"></view>
+        <text>沒有找到數據</text>
+    </view>
+    <view class="record-module" wx:if="{{data.length>0}}">
+        <view class="record-module-item" wx:for="{{data}}" wx:key="{{item.time}}">
+            <text>打賞人：{{item.rewardName}}</text>
+            <text>{{item.time}}</text>
+            <text class="iconfont icon-iconmoney">{{item.balance}}</text>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,246 @@
+<view class="container">
+    <map showLocation bindcontroltap="controltap" bindmarkertap="markertap" bindregionchange="regionchange" class="map" controls="{{controls}}" id="map" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" polyline="{{polyline}}" scale="15"></map>
+    <view class="order-module">
+        <view class="inline">
+            <view class="title">
+                <text>配送資訊</text>
+            </view>
+        </view>
+        <view class="inline" wx:if="{{data.type!='代驾'&&data.type!='代排队'&&data.type!='代办'&&data.type!='排队'&&data.type!='家政'&&data.type!='帮我买'&&data.type!='帮我送'}}">
+            <view class="label">
+                <text>期望送達時間：</text>
+            </view>
+            <view class="info">
+                <text>{{data.timess}}</text>
+            </view>
+        </view>
+        <view class="inline" wx:if="{{data.type=='代驾'||data.type=='代排队'||data.type=='代办'||data.type=='排队'||data.type=='家政'}}">
+            <view class="label">
+                <text>預約服務時間：</text>
+            </view>
+            <view class="info">
+                <text>{{data.times}}</text>
+            </view>
+        </view>
+        <view class="inline" wx:if="{{data.type=='帮我买'||data.type=='帮我送'}}">
+            <view class="label">
+                <text>預約服務時間：</text>
+            </view>
+            <view class="info">
+                <text>{{data.timesss}}</text>
+            </view>
+        </view>
+        <view bindtap="maps" class="inline" data-id="0" wx:if="{{data.type!='代办'&&data.type!='代驾'&&data.type!='家政'&&data.type!='帮我买'&&data.type!='排队'&&data.type!='代排队'}}">
+            <view class="label">
+                <text>取貨地址：</text>
+            </view>
+            <view class="info">
+                <text>{{data.myadds}}</text>
+                <view class="info_mes">點擊導航</view>
+            </view>
+        </view>
+        <view bindtap="maps" class="inline" data-id="0" wx:if="{{data.type=='家政'}}">
+            <view class="label">
+                <text>服務地址：</text>
+            </view>
+            <view class="info">
+                <text>{{data.myadds}}</text>
+                <view class="info_mes">點擊導航</view>
+            </view>
+        </view>
+        <view bindtap="maps" class="inline" data-id="0" wx:if="{{data.type=='排队'||data.type=='代排队'}}">
+            <view class="label">
+                <text>排隊地址：</text>
+            </view>
+            <view class="info">
+                <text>{{data.mudadds}}</text>
+                <view class="info_mes">點擊導航</view>
+            </view>
+        </view>
+        <view bindtap="maps" class="inline" data-id="0" wx:if="{{data.type=='帮我买'}}">
+            <view class="label">
+                <text>購買地址：</text>
+            </view>
+            <view class="info">
+                <text>{{data.myadds}}</text>
+                <view class="info_mes">點擊導航</view>
+            </view>
+        </view>
+        <view bindtap="maps" class="inline" data-id="1" wx:if="{{data.type=='代办'}}">
+            <view class="label">
+                <text>代辦地址：</text>
+            </view>
+            <view class="info">
+                <text>{{data.mudadds}}</text>
+                <view class="info_mes">點擊導航</view>
+            </view>
+        </view>
+        <view bindtap="maps" class="inline" data-id="1" wx:if="{{data.type=='代驾'}}">
+            <view class="label">
+                <text>代駕起點：</text>
+            </view>
+            <view class="info">
+                <text>{{data.mudadds}}</text>
+                <view class="info_mes">點擊導航</view>
+            </view>
+        </view>
+        <view bindtap="maps" class="inline" data-id="0" wx:if="{{data.type=='代驾'}}">
+            <view class="label">
+                <text>代驾终点：</text>
+            </view>
+            <view class="info">
+                <text>{{data.myadds}}</text>
+                <view class="info_mes">點擊導航</view>
+            </view>
+        </view>
+        <view bindtap="maps" class="inline" data-id="1" wx:if="{{data.type!='代办'&&data.type!='代驾'&&data.type!='家政'&&data.type!='排队'&&data.type!='代排队'&&data.type!='帮我买'}}">
+            <view class="label">
+                <text>收貨地址：</text>
+            </view>
+            <view class="info">
+                <text>{{data.mudadds}}</text>
+                <view class="info_mes">點擊導航</view>
+            </view>
+        </view>
+        <view bindtap="maps" class="inline" data-id="1" wx:if="{{data.type=='帮我买'}}">
+            <view class="label">
+                <text>收貨地址：</text>
+            </view>
+            <view class="info">
+                <text>{{data.mudadds}}</text>
+                <view class="info_mes">點擊導航</view>
+            </view>
+        </view>
+        <view bindtap="toPhone" class="inline" data-phone="{{data.phone}}">
+            <view class="label">
+                <text>聯繫電話：</text>
+            </view>
+            <view class="info">
+                <image class="phone-icon" src="{{icons}}/resource/common/image/service/user/icon8.png" wx:if="{{icons}}"></image>
+                <text>{{data.phone}}（{{data.username}}）</text>
+            </view>
+        </view>
+        <view class="inline">
+            <view class="label">
+                <text>貨品清單：</text>
+            </view>
+            <view class="info">
+                <text>{{data.goodsname}}</text>
+            </view>
+        </view>
+        <view class="inline" wx:if="{{data.yinpin!=''&&data.yinpin!=0}}">
+            <view class="label">商品語音：</view>
+            <view class="info" style="display:flex;">
+                <view class="soundRecordingPlay">
+                    <view bindtap="soundRecordingPlay" class="soundRecordingPlay-left">
+                        <image class="soundRecording-icon" name="yinpin" src="{{icons}}/resource/common/image/customer/icon/play-icon1.png" wx:if="{{!soundRecording.isPlay}}"></image>
+                        <image class="soundRecording-icon" src="{{icons}}/resource/common/image/customer/icon/play-icon2.gif" wx:if="{{soundRecording.isPlay}}"></image>
+                        <view>{{data.audiotime}}＂</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="inline" wx:if="{{data.xphoto!=''&&data.xphoto!=0}}">
+            <view class="label">商品圖片：</view>
+            <view class="image-group">
+                <image bindtap="previewPic" class="image-item" data-value="{{data.xphoto}}" src="{{data.xphoto}}"></image>
+            </view>
+        </view>
+        <view class="inline" wx:if="{{data.imgurl[0]!=''}}">
+            <view class="label">商品圖片：</view>
+            <view class="image-group">
+                <image catchtap="previewPic" class="image-item" data-value="{{imageItem}}" src="{{imageItem}}" wx:for="{{data.imgurl}}" wx:for-item="imageItem"></image>
+            </view>
+        </view>
+         <view class="inline" wx:if="{{data.status==2}}">
+            <view class="label">商品價值：</view>
+            <view class="image-group" style='line-height:30px;'>
+             <view wx:if="{{data.worth}}" >
+                <view style='float:left'>{{data.worth}}</view>
+                <view style='float:right;color:green' wx:if="{{data.worth_type}}">已支付</view>
+                <view style='float:right;color:red' wx:else >未支付</view>
+              </view>
+             <view wx:else  class='confirm-order confirm-order-show' style='position: static;'>
+              <input bindinput="inputConfirmWorth" class="input-text" placeholder="請輸入商品價值" type="text"></input>
+              <button bindtap="OkWorth" class="btn" data-id="{{data.id}}">確認</button>
+             </view>
+            </view>
+        </view>
+    </view>
+    <view class="order-module">
+        <view class="inline">
+            <view class="title">
+                <text>訂單資訊</text>
+            </view>
+        </view>
+        <view class="inline">
+            <view class="label">
+                <text>下單時間：</text>
+            </view>
+            <view class="info">
+                <text>{{data.time}}</text>
+            </view>
+        </view>
+        <view class="inline" wx:if="{{data.status==3}}">
+            <view class="label">
+                <text>完成時間：</text>
+            </view>
+            <view class="info">
+                <text>{{data.oktime}}</text>
+            </view>
+        </view>
+        <view class="inline">
+            <view class="label">
+                <text>訂單號碼：</text>
+            </view>
+            <view class="info">
+                <text>{{data.order_no}}</text>
+            </view>
+        </view>
+        <view class="inline">
+            <view class="label">
+                <text>訂單備註：</text>
+            </view>
+            <view class="info">
+                <text>{{data.message}}</text>
+            </view>
+        </view>
+          <view class="inline"  wx:if="{{data.why_text!=''}}">
+            <view class="label">
+                <text>客戶評星：</text>
+            </view>
+            <view class="info">
+                  <block wx:for="{{data.num_star}}">
+                    <image src='http://83img.chaojiyuanma.com/img/star.png' class="star"></image>
+                  </block>
+                    <block wx:for="{{3-data.num_star}}">
+                    <image src='http://83img.chaojiyuanma.com/img/star1.png' class="star"></image>
+                  </block>
+            </view>
+        </view>
+          <view class="inline" wx:if="{{data.why_text!=''&&data.num_star==1}}">
+            <view class="label">
+                <text>差評原因：</text>
+            </view>
+            <view class="info">
+               <text>{{data.why_text}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="btn-group">
+        <button bindtap="GiveOrder" class="btn" data-id="{{data.id}}" data-order_no="{{data.order_no}}" wx:if="{{data.status==1}}">立即搶單</button>
+        <block wx:if="{{distype==1}}">
+            <button bindtap="changeConfirmCodeStatus" class="btn" data-id="{{data.id}}" wx:if="{{data.status==2&&data.succ==0}}">完成訂單</button>
+        </block>
+        <block wx:if="{{distype==0}}">
+            <button bindtap="OkOrder" class="btn" data-id="{{data.id}}" wx:if="{{data.status==2&&data.succ==0}}">完成訂單</button>
+        </block>
+        <button class="btn" wx:if="{{data.status==2&&data.succ==1}}">等待確認</button>
+       
+    </view>
+    <view class="confirm-order {{confirmCodeStatus?'confirm-order-show':''}}">
+        <input bindinput="inputConfirmCode" class="input-text" placeholder="請輸入訂單完成驗證碼" type="text"></input>
+        <button bindtap="OkOrder" class="btn" data-id="{{data.id}}">確認</button>
+        <button bindtap="changeConfirmCodeStatus" class="btn default">取消</button>
+    </view>
+</view>

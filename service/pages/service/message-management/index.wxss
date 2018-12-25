@@ -1,0 +1,25 @@
+body {
+    background: #F7F7F7;
+}
+
+.record-module {
+    background: #FFF;
+    width: 100%;
+    color: #666;
+    margin-bottom: 20rpx;
+}
+
+.record-module-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 30rpx;
+    text-align: center;
+    padding: 0 20rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    border-bottom: 1rpx solid #F7F7F7;
+}
+
+.record-module-item text {
+    flex: 1;
+}

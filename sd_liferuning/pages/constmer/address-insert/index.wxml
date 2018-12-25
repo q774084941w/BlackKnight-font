@@ -1,0 +1,68 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:51 -->
+<view class="container">
+	<view class="address-input-module">
+		<view class="input-group">
+			<text class="input-addo">收貨人：</text>
+			<input bindinput="changeInputData" class="input-control" data-name="person" placeholder="请输入收货人姓名" type="text" value="{{person}}"></input>
+		</view>
+		<view class="input-group">
+			<text class="input-addo">手機號：</text>
+			<input bindinput="changeInputData" class="input-control" data-name="phone" placeholder="请输入收货人手机号" type="text" value="{{phone}}"></input>
+		</view>
+		<block wx:if="{{limit==1}}">
+			<view class="input-group" bindtap='chooseLocation' >
+        <text class="input-addo">地區：</text>
+					<view class="input-control address_select" >
+            <block wx:if="{{region.length==0}}">
+							<text class="placeholder">請選擇區域地質</text>
+						</block>
+            <block wx:if="{{region.length>0}} "  >
+							<text>{{region[0]}}，{{region[1]}}</text>
+						</block>
+						
+					</view>
+				<!-- <picker bindchange="bindRegionChange1" customItem="{{customItem}}" mode="region" value="{{region}}">
+					
+						<text>{{region[0]}}，{{region[1]}}，{{region[2]}}</text>
+					
+				</picker> -->
+			</view>
+		</block>
+		<block wx:if="{{limit==0}}">
+			<view class="input-group" bindtap='chooseLocation' >
+        <text class="input-addo">地區：</text>
+					<view class="input-control address_select">
+            <block wx:if="{{region.length==0}}">
+							<text class="placeholder">請選擇區域地質</text>
+						</block>
+            <block wx:if="{{region.length>0}}">
+							<text>{{region[0]}}，{{region[1]}}</text>
+						</block>
+						
+					</view>
+				<!-- <picker bindchange="bindRegionChange1" customItem="{{customItem}}" mode="region" value="{{region}}">
+					
+						<text>{{region[0]}}，{{region[1]}}，{{region[2]}}</text>
+					
+				</picker> -->
+			</view>
+		</block>
+		<view class="input-group">
+			<text class="input-addo">地址：</text>
+			<input bindinput="changeInputData" class="input-control" data-name="address" placeholder="输入樓層或门牌号" type="text" value="{{address}}"></input>
+		</view>
+	</view>
+	<!-- <button bindtap="adds" class="get-address">一鍵獲取地址</button> -->
+	<view class="address-btn">
+		<block wx:if="{{uaid}}" >
+			<view>
+				<text bindtap="UpsendRequest" data-id="{{uaid}}">保存</text>
+			</view>
+		</block>
+		<block wx:else>
+			<view>
+				<text bindtap="sendRequest">保存</text>
+			</view>
+		</block>
+	</view>
+</view>

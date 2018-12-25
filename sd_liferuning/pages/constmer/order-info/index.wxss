@@ -1,0 +1,24 @@
+wx-body{ background: #F2F2F2; }
+.page-head{ background: #FFF; width: 100%; padding-bottom: 30rpx; }
+.status-view{ font-size: 40rpx; line-height: 40rpx; margin: 20rpx 0; text-align: center; }
+.status-icon{ width: 40rpx; height: 40rpx; padding: 0 15rpx; }
+.status-font{ position: relative; top: -3rpx; }
+.page-content{ background: #fff; border-bottom: 15rpx solid #ddd; }
+.title{ font-size: 30rpx; padding: 15rpx; font-weight: bold; }
+.data-table{ padding: 0 15rpx; }
+.data-item{ display: -webkit-flex; display: flex; margin: 30rpx 0 0; font-size: 28rpx; }
+.data-item-label{ color: #666; min-width: 160rpx; }
+.data-item-info{ color: #222; -webkit-flex: 1; flex: 1; }
+.data-item-btn-group{ overflow: hidden; text-align: right; }
+.data-item-btn-group button{ display: inline-block; font-size: 25rpx; margin: 0 10rpx; background: green; color: #FFF; }
+.soundRecordingPlay{ height: 50rpx; border-radius: 50rpx; font-size: 20rpx; line-height: 50rpx; background: #eee; padding: 0 5%; display: -webkit-flex; display: flex; -webkit-justify-content: space-between; justify-content: space-between; margin-left: 15rpx; }
+.soundRecordingPlay-left{ display: -webkit-flex; display: flex; }
+.soundRecording-icon{ width: 30rpx; height: 30rpx; padding: 10rpx; display: inline-block; }
+.image-group{ overflow: hidden; }
+.image-group .image-item{ width: 150rpx; height: 150rpx; padding: 5rpx; margin: 0 15rpx 15rpx; border-radius: 15rpx; background: #FFF; box-shadow: 0 0 3rpx green; }
+
+.to_index {
+  font-size: 30rpx;
+  margin-left: 30rpx; 
+  position: absolute;
+}

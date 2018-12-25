@@ -1,0 +1,21 @@
+<view class="container">
+    <view class="page-content">
+        <view class="recharge">
+            <view>提現的支付寶帳號：</view>
+            <view class="input-group">
+                <input bindinput="changeInputData" data-name="account" placeholder="輸入需要提現的金額"></input>
+            </view>
+        </view>
+        <view class="recharge">
+            <view>提現金額：</view>
+            <view class="input-group">
+                <image class="icon" src="{{icons}}/resource/common/image/customer/balance-recharge/icon.png"></image>
+                <input bindinput="changeInputData" data-name="money" placeholder="輸入需要提現的金額"></input>
+            </view>
+        </view>
+        <view class="tip">
+            <view>本卡此次提現 {{money}} 元 ，最多可提現 {{balance}} 元</view>
+        </view>
+        <button bindtap="sendRequest" class="sendRequest">確認提現</button>
+    </view>
+</view>

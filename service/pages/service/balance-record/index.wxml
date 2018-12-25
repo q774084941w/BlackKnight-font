@@ -1,0 +1,29 @@
+<view class="container">
+    <view class="record-empty" wx:if="{{data.length<=0}}">
+        <view class="record-empty-line"></view>
+        <text>沒有找到數據</text>
+    </view>
+    <view class="record-module" wx:if="{{data.length>0}}">
+        <view class="record-module-item" wx:for="{{data}}" wx:key="{{item.time}}">
+            <view class="row-info">
+                <text wx:if="{{item.status==1}}">提現狀態：成功</text>
+                <text wx:else>提現狀態：正在稽核</text>
+                <text>時間：{{item.createtime}}</text>
+            </view>
+            <view wx:if="{{item.brank}}">
+                <view class="row-info">
+                    <text>開戶行： {{item.brank}}</text>
+                    <text>卡號：{{item.kaihuhang}}</text>
+                </view>
+            </view>
+            <view wx:else>
+                <view class="row-info">
+                    <text>支付寶帳號： {{item.alipay}}</text>
+                </view>
+            </view>
+            <view class="row-info">
+                <text>金額： {{item.money}}</text>
+            </view>
+        </view>
+    </view>
+</view>

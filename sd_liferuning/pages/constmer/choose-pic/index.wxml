@@ -1,0 +1,10 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:51 -->
+<view class="container">
+	<view class="show-pic">
+		<image class="img" src="{{src}}"></image>
+	</view>
+	<view class="page-btn-group">
+		<view bindtap="deletePic" class="page-btn">删除</view>
+		<view bindtap="goBack" class="page-btn">確定</view>
+	</view>
+</view>

@@ -1,0 +1,55 @@
+<!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:54 -->
+<view class="container">
+	<view class="page-content">
+		<view class="sign-in-module" style="background:url('https://www.135k.com/addons/sd_liferuning/tp/public/uploads/background/resource/common/image/customer/sign-in/bg.png');background-size:100% 100%;">
+			<block wx:if="{{!isSign}}">
+				<view bindtap="signIn" class="sign-in-btn">點擊簽到</view>
+				<view class="sign-in-tip">點擊簽到</view>
+			</block>
+			<block wx:if="{{isSign}}">
+				<view class="is-sign-btn">
+					<view>已簽到</view>
+					<view>連續{{data.lianxuday}}天</view>
+				</view>
+				<view class="sign-in-tip">今日已簽到，獲得{{data.jifen}}積分</view>
+			</block>
+		</view>
+		<view class="sub-title-panel">
+			<view class="title">
+				<image class="icon" src="https://www.135k.com/addons/sd_liferuning/tp/public/uploads/background/resource/common/image/customer/sign-in/icon.png"></image>
+				<text>我的會員</text>
+			</view>
+			<view class="content">
+				<view class="calendar-module">
+					<view class="calendar-head">
+						<view>{{dateArr.year}} 年 {{dateArr.month}} 月</view>
+					</view>
+					<view class="calendar-body">
+						<view class="calendar-title">
+							<view class="calendar-title-item">日</view>
+							<view class="calendar-title-item">一</view>
+							<view class="calendar-title-item">二</view>
+							<view class="calendar-title-item">三</view>
+							<view class="calendar-title-item">四</view>
+							<view class="calendar-title-item">五</view>
+							<view class="calendar-title-item">六</view>
+						</view>
+						<block wx:for="{{monthArr}}" wx:for-item="monthItem" wx:for-index="index" >
+							<view class="calendar-time">
+								<block wx:for="{{monthItem}}" wx:for-item="dayItem" wx:for-index="index" >
+									<view class="calendar-time-item">
+										<view>{{dayItem.value}}</view>
+										<block wx:if="{{dayItem.flag}}">
+											<view class="flag"></view>
+										</block>
+									</view>
+								</block>
+							</view>
+						</block>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="page-tip">本月已簽到{{data.sign}}次，現時擁有{{data.hyintegral}}積分，再接再厲哦。</view>
+	</view>
+</view>
