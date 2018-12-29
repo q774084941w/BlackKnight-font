@@ -89,5 +89,10 @@
         "pages/service/update/index"
       ]
     }
-  ]
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "导航"
+    }
+  }
 }
