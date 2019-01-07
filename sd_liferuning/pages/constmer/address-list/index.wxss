@@ -5,7 +5,7 @@
 .address-btn-group{ display: -webkit-flex; display: flex; -webkit-justify-content: space-between; justify-content: space-between; padding-top: 30rpx; }
 .iconfont{ font-size: 40rpx; margin: 0 30rpx; color: #666; }
 .tag{ background: #666666; color: #FFF; font-size: 28rpx; padding: 10rpx 30rpx; border-radius: 10rpx; }
-.address-btn{ width: 100%; position: fixed; bottom: 0; margin: 0; font-size: 28rpx; overflow: hidden; }
+.address-btn{ width: 32%; position: fixed; right: 15rpx; margin: 0; font-size: 28rpx; overflow: hidden; }
 .address-btn wx-navigator{ height: 75rpx; line-height: 75rpx; text-align: center; background: #20AD20; color: #FFF; display: block; border-radius: 10rpx; width: 95%; margin: 0 auto 10rpx; }
 .list{width: 620rpx;padding: 0rpx 40rpx;background: #fff;margin: 25rpx 25rpx 0 25rpx;border: 1px solid #e0e0e0;border-radius: 10rpx}
 .list .text text{width: 100%;display: inline-block;font-size: 30rpx;line-height: 60rpx}

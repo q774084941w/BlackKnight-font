@@ -80,6 +80,7 @@ var r, s, d = "{$_api_root}",
             sellerindex: d + "seller/index",
             UpdateOrder: d + "seller/UpdateOrder",
             isOn : d + "seller/isOn",
+            payOrder:d+"order/payOrder"
       
         }, e(r, "insertPrice", d + "order/insertPrice"), e(r, "navigation_bar_color", d + "default/navigation-bar-color"), e(r, "shop_list", d + "default/shop-list"), e(r, "navlist", d + "user/NavList"), e(r, "shop_detail", d + "default/shop-detail"), e(r, "topic_type", d + "default/topic-type"), e(r, "buy_data", d + "default/buy-data"), e(r, "goods_recommend", d + "default/goods-recommend"), e(r, "OrderUploadsImg", d + "order/OrderUploadsImg"), r),
         cart: {
@@ -148,6 +149,7 @@ var r, s, d = "{$_api_root}",
             address_list: d + "user/address-list",
             mess: d + "user/mess",
             money: d + "user/money",
+            enough: d + "user/enough",
             address_detail: d + "user/address-detail",
             address_save: d + "user/address-save",
             UserMember: d + "user/UserMember",

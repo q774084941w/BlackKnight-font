@@ -37,6 +37,30 @@
                                        送貨區域： {{item.mudadds}}
                                     </view>
                                   </view>
+                                   <view class="order-info" wx:if="{{item.yinpin!=''&&item.yinpin!=0}}">
+                                        <view>訂單語音：</view>
+                                        <view>
+                                            <view class="soundRecordingPlay">
+                                                <view catchtap="soundRecordingPlay" class="soundRecordingPlay-left" data-value="{{item}}">
+                                                    <image class="soundRecording-icon" name="yinpin" src="{{icons}}/resource/common/image/customer/icon/play-icon1.png" wx:if="{{!soundRecording.isPlay}}"></image>
+                                                    <image class="soundRecording-icon" src="{{icons}}/resource/common/image/customer/icon/play-icon2.gif" wx:if="{{soundRecording.isPlay}}"></image>
+                                                    <view>{{item.audiotime}}＂</view>
+                                                </view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                    <view class="order-info" wx:if="{{item.xphoto!=''&&item.xphoto!=0}}">
+                                        <view>商品圖片：</view>
+                                        <view>
+                                            <image catchtap="previewPic" data-value="{{item}}" src="{{item.xphoto}}" style="width:200rpx;height:200rpx;overflow:hidden;"></image>
+                                        </view>
+                                    </view>
+                                     <view class="order-info" wx:if="{{item.select_name!=''&&item.select_name!=0}}">
+                                        <view>方式：</view>
+                                        <view>
+                                            {{item.select_name}}
+                                        </view>
+                                    </view>
                                   <view class="inline">
                                     <button catchtap="GiveOrder" class="btn" data-id="{{item.id}}" data-order_no="{{item.order_no}}">立即接單</button>
                                   </view>

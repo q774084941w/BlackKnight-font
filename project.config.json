@@ -4,16 +4,17 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.4",
 	"appid": "wx18d3e1aa8b3fb5dd",
-	"projectname": "%E9%BB%91%E9%AA%91%E5%A3%AB-git",
+	"projectname": "%E9%BB%91%E9%AA%91%E5%A3%AB%E6%94%B91.2",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},

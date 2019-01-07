@@ -1,69 +1,151 @@
-、
 <form bindsubmit="formSubmit" report-submit="true" reportSubmit="true">
-<view class="container">
- 
-    <view class="input-group">
-      <text class='fixed'>負責人姓名:</text>
-        <input style='float:left' bindinput="changeInputData" data-name="name" placeholder="輸入負責人姓名" type="text" value='{{name}}'></input>
-    </view>
-    <view class="input-group">
-     <text class='fixed'>負責人電話:</text>
-     <input style='float:left' bindinput="changeInputData" data-name="idcard" placeholder="輸入負責人電話" type="text" value='{{idcard}}'></input>
-    </view>
-      <view class="input-group">
-       <text class='fixed'>商家名稱:</text>
-       <input style='float:left' bindinput="changeInputData" data-name="carname" placeholder="輸入商家名稱" type="text" value='{{carname}}'></input>
-    </view>
-    <view class="input-group"  bindtap='chooseLocation'>
-    <text class='fixed'>商家地址:</text>
-    <input style='float:left' bindinput="changeInputData" data-name="carcodes" placeholder="輸入商家地址" type="text" value='{{carcodes}}'></input>
-    </view>
-
-   <view class="input-group" wx:if="{{thisType==2}}">
-    <picker bindchange="bindPickerChange2" value="{{sendNum}}" range="{{sendType}}">
-      <view class="picker">
-         配送方式：{{sendType[sendNum]}}
-      </view>
-    </picker>
-  </view>
-    
-    <view class="input-group" wx:if="{{thisType==2}}">請選擇配送區域</view>
-
-      <view class="input-group" wx:else>拍攝營業執照<text class="page-help">（請確保所拍攝的照片清晰）</text></view>
-
-      
-   <view class="input-group" wx:if="{{thisType==2}}">
-    <picker  bindchange="bindPickerChange0" value="{{brandindex}}" range="{{brands}}">
-      <view class="picker">
-        區域：{{brands[brandindex]}}
-      </view>
-    </picker>
-  </view>
- 
-  <view class="input-group" wx:if="{{thisType==2}}">
-    <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{object}}">
-      <view class="picker">
-        位置：{{object[index1]}}
-      </view>
-    </picker>
-  </view>
-      <view class="img-group" wx:else>
-        <view class="img-item">
-          <text class='fixed'>參攷照片</text>
-          <image src="https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads/img/1120.jpg"></image>
-        </view>
-        <view class="img-item">
-              <text class='fixed'>您的照片</text>
-                <image bindtap="chooseCard" src="{{cardImg}}"></image>
+<view class="pg-container" wx:if="thisType==2">
+    <view class="pg-wrap">
+        <!-- 地址信息 -->
+        <view class="pg-address-box">
+            <view class="pg-address-item">
+                <view class="pg-add-left">
+                    <view class="label-icon">取</view>
+                </view>
+                <view class="pg-add-center">
+                    <view class="address-loc">
+                        <view class="address-loc-left" ><input type="text" disabled="{{seller_type}}"  value='{{carname}}' /></view>
+                        <view class="address-loc-right" bindtap='changesellertype'  hover-class="active">更改商家信息</view>
+                    </view>
+                    <view class="address-detail">
+                        <input type="text" disabled="{{seller_type}}"  placeholder="商家的詳細取貨地址(這些信息文本不可點擊狀態)" placeholder-class="input-add-detail" value='{{carcodes}}' />
+                    </view>
+                    <view class="address-tel">
+                        <input type="text" disabled="{{seller_type}}"  class="address-tel-left" placeholder="取貨聯緊電話" placeholder-class="input-add-tel" value='{{idcard}}' />
+                        <view class="address-tel-right">
+                            <view>本月配送單量統計: {{countorder}}/單
+                            </view>
+                            <view>本月需結費用統計: {{countprice}}/MOP</view>
+                        </view>
+                    </view>
+                </view>
             </view>
-      </view>
-       <view class="input-group" wx:if="{{thisType==2}}">
-          <text class='fixed'> 預計距離：{{lessprice}}  ；預計價格： {{largeprice}}</text>
-      </view>
-         <view class="input-group" wx:if="{{thisType==2}}">
-          <text class='fixed'>（一切以導航最短的公里數為準）</text>
-      </view>
-      <button bindtap="sendRequest" class="confirm" formType="submit" wx:if="{{thisType==2}}">確認下單</button>
-      <button bindtap="sendRequest1" class="confirm" wx:else>確認</button>
+
+            <view class="pg-address-item">
+                <view class="pg-add-left">
+                    <view class="label-icon color2">收</view>
+                </view>
+                <view class="pg-add-center">
+                    <view class="address-loc color2">請選擇配送區域:</view>
+                </view>
+            </view>
+            <view class="address-area-list">
+                <view>
+                    <picker bindchange="bindPickerChange0" value="{{brandindex}}" range="{{brands}}" data-id='0'>
+                        <view class="picker">區域：{{brands[brandindex]}}</view>
+                    </picker>
+                </view>
+                <view>
+                    <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{object}}" data-id='1'>
+                        <view class="picker"> 位置：{{object[index1]}}</view>
+                    </picker>
+                </view>
+            </view>
+
+        </view>
+
+        <!-- 预计信息 -->
+        <view class="pg-btn-wrap">
+            <view class="pg-img-btn bg1">
+                <image src="http://83img.chaojiyuanma.com/img/icon-distance.png"></image>
+                <text>預計公里數: {{lessprice}}公里</text>
+            </view>
+            <view class="pg-img-btn bg2">
+                <image src="http://83img.chaojiyuanma.com/img/icon-time2.png"></image>
+                <text>預計時長: {{pretime}}分鐘</text>
+            </view>
+        </view>
+
+        <!-- 配送方式 -->
+        <view class="pg-btn-group">
+            <!-- <view class="pg-s-btn {{dlyTypeId == 0? 'active': ''}}" bindtap="handleDlyType" data-id='0'>電單車</view>
+            <view class="pg-s-btn {{dlyTypeId == 1? 'active': ''}}" bindtap="handleDlyType" data-id='1'>私家車</view>
+            <view class="pg-s-btn disabled">小貨車(暫未開放)</view> -->
+              <block  wx:for="{{weightTop}}" wx:key="parameter">
+             <view class="pg-s-btn {{dlyTypeId == item.id? 'active': ''}}" bindtap="handleDlyType" data-id='{{item.id}}' data-num='{{item.weight}}' data-name="{{item.name}}">{{item.name}}</view>
+          </block>
+        </view>
+
+        <!-- 语音&图片 -->
+        <view class="pg-remark-info">
+            <view class="pg-info-voice" wx:if="{{voiceList != ''}}">
+                <view class="voice-box {{isPlay? 'active': ''}}" bindtap="handleAudioPlay">
+                    <view class="voice-play-img">
+                        <image src="http://83img.chaojiyuanma.com/img/icon-play.png"></image>
+                        <image src="http://83img.chaojiyuanma.com/img/icon-voice.png"></image>
+                    </view>
+                    <text>{{voiceDuration}}s</text>
+                </view>
+                <view class="voice-icon">
+                    <image src="http://83img.chaojiyuanma.com/img/icon-del.png" bindtap="handleDelRecorder"></image>
+                </view>
+            </view>
+
+            <view class="pg-info-img">
+                <block wx:for="{{chooseImageList}}" wx:key="this">
+                    <view>
+                        <view class="img-wrap">
+                            <image src='{{item}}'></image>
+                        </view>
+                    </view>
+                </block>
+            </view>
+        </view>
+
+        <view class="pg-order-info">
+            <checkbox-group class="pg-agreement" bindchange="checkboxChange">
+                <label class="checkbox">
+                    <checkbox value="0" checked />
+                    <view class="pg-cb-label">
+                    我已閱讀並同意
+                       
+                    </view>
+                </label>
+                 <view class="pg-cb-label">
+                    <navigator url='/sd_liferuning/pages/constmer/protocol-detail/index'>
+                      <text>《黑騎士服務協議》</text>
+                    </navigator>
+                        
+                    </view>
+            </checkbox-group>
+
+            <view class="pg-order-price">
+                <view class="pg-odp-left">
+                    <view>預計
+                        <text>{{largeprice}}</text> MOP</view>
+                    <view>
+                    <!-- 費用明細 >
+                        <text>紅包已自動抵扣XX元</text> -->
+                    </view>
+                </view>
+                <view class="pg-odp-right">
+                <button   formType="submit"  >
+                    <view class="pg-odp-btn" hover-class="active" >立即下單</view>
+                </button>
+                </view>
+            </view>
+
+        </view>
+
+    </view>
+
+    <!-- 选择语音&图片 -->
+    <view class="pg-pick-box">
+        <view class="pg-pick-voice">
+            <view class="pg-pick-voice-wrap {{isRecord? 'active': ''}}" bindlongpress="handleStartRecord" bindtouchend="handleStopRecord" bindtouchmove="handleTouchMove">{{recordText}}</view>
+        </view>
+
+        <view class="pg-pick-img">
+            <image src="http://83img.chaojiyuanma.com/img/icon-camera.png" bindtap="chooseImage"></image>
+        </view>
+    </view>
+
+    <i-toast id="toast" />
+
 </view>
 </form>

@@ -84,6 +84,16 @@
                 <view class="info_mes">點擊導航</view>
             </view>
         </view>
+         <view bindtap="toPhone" class="inline" data-phone="{{data.my_phone}}" wx:if="{{data.my_phone!=''&&data.my_phone!=0}}">
+            <view class="label">
+                <text>聯繫電話：</text>
+            </view>
+            <view class="info">
+                <image class="phone-icon" src="{{icons}}/resource/common/image/service/user/icon8.png" wx:if="{{icons}}"></image>
+                <text wx:if="{{data.my_username!=''&&data.my_username!=0}}">{{data.my_phone}} ({{data.my_username}})</text>
+                <text wx:else>{{data.my_phone}}</text>
+            </view>
+        </view>
         <view bindtap="maps" class="inline" data-id="0" wx:if="{{data.type=='代驾'}}">
             <view class="label">
                 <text>代驾终点：</text>
@@ -102,6 +112,7 @@
                 <view class="info_mes">點擊導航</view>
             </view>
         </view>
+       
         <view bindtap="maps" class="inline" data-id="1" wx:if="{{data.type=='帮我买'}}">
             <view class="label">
                 <text>收貨地址：</text>
@@ -120,7 +131,7 @@
                 <text>{{data.phone}}（{{data.username}}）</text>
             </view>
         </view>
-        <view class="inline">
+        <view class="inline" wx:if="{{data.goodsname!=''&&data.goodsname!=0}}">
             <view class="label">
                 <text>貨品清單：</text>
             </view>
@@ -152,18 +163,34 @@
                 <image catchtap="previewPic" class="image-item" data-value="{{imageItem}}" src="{{imageItem}}" wx:for="{{data.imgurl}}" wx:for-item="imageItem"></image>
             </view>
         </view>
+          <view class="inline" wx:if="{{data.pre_price!=''&&data.pre_price!=0}}">
+            <view class="label">
+                <text>預付款：</text>
+            </view>
+            <view class="info">
+                <text>{{data.pre_price}}（已支付）</text>
+            </view>
+        </view>
          <view class="inline" wx:if="{{data.status==2}}">
             <view class="label">商品價值：</view>
             <view class="image-group" style='line-height:30px;'>
              <view wx:if="{{data.worth}}" >
-                <view style='float:left'>{{data.worth}}</view>
-                <view style='float:right;color:green' wx:if="{{data.worth_type}}">已支付</view>
-                <view style='float:right;color:red' wx:else >未支付</view>
+                <view style='float:left'>{{data.worth}}.00</view>
+                <view style='float:right;color:green' wx:if="{{data.worth_type}}">（已結清）</view>
+                <view style='float:right;color:red' wx:else >（未結清）</view>
               </view>
              <view wx:else  class='confirm-order confirm-order-show' style='position: static;'>
               <input bindinput="inputConfirmWorth" class="input-text" placeholder="請輸入商品價值" type="text"></input>
               <button bindtap="OkWorth" class="btn" data-id="{{data.id}}">確認</button>
              </view>
+            </view>
+        </view>
+         <view class="inline" wx:if="{{data.pretime!=''&&data.pretime!=0}}">
+            <view class="label">
+                <text>預計時間：</text>
+            </view>
+            <view class="info">
+                <text>{{data.pretime}}分鐘</text>
             </view>
         </view>
     </view>
@@ -241,6 +268,15 @@
     <view class="confirm-order {{confirmCodeStatus?'confirm-order-show':''}}">
         <input bindinput="inputConfirmCode" class="input-text" placeholder="請輸入訂單完成驗證碼" type="text"></input>
         <button bindtap="OkOrder" class="btn" data-id="{{data.id}}">確認</button>
-        <button bindtap="changeConfirmCodeStatus" class="btn default">取消</button>
+        <button bindtap="changeConfirmCodeStatus1" class="btn default">取消</button>
     </view>
 </view>
+<modal id="modal" hidden="{{hiddenmodalput}}" title="餘額收款方式" confirm-text="錢包" cancel-text="現金" bindcancel="cancel" bindconfirm="confirm" > 
+      <!-- <view style="background-image:url('http://83img.chaojiyuanma.com/img/star.png')"> -->
+      <input type='text' value='預付款：{{data.pre_price}}' auto-focus/>
+      <input type='text' value='商品金額：{{data.worth}}.00' auto-focus/>
+      <input type='text'  value='待收款：{{getpay}}' auto-focus/>
+      <!-- </view> -->
+     
+       
+  </modal>

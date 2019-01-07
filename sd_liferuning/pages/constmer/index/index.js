@@ -47,6 +47,7 @@ Page({
         iphoneModule: !1,
         currentScrollIcon: 1,
         thisRed : 1,
+        
     },
   getPhoneNumber: function (e) {
     var b = this;
@@ -78,12 +79,9 @@ Page({
               bid: wx.getStorageSync("bid"),
             },
             success: function (e) {
-              
               var phone = e.data.purePhoneNumber;
-              
               console.log(e.data.purePhoneNumber)
-              console.log(e.data.purePhoneNumber.length)
-              if (e.data.purePhoneNumber && e.data.purePhoneNumber.length>4){
+              if (e.data.purePhoneNumber){
                 wx.showModal({
                   title: '提示',
                   showCancel: false,
@@ -99,7 +97,11 @@ Page({
                   title: '提示',
                   showCancel: false,
                   content: '未授权',
-                  success: function (res) { }
+                  // success: function (res) {
+                  //   b.setData({
+                  //     phone: 18215582900
+                  //   })
+                  //  }
                 })
               }
 
@@ -482,10 +484,19 @@ Page({
         })
     },
   formSubmit: function (e) {
+
     var o = this,
       url = e.currentTarget.dataset.url,
+      id = e.currentTarget.dataset.id,
       formId = e.detail.formId;
-    console.log(formId)
+      if (id==1) {
+        return wx.showToast({
+          title: "還在開發中，敬請期待",
+          icon: "none",
+          mask: !0
+        }), !1
+      }
+    console.log(id)
     console.log(url)
     i.request({
       url: n.user.getOneFormId,

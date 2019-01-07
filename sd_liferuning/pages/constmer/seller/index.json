@@ -1,1 +1,6 @@
-{}
+{
+  "navigationBarTitleText": "商家發貨",
+  "usingComponents": {
+    "i-toast": "../../components/ui/toast/index"
+  }
+}

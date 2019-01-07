@@ -107,11 +107,11 @@
 			<view class="data-item" wx:if="{{data.worth}}">
 				<view class="data-item-label">商品價值：</view>
 				<view class="data-item-info">{{data.worth}}</view>
-        <view class="data-item-btn-group" wx:if="{{data.worth_type==0}}">
+        <!-- <view class="data-item-btn-group" wx:if="{{data.worth_type==0}}">
         <form bindsubmit="payWorth" report-submit="true" reportSubmit="true" data-order_no="{{data.order_no}}" data-id="{{data.id}}" data-numbers="{{data.worth}}">
 		    	<button form-type='submit' >付款</button>
         </form>
-				</view>
+				</view> -->
 			</view>
 
 			<view class="data-item">

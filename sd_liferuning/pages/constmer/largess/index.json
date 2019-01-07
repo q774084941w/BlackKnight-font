@@ -1,7 +1,6 @@
 {
-    "usingComponents": {
-        "actionsheet": "/sd_liferuning/dist/actionsheet/index",
-        "btn": "/sd_liferuning/dist/btn/index",
-        "stepper": "/sd_liferuning/dist/stepper/index"
-    }
+  "navigationBarTitleText": "取送件",
+  "usingComponents": {
+    "i-toast": "../../components/ui/toast/index"
+  }
 }

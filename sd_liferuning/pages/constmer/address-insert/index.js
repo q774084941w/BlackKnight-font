@@ -9,14 +9,17 @@ Page({
         person: "",
         phone: "",
         address: "",
-        multiIndex: [0, 0, 0]
+        multiIndex: [0, 0, 0],
+        type:0
     },
     onLoad: function(e) {
+      console.log(e); 
         var s = this,
-            i = e.id;
-           
+            i = e.id,
+            type = e.type;
         s.setData({
             uaid: e.id,
+            type:e.type
             
         }), i && t.request({
             url: a.
@@ -25,7 +28,8 @@ Page({
             data: {
                 uid: wx.getStorageSync("uid"),
                 uaid: i,
-                bid: wx.getStorageSync("bid")
+                bid: wx.getStorageSync("bid"),
+                type: type
             },
             success: function(a) {
                 console.log(a, "addslist");
@@ -149,6 +153,7 @@ Page({
         })
     },
     sendRequest: function() {
+    
         var e = this.data.region,
             s = this.data.address,
             i = this.data.phone,
@@ -166,7 +171,8 @@ Page({
                 city: e[1],
                 area: e[2],
                 default: 0,
-                bid: wx.getStorageSync("bid")
+                bid: wx.getStorageSync("bid"),
+                type:this.data.type
             },
             success: function(a) {
                 1 == a.data.success && wx.showToast({
@@ -198,7 +204,8 @@ Page({
                 phone: d,
                 province: i[0],
                 city: i[1],
-                area: i[2]
+                area: i[2],
+                type: this.data.type
             },
             success: function(a) {
                 1 == a.data.success && wx.showToast({

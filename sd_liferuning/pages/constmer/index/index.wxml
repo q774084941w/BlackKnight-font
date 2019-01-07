@@ -134,8 +134,8 @@
             </form>
 					</block>
           <!-- 商家发货 -->
-           <form bindsubmit="formSubmit" report-submit="true" reportSubmit="true" data-url='../seller/index'>
-          <button class="ingress-item" style="background:url('https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads//diy/20181223/5201de5b0357e6e2ec1a12a959c8a020.jpeg') no-repeat;background-size:100% 100%;') no-repeat;background-size:100% 100%;" url="../seller/index"  form-type='submit'>
+           <form bindsubmit="formSubmit" report-submit="true" reportSubmit="true" data-url='../seller/index' data-id='1'>
+          <button class="ingress-item" style="background:url('https://xam.chaojiyuanma.com/addons/sd_liferuning/tp/public/uploads//diy/20181223/5201de5b0357e6e2ec1a12a959c8a020.jpeg') no-repeat;background-size:100% 100%;') no-repeat;background-size:100% 100%;" url="../seller/index"  form-type='submit' >
 							<view class="ingress-title"></view>
 							<view class="ingress-tip"></view>
 						</button>
@@ -150,8 +150,10 @@
 				</scroll-view>
 			</view>
 		</view>
-
+  
 	</block>
 	<include src="/sd_liferuning/template/nav/nav.wxml" />
-</view>
+</view>   
+  
+
 

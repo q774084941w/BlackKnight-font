@@ -3,24 +3,38 @@ var t = require("../../../../api.js"),
     e = getApp();
 Page({
     data: {
-        list: []
+        list: [],
+        type:0,
+      type_name:'收貨'
     },
     navToEdit: function(t) {
+    
         wx.navigateTo({
-            url: "/sd_liferuning/pages/constmer/address-insert/index?id=" + t.currentTarget.dataset.id
+            url: "/sd_liferuning/pages/constmer/address-insert/index?id=" + t.currentTarget.dataset.id+"&type=" + this.data.type
         })
     },
-    onShow: function() {
+    onLoad: function (c) { 
+      console.log(c);
+      if (c.addressClass==1) {
+        this.setData({ type_name: '取貨' })
+        }
+      this.setData({ type: c.addressClass })
+      },
+    onShow: function(c) {
         e.pageOnLoad(this);
+        
         var a = this,
             s = wx.getStorageSync("uid");
+        var type = a.data.type;
+        
         e.request({
             url: t.
             default.addslist,
             method: "get",
             data: {
                 uid: s,
-                bid: wx.getStorageSync("bid")
+                bid: wx.getStorageSync("bid"),
+                type:type
             },
             success: function(t) {
                 for (var e = t.data, s = 0; s < e.length; s++) 1 == e[s].
@@ -38,13 +52,16 @@ Page({
         var s = this,
             d = a.currentTarget.dataset.index,
             i = s.data.list;
+            console.log(d)
+      var type = s.data.type;
         e.request({
             url: t.
             default.defaultsite,
             method: "get",
             data: {
                 uid: wx.getStorageSync("uid"),
-                uaid: d
+                uaid: d,
+                type:type
             },
             success: function(t) {
                 if (1 == t.data.success) {
@@ -66,6 +83,7 @@ Page({
             d = a.currentTarget.dataset.id,
             i = a.currentTarget.dataset.index,
             u = s.data.list;
+      var type = s.data.type;
         wx.showModal({
             title: "提示",
             content: "是否删除該地址",
@@ -73,9 +91,10 @@ Page({
                 a.confirm && e.request({
                     url: t.
                     default.delAddress,
-                    method: "get",
+                    method: "get",                  
                     data: {
-                        uaid: d
+                        uaid: d,
+                      
                     },
                     success: function(t) {
                         1 == t.data.success && (u.splice(i, 1), s.setData({

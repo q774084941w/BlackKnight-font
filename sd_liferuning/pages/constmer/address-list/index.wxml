@@ -1,6 +1,6 @@
 <!--微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:51 -->
 <view class="container">
-	<view class="con" style='margin-bottom:36px'>
+	<view class="con" style='margin:36px 0;'>
 		<block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" >
 			<view class="list" data-id="{{item.uaid}}">
 				<view class="text">
@@ -25,6 +25,6 @@
 		</block>
 	</view>
 	<view class="address-btn">
-		<navigator url="/sd_liferuning/pages/constmer/address-insert/index">添加收貨地址</navigator>
+		<navigator url="/sd_liferuning/pages/constmer/address-insert/index?type={{type}}">新增{{type_name}}地址</navigator>
 	</view>
 </view>

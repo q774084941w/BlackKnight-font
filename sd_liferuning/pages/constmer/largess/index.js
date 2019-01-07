@@ -1,1024 +1,677 @@
-/*微猫源码 提供   QQ:2058430070   time:2018-09-16 10:08:49*/
-function e(e, t, a) {
-    return t in e ? Object.defineProperty(e, t, {
-        value: a,
-        enumerable: !0,
-        configurable: !0,
-        writable: !0
-    }) : e[t] = a, e
-}
-function t(e, t) {
-    if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function")
-}
-var a = function() {
-    function e(e, t) {
-        for (var a = 0; a < t.length; a++) {
-            var i = t[a];
-            i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(e, i.key, i)
-        }
-    }
-    return function(t, a, i) {
-        return a && e(t.prototype, a), i && e(t, i), t
-    }
-}(),
-    i = new(function() {
-        function e() {
-            t(this, e), this._date = new Date, this._year = this._date.getFullYear(), this._month = this._date.getMonth() + 1, this._day = this._date.getDate(), this._hours = this._date.getHours(), this._minutes = this._date.getMinutes(), this._dayTag = this._date.getDay()
-        }
-        return a(e, [{
-            key: "init",
-            value: function() {
-                this._todayTimeArr = [], this._defaultTimeArr = [], this._timeArr = [], this._weekArr = [], this._hourArr = [], this.createTodayTimeArr(this._todayTimeArr, this._hours, this._minutes), this.createDefaultTimeArr(this._defaultTimeArr);
-                var e = void 0,
-                    t = this._dayTag;
-                for (e = 0; e < 14; e++) e > 0 && ++t, t > 13 && (t = 0), this._weekArr.push({
-                    id: e,
-                    name: this.switchWeek(t)
-                })
-            }
-        }, {
-            key: "createTodayTimeArr",
-            value: function(e, t, a) {
-                if (e) {
-                    var i = void 0;
-                    for (i = t; i < 24; i++) i == t ? a < 30 && e.push({
-                        name: i + ":30"
-                    }) : (e.push({
-                        name: i + ":00"
-                    }), e.push({
-                        name: i + ":30"
-                    }))
-                }
-            }
-        }, {
-            key: "createDefaultTimeArr",
-            value: function(e) {
-                if (e) {
-                    var t = void 0;
-                    for (t = 0; t < 24; t++) e.push({
-                        name: t + ":00"
-                    }), e.push({
-                        name: t + ":30"
-                    })
-                }
-            }
-        }, {
-            key: "switchWeek",
-            value: function(e) {
-                switch (e > 6 ? e - 7 : e) {
-                    case 0:
-                        return "星期天";
-                    case 1:
-                        return "星期一";
-                    case 2:
-                        return "星期二";
-                    case 3:
-                        return "星期三";
-                    case 4:
-                        return "星期四";
-                    case 5:
-                        return "星期五";
-                    case 6:
-                        return "星期六"
-                }
-                return -1
-            }
-        }]), e
-    }());
-i.init();
-var r = wx.getRecorderManager(),
-    o = wx.createInnerAudioContext(),
-    s = require("../../../../api.js"),
-    n = require("../../../../qqmap-wx.js"),
-    d = getApp(),
-    c = require("../../../../utils/ArrayUtils.js");
+// pages/purchase/purchase.js
+//index.js
+//获取应用实例
+//const app = getApp();
+const { $Toast } = require('../../components/ui/base/index');
+var s = require("../../../../api.js"),
+  o = require("../../../../qqmap-wx.js"),
+  d = getApp();
+var until = require("../../../../utils/utils.js");
+
 Page({
-    data: {
-        timeArr: i._timeArr,
-        hourArr: i._hourArr,
-        cid: "",
-      distance: 0,
-        rewardArr: [{
-            price: 0,
-            text: "0元"
-        }, {
-            price: 1,
-            text: "1元"
-        }, {
-            price: 2,
-            text: "2元"
-        }, {
-            price: 3,
-            text: "3元"
-        }, {
-            price: 4,
-            text: "4元"
-        }, {
-            price: 5,
-            text: "6元"
-        }, {
-            price: 10,
-            text: "10元"
-        }, {
-            price: 15,
-            text: "15元"
-        }, {
-            price: 20,
-            text: "20元"
-        }],
-        couponArr: [{
-            price: 0,
-            text: ""
-        }],
-        stepper: {
-            stepper: 0
-        },
-        time: "",
-        vipprice: "",
-        select_name:'電單車',
-        price: 0,
-        reward: 0,
-        coupon: 0,
-        lastPrice: 0,
-        weight_price: "",
-        integral: "",
-        yinpin: "",
-        clickpay: !0,
-        Imagecollection: [],
-        detail_info: "",
-        full_money: "",
-        addressId: "",
-        wareText: "",
-        didianprice: 0,
-        timeprice: 0,
-        inputAddressText: "",
-        isReadProtocol: !0,
-        weighprice: 0,
-        isBargaining: !1,
-        isOpenPreference: !1,
-        isOpenIntegralDeduction: !1,
-        show: !1,
-        cancelWithMask: !0,
-        pictrueTempPath: "",
-        weight: 0,
-        weightTop: [
-          {
-             id: 5, 
-             name: '電單車',
-            checked:'#20AF1F',
-             weight: 0
-          }, {
-             id: 10, 
-            name: '私家車',
-             checked: '',
-             weight: 9
-          }, { 
-             id: 20, 
-            name: '小貨車(暫未開放)',
-             checked: '' ,
-             weight: 44
-          }],
-        soundRecording: {
-            tempPath: "",
-            duration: "",
-            isPlay: !1
-        },
-        actions: [{
-            name: "微信支付",
-            subname: "微信支付正在升級維護中，敬請期待",
-            className: "action-class",
-            loading: !1
-        }, {
-            name: "餘額支付",
-            subname: "平臺帳戶餘額支付,可通過錢包充值",
-            className: "action-class",
-            loading: !1
-        }],
-        cancelText: "取消",
-        multiImage: []
+  data: {
+    deliveryAddress: '', //取货地址
+    deliveryDateilsAddress: '',//取貨詳細地址
+    receivingAddress: '',   //收货地址
+    receivingTel: "", //收貨電話
+    receivingName: "",//收貨人名字
+    defaultDelyTime: [0, 16],
+    deliveryTime: [],   //配送的时间
+    dlyTypeId: 0, //配送方式
+    chooseImageList: [], //图片列表
+    uploadphoto: [], //图片列表
+    audioCtx: {},
+    isPlay: false,
+    voiceList: '', //录音内容
+    voiceDuration: '',  //录音时长
+    recordText: '按住 說話',
+    isRecord: false,
+    toastDuration: 6000,
+    isRecordSend: false,
+    startPoint: {},
+    recorderManager: {},
+    lastPrice: 0.00,//訂單價格
+    price: 0.00,//距離價格
+    timeprice: 0,
+    reward: 0,
+    my_phone: '',
+    ins: 0,
+    stepper: {
+      stepper: 0
     },
-    couponurl: function() {
-        var e = this;
-        d.request({
-            url: s.Coupon.coupon,
-            data: {
-                uid: wx.getStorageSync("uid")
-            },
-            success: function(t) {
-                console.log(t), e.setData({
-                    couponArr: t.data
-                })
-            }
-        })
-    },
-    xphoto: function() {
-        var e = this;
-        e.data.xphoto;
-        wx.chooseImage({
-            count: 1,
-            sizeType: ["original", "compressed"],
-            sourceType: ["album", "camera"],
-            success: function(t) {
-                var a = t.tempFilePaths;
-                wx.saveFile({
-                    tempFilePath: a[0],
-                    success: function(t) {
-                        var a = t.savedFilePath;
-                        wx.uploadFile({
-                            url: s.
-                            default.uploadfile,
-                            filePath: a,
-                            header: {
-                                "content-type": "application/x-www-form-urlencoded"
-                            },
-                            name: "image",
-                            success: function(t) {
-                                var a = JSON.parse(t.data);
-                                if (console.log("圖片:", a), 1 == a.code) {
-                                    e.setData({
-                                        pictrueTempPath: a.src
-                                    })
-                                } else wx.showModal({
-                                    title: "提示",
-                                    content: "圖片上傳失敗",
-                                    showCancel: !1
-                                })
-                            },
-                            fail: function(e) {
-                                console.log("res fail", e)
-                            }
-                        })
-                    }
-                })
-            }
-        })
-    },
-    xphotos: function(e) {
-        console.log("eee", e);
-        var t = e.currentTarget.id;
-        wx.navigateTo({
-            url: "/sd_liferuning/pages/constmer/choose-pic/index?src=" + t
-        })
-    },
-    onLoad: function(e) {
-        var t = this;
-        d.request({
-            method: "POST",
-            url: s.
-            default.orderGetPageConfig,
-            data: {
-                bid: wx.getStorageSync("bid")
-            },
-            success: function(e) {
-                var a = e.status,
-                    i = JSON.parse(e.diy);
-                a && (wx.setNavigationBarTitle({
-                    title: i.titleConfig.pageTitle
-                }), wx.setNavigationBarColor({
-                    frontColor: i.titleConfig.fontColor.toLocaleLowerCase(),
-                    backgroundColor: i.titleConfig.navigationBgColor,
-                    animation: {
-                        duration: 400,
-                        timingFunc: "easeIn"
-                    }
-                }), t.setData({
-                    pageConfig: i,
-                    weight_price: 0,
-                    weight:5
-                  }), t.countPrice())
-            },
-        });
-        var a = this;
-        if (a.setData({
-            icons: wx.getStorageSync("site") + "/addons/sd_liferuning/tp/public/uploads/background"
-        }), "非会员用户" == wx.getStorageSync("huiyuan") && a.setData({
-            huiyuan: 1
-        }), e.cid && a.setData({
-            cid: e.cid
-        }), e.type_id && (a.setData({
-            typeid: e.type_id
-        }), a.setData({
-            type_status: e.type
-        })), a.data.typeid) {
-            var r = a.data.typeid,
-                o = a.data.type_status;
-            a.setData({
-                typeid: r
-            }), d.request({
-                url: s.
-                default.TuiSongList,
-                data: {
-                    id: r,
-                    type_status: o
-                },
-                success: function(e) {
-                    console.log("+++++++", e), a.setData({
-                        wareText: e.goods_name,
-                        detail_info: e.adress,
-                        username: e.name,
-                        phone: e.mobile,
-                        inputAddressText: e.address,
-                        old_order_no: e.order_no
-                    })
-                }
-            })
-        }
-        e.addressId ? a.setData({
-            time: e.time,
-            price: e.price,
-            reward: e.reward,
-            coupon: e.coupon,
-            lastPrice: e.lastPrice,
-            addressId: e.addressId,
-            inputAddressText: e.inputAddressText,
-            wareText: e.wareText,
-            cid: e.cid
-        }) : a.setData({
-            wareText: e.wareText ? e.wareText : ""
-        });
-        var n = [];
-        if (d.request({
-            url: s.
-            default.timelist,
-            data: {
-                time: 0
-            },
-            success: function(e) {
-                n[0] = i._weekArr, n[1] = e.data, t.setData({
-                    timeArr: n
-                })
-            }
-        }), e.tags) {
-            var c = e.tags.split(",");
-            t.setData({
-                tags: c,
-               
-            })
-        }
-    },
-    onShow: function() {
-        var e = this;
-        e.couponurl(), e.data.typeid || (d.request({
-            url: s.
-            default.mrAddress,
-            data: {
-                bid: wx.getStorageSync("bid"),
-                uid: wx.getStorageSync("uid")
-            },
-            success: function(t) {
-                console.log("地址2：", t), "" == t.data.adress ? wx.showToast({
-                    title: "请添加收货地址",
-                    icon: "succes",
-                    duration: 1500,
-                    success: function() {
-                        setTimeout(function() {
-                            wx.navigateTo({
-                                url: "/sd_liferuning/pages/constmer/address-list/index"
-                            })
-                        }, 2e3)
-                    }
-                }) : e.setData({
-                    detail_info: t.data.adress ? t.data.adress : ""
-                })
-            }
-        }), d.request({
-            url: s.
-            default.mrAddress,
-            data: {
-                bid: wx.getStorageSync("bid"),
-                uid: wx.getStorageSync("uid")
-            },
-            success: function(t) {
-                console.log("地址", t), "" == t.data ? wx.navigateTo({
-                    url: "/sd_liferuning/pages/constmer/address-list/index"
-                }) : (e.setData({
-                    detail_info: t.data.adress,
-                    username: t.data.name,
-                    phone: t.data.phone
-                }), e.AddressPrice())
-            }
+    weight_price: 0,//配送方式價格
+    integral: "",
+    didianprice: 0,
+    distance: '0.00',//公里數
+    pre_price: '',//預計金額
+    makeTime: '20',//冷卻時間
+    formId: '',
+    formData: '',
+  },
+  onLoad: function () {
+    this.setDeliveryTime(); //设置配送的时间
+    this.initRecordermanager();
+    this.initAudio();
+    this.countPrice();
+    //服務協議
+    var t = this;
+    d.request({
+      method: "POST",
+      url: s.
+        default.orderGetPageConfig,
+      data: {
+        bid: wx.getStorageSync("bid")
+      },
+      success: function (e) {
+        var a = e.status,
+          i = JSON.parse(e.diy);
+        a && (wx.setNavigationBarTitle({
+          title: i.titleConfig.pageTitle
+        }), wx.setNavigationBarColor({
+          frontColor: i.titleConfig.fontColor.toLocaleLowerCase(),
+          backgroundColor: i.titleConfig.navigationBgColor,
+          animation: {
+            duration: 400,
+            timingFunc: "easeIn"
+          }
+        }), t.setData({
+          pageConfig: i
         }))
-    },
-    GetAddress: function() {
-        var e = this;
+      }
+    });
+  },
+  onShow: function () {
+
+    d.pageOnLoad(this);
+    //取货常用地址
+    var a = this,
+      t = wx.getStorageSync("uid");
+    d.request({
+      url: s.
+        default.mrAddress,
+      method: "get",
+      data: {
+        uid: t,
+        bid: wx.getStorageSync("bid"),
+        type:1
+      },
+      success: function (t) {
+        console.log(t)
+        a.setData({
+          deliveryAddress: t.data.adress,
+          deliveryTel: t.data.phone,
+          deliveryName: t.data.name,
+        })
+        a.AddressPrice();
+      }
+    });
+    //收货地址
+    d.request({
+      url: s.
+        default.mrAddress,
+      method: "get",
+      data: {
+        uid: t,
+        bid: wx.getStorageSync("bid"),
+        type:0
+      },
+      success: function (t) {
+        console.log(t)
+        a.setData({
+          receivingAddress: t.data.adress,
+          receivingTel: t.data.phone,
+          receivingName: t.data.name,
+        })
+        a.AddressPrice();
+      }
+    });
+   
+    //時間調整
+    var date = new Date();
+    var h = date.getHours();
+    var i = date.getMinutes();
+    switch (h) {
+      case 21: h = 17; break;
+      case 1: h = 4; break;
+      case 2: h = 6; break;
+      case 3: h = 8; break;
+      case 4: h = 10; break;
+      case 5: h = 12; break;
+      case 6: h = 14; break;
+      case 7: h = 16; break;
+      case 8: h = 18; break;
+      case 9: h = 20; break;
+      case 10: h = 22; break;
+      case 11: h = 23; break;
+      case 12: h = 2; break;
+      case 13: h = 4; break;
+      case 14: h = 5; break;
+      case 15: h = 7; break;
+      case 16: h = 10; break;
+      case 17: h = 12; break;
+      case 18: h = 14; break;
+      case 19: h = 16; break;
+      case 20: h = 18; break;
+      case 22: h = 22; break;
+      case 23: h = 23; break;
+      case 0: h = 1; break;
+
+
+
+    }
+    a.setData({
+      defaultDelyTime: [0, h]
+    })
+    console.log(date.getHours());
+   
+  },
+  listenerTimeInput: function (e) {
+    this.data.time = e.detail.value;
+    console.log('哒哒this.data.time', this.data.time)
+  },
+  //设置配送的时间
+  setDeliveryTime() {
+    var startDate = new Date();
+    var endDate = new Date();
+    endDate.setDate(startDate.getDate() + 30);
+    var dataArr = [];
+    var weeks = ['日', '壹', '二', '三', '四', '五', '六'];
+    while ((endDate.getTime() - startDate.getTime()) >= 0) {
+      var month = (startDate.getMonth() + 1).toString().length == 1 ? "0" + (startDate.getMonth() + 1).toString() : (startDate.getMonth() + 1);
+      var day = startDate.getDate().toString().length == 1 ? "0" + startDate.getDate() : startDate.getDate();
+      var week = weeks[startDate.getDay()];
+      dataArr.push(month + "月" + day + '日（周' + week + '）');
+      startDate.setDate(startDate.getDate() + 1);
+
+    }
+    dataArr[0] = '今天' + dataArr[0].slice(6, 10);
+    dataArr[1] = '明天' + dataArr[1].slice(6, 10);
+    dataArr[2] = '後天' + dataArr[2].slice(6, 10);
+    this.setData({
+      deliveryTime: [
+        dataArr,
+        ["00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30"]
+      ]
+    });
+  },
+  bindMultiPickerChange(e) {
+    console.log(e);
+    this.setData({
+      defaultDelyTime: e.detail.value
+    })
+  },
+  handleDlyType(e) {
+    var type = e.currentTarget.dataset.id;
+    this.setData({
+      dlyTypeId: type,
+    });
+    if (type == 1) {
+      this.setData({
+        weight_price: 9
+      })
+    } else {
+      this.setData({
+        weight_price: 0
+      })
+    } this.countPrice()
+  },
+  checkboxChange(e) {
+    //console.log(e.detail);
+  },
+  chooseLocation(e) {
+    var t = this;
+    wx.showLoading({
+      title: '載入地圖中...',
+    });
+
+    let type = e.currentTarget.dataset.type;
+
+    wx.chooseLocation({
+      success: (res) => {
+        if (type == 0) {
+          //取货地址
+          this.setData({
+            deliveryDateilsAddress: '',
+            hasLocation: !0,
+            location: {
+              longitude: res.longitude,
+              latitude: res.latitude
+            },
+            deliveryAddress: res.address,
+            wd: res.latitude,
+            jd: res.longitude
+          });
+        } else if (type == 1) {
+          //收货地址
+          this.setData({
+
+            receivingAddress: res.address,
+
+          });
+        }
+        console.log(res);
+
+      },
+      complete: function () {
+        wx.hideLoading();
+        t.AddressPrice()
+      }
+    });
+  },
+  AddressPrice: function () {
+    var e = this; 
+    console.log(e.data)
+    console.log(e.data.deliveryAddress); 
+    console.log(e.data.receivingAddress);
+    var objects = new o({
+      key: "EKJBZ-72L3P-FHXDL-VSLEP-JEAGJ-JTFSD"
+    });
+    objects.geocoder({
+      address: e.data.deliveryAddress,
+      success: function (t) {
+        console.log(t)
+        objects.geocoder({
+          address: e.data.receivingAddress,
+          success: function (f) {
+            console.log(f)
+        d.request({
+          url: s.
+            default.addprice,
+          metho: "post",
+          data: {
+            myaddsjd: t.result.location.lng,
+            myaddswd: t.result.location.lat,
+            mudaddswd: f.result.location.lat,
+            mudaddsjd: f.result.location.lng,
+            bid: wx.getStorageSync("bid")
+          },
+          success: function (t) {
+
+            var a = e.data.didianprice;
+            console.log(a), console.log("金額", t), e.setData({
+              didianprice: t.data.price,
+              price: e.data.price - a + t.data.price,
+              proxy_id: t.data.proxy_id ? t.data.proxy_id : 0,
+              distance: t.data.distance
+            });
+            var gap = t.data.distance;
+            var time = gap * 3 + 20;
+            if (time) {
+              e.setData({
+                makeTime: time.toFixed(0),
+              })
+            } e.countPrice()
+          }
+        })
+          }
+        })
+      }
+    })
+  },
+
+  nearby: function (e) {
+    var t = this,
+      a = e.currentTarget.dataset.tags;
+    var m = t.data.didianprice;
+    t.setData({
+      deliveryAddress: '就近購買',
+      deliveryDateilsAddress: '就近購買',
+      didianprice: 40,
+      distance: 5,
+      price: t.data.price - m + 40,
+      makeTime: 35,
+    }), t.countPrice()
+  },
+  initAudio() {
+    this.data.audioCtx = wx.createInnerAudioContext()
+      ;
+    this.data.audioCtx.onEnded(() => {
+      this.setData({
+        isPlay: false
+      });
+      this.data.audioCtx.pause();
+    });
+  },
+  handleAudioPlay() {
+    if (this.data.audioCtx.paused) {
+      this.setData({
+        isPlay: true
+      });
+      this.data.audioCtx.play();
+
+    } else {
+      this.setData({
+        isPlay: false
+      });
+      this.data.audioCtx.pause();
+    }
+
+  },
+  handleDelRecorder() {
+    this.setData({
+      voiceList: '',
+      voiceDuration: ''
+    });
+    this.data.audioCtx.pause();
+    this.data.audioCtx.src = '';
+  },
+  //录音
+  initRecordermanager() {
+    this.setData({
+      recorderManager: wx.getRecorderManager()
+    });
+    this.handleRecorderManager();
+  },
+  handleStartRecord(e) {
+    wx.vibrateShort({
+      complete: () => {
+        this.data.recorderManager.start();
+        this.setData({
+          isRecord: true,
+          recordText: "松開 結束",
+          isRecordSend: true,
+          startPoint: e.touches[0]
+        });
+
+        $Toast({
+          image: 'http://83img.chaojiyuanma.com/img/icon-recorder.png',
+          duration: 0,
+          mask: false,
+          content: '手指上滑，取消發送',
+        });
+      }
+    });
+
+  },
+  handleTouchMove(e) {
+    let moveLength = Math.abs(e.touches[e.touches.length - 1].clientY - this.data.startPoint.clientY);
+
+    if (moveLength > 100) {
+      $Toast({
+        image: 'http://83img.chaojiyuanma.com/img/icon-cancel.png',
+        duration: 0,
+        mask: false,
+        content: '松開手指，取消發送',
+      });
+
+      this.setData({
+        isRecordSend: false
+      });
+    } else {
+      $Toast({
+        image: 'http://83img.chaojiyuanma.com/img/icon-recorder.png',
+        duration: 0,
+        mask: false,
+        content: '手指上滑，取消發送',
+      });
+
+      this.setData({
+        isRecordSend: true
+      });
+    }
+  },
+  handleStopRecord() {
+    this.setData({
+      isRecord: false,
+      recordText: "按住 說話"
+    });
+    wx.hideToast();
+    $Toast.hide();
+    this.data.recorderManager.stop();
+  },
+  handleRecorderManager() {
+    this.data.recorderManager.onStop((res) => {
+      if (this.data.isRecordSend) {
+        if (res.duration < 1000) {
+          $Toast({
+            image: 'http://83img.chaojiyuanma.com/img/icon-warning.png',
+            duration: 1,
+            mask: false,
+            content: '錄音時間太短',
+          });
+        } else {
+          var duration = res.duration / 1000;
+          if (typeof duration === 'number' && duration % 1 === 0) {
+            duration = duration;
+          } else {
+            duration = duration.toFixed(1);
+          }
+
+          this.setData({
+            voiceList: res.tempFilePath,
+            voiceDuration: duration
+          });
+          this.data.audioCtx.src = res.tempFilePath;
+
+        }
+      }
+
+    });
+  },
+  chooseImage() {
+    var m = this;
+    var t = m.data.chooseImageList;
+    var a = m.data.uploadphoto;
+    wx.showLoading({
+      title: '載入相冊中...',
+    });
+    wx.chooseImage({
+      count: 10,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        wx.hideLoading();
+        res.tempFilePaths.forEach(function (i, r) {
+          t.push(i), console.log("", i), wx.uploadFile({
+            url: s.
+              default.OrderUploadsImg,
+            filePath: i,
+            header: {
+              "content-type": "application/x-www-form-urlencoded"
+            },
+            name: "image",
+            success: function (e) {
+              var e = JSON.parse(e.data);
+              setTimeout(function () {
+                wx.hideLoading()
+              }, 1500), 1 == e.code ? a.push(e.url) : wx.showModal({
+                title: "提示",
+                content: "圖片上傳失敗",
+                showCancel: !1
+              })
+            },
+            fail: function (e) { }
+          }), m.setData({
+            chooseImageList: t,
+            uploadphoto: a
+          })
+
+        }), console.log(m.data)
+      },
+      complete() {
+        wx.hideLoading();
+      }
+    })
+  },
+  countPrice: function () {
+    var e = this,
+      t = Number(e.data.price) + Number(e.data.timeprice) + Number(e.data.weight_price);
+    e.setData({
+      lastPrice: t.toFixed(2)
+    })
+  },
+  //验证预计商品金额
+  validate: function (res) {
+    var t = this;
+    console.log(res.detail.value)
+    var regNum = new RegExp('[0-9]', 'g');//判断用户输入的是否为数字
+    var rsNum = regNum.exec(res.detail.value);
+    if (rsNum) {
+
+    } else {
       wx.showModal({
         title: '提示',
-        content: '由於騰訊地圖在澳門定位暫不精確，請在選擇地址時確認無誤。若不準確請手動拖動選擇，給您帶來的不便敬請諒解！',
-        cancelText: "取消",//默认是“取消”
-        confirmText: "確定",//默认是“确定”
+        content: '金額隻能是數字',
         success: function (res) {
-          if (res.confirm) {//这里是点击了确定以后
-            console.log("----------", e.data.detail_info), wx.chooseLocation({
-              success: function (t) {
-                e.setData({
-                  hasLocation: !0,
-                  location: {
-                    longitude: t.longitude,
-                    latitude: t.latitude
-                  },
-                  detail_infos: t.address,
-                  wd: t.latitude,
-                  jd: t.longitude
-                })
-              },
-              complete: function (t) {
-                if ("" != e.data.detail_info && void 0 != e.data.wd && void 0 != e.data.jd && "" != e.data.detail_infos && "" != e.data.wd && "" != e.data.jd) {
-                  e.data.wd, e.data.jd;
-                  e.AddressPrice()
-                }
-              }
+          if (res.confirm) {
+            t.setData({
+              pre_price: '',
             })
-          } else {//这里是点击了取消以后
-            console.log('用户点击取消')
+          } else {
+            t.setData({
+              pre_price: '',
+            })
           }
+
         }
       })
-        
-    },
-    AddressPrice: function() {
-        var e = this;
-        void 0 != e.data.detail_infos && new n({
-            key: "EKJBZ-72L3P-FHXDL-VSLEP-JEAGJ-JTFSD"
-        }).geocoder({
-            address: e.data.detail_info,
-            success: function(t) {
-                d.request({
-                    url: s.
-                    default.addprice,
-                    metho: "post",
-                    data: {
-                        myaddsjd: t.result.location.lng,
-                        myaddswd: t.result.location.lat,
-                        mudaddswd: e.data.wd,
-                        mudaddsjd: e.data.jd,
-                        bid: wx.getStorageSync("bid")
-                    },
-                    success: function(t) {
-                        var a = e.data.didianprice;
-                        if (console.log(a), console.log("金额", t), e.setData({
-                            didianprice: t.data.price,
-                            price: e.data.price - a + t.data.price,
-                            proxy_id: t.data.proxy_id ? t.data.proxy_id : 0,
-                            region_id: t.data.region_id ? t.data.region_id : 0,
-                            distance: t.data.distance,
-                        }), t.data.region_id) return console.log(t.data.region_id), !1;
-                        e.countPrice()
-                    }
-                })
-            }
-        })
-    },
-    pickerSelector: function(e) {
-        var t = this,
-            a = e.currentTarget.dataset.type,
-            i = e.detail.value;
-        if ("time" == a) {
-            t.setData({
-                time: {
-                    week: t.data.timeArr[0][i[0]],
-                    hour: t.data.timeArr[1][i[1]]
-                }
-            });
-            t = this;
-            d.request({
-                url: s.
-                default.time_price,
-                data: {
-                    wid: t.data.timeArr[0][i[0]].name,
-                    hid: t.data.timeArr[1][i[1]].name
-                },
-                success: function(e) {
-                    var a = t.data.timeprice;
-                    console.log(a), t.setData({
-                        timeprice: e.data
-                    }), t.countPrice()
-                }
-            })
-        }
-        "reward" == a && t.setData({
-            reward: t.data.rewardArr[i].price
-        }), "coupon" == a && (t.setData({
-            coupon: t.data.couponArr[i].price,
-            full_money: t.data.couponArr[i].full_money,
-            useid: t.data.couponArr[i].id
-        }), t.data.lastPrice < t.data.full_money && wx.showToast({
-            title: "未达到使用要求"
-        })), t.countPrice()
-    },
-    bindColumnChange: function(e) {
-        var t = this,
-            a = t.data.timeArr,
-            i = e.detail.column,
-            r = e.detail.value;
-        0 == i && d.request({
-            url: s.
-            default.timelist,
-            data: {
-                time: r
-            },
-            success: function(e) {
-                a[1] = e.data, t.setData({
-                    timeArr: a
-                })
-            }
-        })
-    },
-    countPrice: function() {
-        var e = this,
-            t = Number(e.data.price) + Number(e.data.stepper.stepper) + Number(e.data.reward) + Number(e.data.weight_price) - Number(e.data.integral);
-        t < e.data.full_money ? (t = Number(e.data.price) + Number(e.data.stepper.stepper) + Number(e.data.reward) + Number(e.data.weight_price) - Number(e.data.integral), e.setData({
-            coupon: 0
-        })) : t = Number(e.data.price) + Number(e.data.stepper.stepper) + Number(e.data.reward) - Number(e.data.coupon) + Number(e.data.weight_price) - Number(e.data.integral), t = t < .01 ? 0 : t, e.setData({
-            lastPrice: t.toFixed(2)
-        })
-    },
-    changeInputData: function(e) {
-        var t = this,
-            a = e.currentTarget.dataset.name,
-            i = e.detail.value;
-        "wareText" == a && t.setData({
-            wareText: i
-        }), "inputAddressText" == a && t.setData({
-            inputAddressText: i
-        })
-    },
-    weight: function(e) {
-        console.log(e.detail.value);
-        var t = this;
-        d.request({
-            url: s.
-            default.WeightPrice,
-            data: {
-                bid: wx.getStorageSync("bid"),
-                weight: e.detail.value
-            },
-            success: function(e) {
-                "" != e.data && (t.setData({
-                    weighprice: e.data,
-                    price: t.data.price + e.data - weighprice
-                }), t.countPrice())
-            }
-        })
-    },
-    formSubmit: function(e) {
-        console.log(e);
-        var t = this,
-            a = t.data.pictrueTempPath,
-            i = t.data.yinpin;
-        ("" != e.detail.value.goodsname || "" != a || "" != i) && e.detail.value.mudadds && e.detail.value.myadds && "NaN" != e.detail.value.mytimes && !0 === t.data.isReadProtocol ? (console.log(a), console.log(i), e.detail.value.xphoto = a, e.detail.value.yinpin = i, console.log("e.detail.value", e.detail.value), t.setData({
-            formData: e.detail.value,
-            formId: e.detail.formId
-        }), t.openActionsheet()) : wx.showToast({
-            title: "信息不完善，无法下单。",
-            icon: 'none',
-            duration: 2000
-        })
-    },
-    addWareItem: function(e) {
-        var t = this,
-            a = e.currentTarget.dataset.tag,
-            i = t.data.wareText,
-            r = "" == i.trim() ? a : i + ", " + a;
-        t.setData({
-            wareText: r
-        })
-    },
-    isRead: function(e) {
-        var t = this.data.isReadProtocol;
-        this.setData({
-            isReadProtocol: !t
-        })
-    },
-    openActionsheet: function() {
-        this.setData({
-            show: !0
-        })
-    },
-    closeActionSheet: function() {
-        this.setData({
-            show: !1
-        })
-    },
-    clickAction: function(t) {
-        var a, i = this,
-            r = t.detail.index;
-        switch (this.setData((a = {}, e(a, "actions[" + r + "].loading", !0), e(a, "actionType", r), e(a, "clickpay", !1), a)), r) {
-            case 0:
-                wx.showToast({
-                    title: "暫未開通"
-                });
-                //this.wechatPay()
-                break;
-            case 1:
-                this.balancePay()
-        }
-        setTimeout(function() {
-            var t;
-            i.setData((t = {}, e(t, "show", !1), e(t, "actions[" + r + "].loading", !1), t))
-        }, 100)
-    },
-    /*wechatPay: function() {
-        var e = this,
-            t = e.data.formData,
-            a = e.data.Imagecollection.join(","),
-            i = e.data.type_status;
-        if (i) r = i;
-        else var r = 0;
-        d.request({
-            url: s.
-            default.insertorder,
-            data: {
-                goodsname: t.goodsname,
-                mudadds: t.mudadds + t.mudaddsinfos,
-                myadds: t.myadds,
-                times: t.mytimes,
-                price: t.price,
-                order_type: r,
-                old_order_no: t.old_order_no,
-                xphoto: t.xphoto,
-                yinpin: t.yinpin,
-                uid: wx.getStorageSync("uid"),
-                redbao: t.redbao,
-                tip: t.tip,
-                bid: wx.getStorageSync("bid"),
-                type: "帮我送",
-                ins: 0,
-                distype: 0,
-                message: t.message,
-                username: t.username,
-                phone: t.phone,
-                proxy_id: e.data.proxy_id ? e.data.proxy_id : 0,
-                imgurl: a,
-                audiotime: this.data.soundRecording.duration
-            },
-            success: function(t) {
-                if (t.data) {
-                    var a = t.data;
-                    d.request({
-                        url: s.
-                        default.orderpay,
-                        data: {
-                            order_no: t.data,
-                            title: "微猫源码 提供   QQ:2058430070支付",
-                            uid: wx.getStorageSync("uid")
-                        },
-                        success: function(t) {
-                            e.setData({
-                                clickpay: !0
-                            }), console.log("支付参数", t.data.weixin), wx.requestPayment({
-                                timeStamp: t.data.weixin.timeStamp,
-                                nonceStr: t.data.weixin.nonceStr,
-                                package: t.data.weixin.package,
-                                signType: "MD5",
-                                paySign: t.data.weixin.paySign,
-                                success: function(t) {
-                                    e.data.useid && d.request({
-                                        url: s.Coupon.status,
-                                        data: {
-                                            useid: e.data.useid
-                                        },
-                                        success: function(e) {
-                                            console.log(e)
-                                        }
-                                    }), d.request({
-                                        url: s.user.mess,
-                                        data: {
-                                            bid: wx.getStorageSync("bid"),
-                                            openid: wx.getStorageSync("openid"),
-                                            order_no: a,
-                                            type: "apply"
-                                        },
-                                        success: function(e) {
-                                            console.log(e), wx.redirectTo({
-                                                url: "/sd_liferuning/pages/constmer/order-list/index"
-                                            })
-                                        }
-                                    })
-                                },
-                                complete: function(t) {
-                                    e.setData({
-                                        clickpay: !0
-                                    })
-                                }
-                            })
-                        }
-                    })
-                }
-            }
-        })
-    },*/
-    balancePay: function() {
-        var t;
-        wx.showLoading({
-            title: "请稍后"
-        });
 
-        var a = this,
-
-            i = a.data.formData,
-            r = a.data.formId,
-            o = a.data.type_status,
-            n = a.data.Imagecollection.join(",");
-        if (o) c = o;
-        else var c = 0;
-        d.request({
-            url: s.
-            default.insertorder,
-            data: (t = {
-                distype: i.distype,
-                goodsname: i.goodsname,
-                mudadds: i.mudadds + i.mudaddsinfos,
-                myadds: i.myadds,
-                times: i.mytimes,
-                weight : i.weight,
-                select_name: a.data.select_name,
-                price: i.price,
-                xphoto: i.xphoto,
-                yinpin: i.yinpin,
-                order_type: c,
-                uid: wx.getStorageSync("uid"),
-                redbao: i.redbao,
-                tip: i.tip,
-                bid: wx.getStorageSync("bid"),
-                ins: i.ins,
-                message: i.message,
-                type: "帮我送",
-                username: i.username,
-                phone: i.phone,
-                distance: a.data.distance
-            }, e(t, "order_type", c), e(t, "old_order_no", i.old_order_no), e(t, "proxy_id", a.data.proxy_id ? a.data.proxy_id : 0), e(t, "imgurl", n), e(t, "audiotime", this.data.soundRecording.duration), t),
-            success: function(e) {
-                a.setData({
-                    clickpay: !0
-                }), 1 == e.code ? d.request({
-                    url: s.order.pricePay,
-                    method: "post",
-                    data: {
-                        uid: wx.getStorageSync("uid"),
-                        order_no: e.data,
-                        openid: wx.getStorageSync("openid"),
-                        formId: r
-                    },
-                    success: function(e) {
-                      console.log(e)
-                        wx.hideLoading(), 1 == e.code ? (a.data.useid && d.request({
-                            url: s.Coupon.status,
-                            data: {
-                                useid: a.data.useid
-                            },
-                            success: function(e) {
-                                console.log(e)
-                            }
-                        }), wx.showToast({
-                            title: e.msg,
-                            duration: 1e3,
-                            success: function() {
-                                setTimeout(function() {
-                                    wx.redirectTo({
-                                        url: "/sd_liferuning/pages/constmer/order-list/index"
-                                    })
-                                }, 1e3)
-                            }
-                        })) : wx.showToast({
-                            title: e.msg,
-                            icon: 'none',
-                            duration: 2000
-                        })
-                    }
-                }) : wx.showToast({
-                  title: e.msg,
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
-        }), console.log("餘額支付")
-    },
-    soundRecordingStart: function() {
-        var e = {
-            duration: 6e4,
-            sampleRate: 44100,
-            numberOfChannels: 1,
-            encodeBitRate: 192e3,
-            format: "mp3",
-            frameSize: 50
-        };
-        r.start(e)
-    },
-    soundRecordingEnd: function() {
-        var e = this;
-        r.stop(), r.onStop(function(t) {
-            var a = t.tempFilePath,
-                i = Math.ceil(t.duration / 1e3);
-            o.src = a, e.setData({
-                soundRecording: {
-                    tempPath: a,
-                    duration: i,
-                    isPlay: !1
-                }
-            });
-            var r = e.data.soundRecording.tempPath;
-            r && (console.log("tempPath", r), wx.uploadFile({
-                url: s.order.uploadimg,
-                filePath: r,
-                name: "file",
-                success: function(t) {
-                    console.log("resres", t);
-                    var a = t.data;
-                    e.setData({
-                        yinpin: a
-                    })
-                }
-            }))
-        })
-    },
-    soundRecordingPlay: function() {
-        var e = this,
-            t = o.paused,
-            a = e.data.soundRecording;
-        t ? (o.play(), a.isPlay = !0, setTimeout(function() {
-            var t = e.data.soundRecording;
-            t.isPlay = !1, e.setData({
-                soundRecording: t
-            })
-        }, 1e3 * a.duration)) : (o.stop(), a.isPlay = !1), e.setData({
-            soundRecording: a
-        })
-    },
-    soundRecordingRemove: function() {
-        var e = this;
-        o.stop(), e.setData({
-            soundRecording: {
-                tempPath: "",
-                duration: "",
-                isPlay: !1
-            }
-        })
-    },
-    takePictrue: function() {
-        var e = this;
-        wx.chooseImage({
-            count: 1,
-            sizeType: ["original", "compressed"],
-            sourceType: ["album", "camera"],
-            success: function(t) {
-                var a = t.tempFilePaths;
-                e.setData({
-                    pictrueTempPath: a[0]
-                })
-            }
-        })
-    },
-    handleStepperChange: function(t) {
-        var a = t.detail,
-            i = t.target.dataset.componentId;
-        this.setData(e({}, i + ".stepper", a)), this.countPrice()
-    },
-    isBargaining: function(e) {
-        var t = this.data.isBargaining;
-        this.setData({
-            isBargaining: !t
-        })
-    },
-    isOpenPreference: function() {
-        var e = this,
-            t = this.data.isOpenPreference;
-        0 == t ? wx.request({
-            url: s.member.rebate,
-            data: {
-                uid: wx.getStorageSync("uid"),
-                bid: wx.getStorageSync("bid")
-            },
-            method: "get",
-            success: function(t) {
-                e.setData({
-                    vipprice: t.data.data.zhekou
-                })
-            }
-        }) : e.setData({
-            vipprice: 0
-        }), this.setData({
-            isOpenPreference: !t
-        })
-    },
-    takeWeight: function (e) {
-      var that = this;
-      var this_checked = e.currentTarget.dataset.id;
-      if (this_checked==20) {
-        return false
-      }
-      var weight = e.currentTarget.dataset.num;
-      var name = e.currentTarget.dataset.name;
-      var parameterList = this.data.weightTop;//获取Json数组
-      for (var i = 0; i < parameterList.length; i++) {
-        if (parameterList[i].id == this_checked) {
-          parameterList[i].checked = '#20AF1F';//当前点击的位置为true即选中
-        }
-        else {
-          parameterList[i].checked = '#eee';//其他的位置为false
-        }
-      }
-      that.setData({
-        weightTop: parameterList,
-        weight: this_checked,
-        weight_price: weight,
-        select_name : name
-      }), that.countPrice()
-
-    },
-    weightSliderChange: function(e) {
-        var t = this,
-            a = e.detail.value;
-        t.setData({
-            weight: a
-        }), 0 == a ? (t.setData({
-            weight_price: 0
-        }), t.countPrice()) : wx.request({
-            url: s.
-            default.WeightPrice,
-            data: {
-                bid: wx.getStorageSync("bid"),
-                weight: a,
-                region_id: t.data.region_id ? t.data.region_id : 0
-            },
-            method: "get",
-            success: function(e) {
-                t.setData({
-                    weight_price: e.data.data
-                }), t.countPrice()
-            }
-        })
-    },
-    isOpenIntegralDeduction: function() {
-        var e = this,
-            t = this.data.isOpenIntegralDeduction;
-        0 == t ? wx.request({
-            url: s.member.integral,
-            data: {
-                uid: wx.getStorageSync("uid"),
-                bid: wx.getStorageSync("bid")
-            },
-            method: "post",
-            success: function(t) {
-                e.setData({
-                    integral: t.data.data.integral
-                })
-            }
-        }) : e.setData({
-            integral: 0
-        }), this.setData({
-            isOpenIntegralDeduction: !t
-        })
-    },
-    multiUploadImage: function() {
-        var e = this,
-            t = e.data.multiImage,
-            a = e.data.Imagecollection;
-        wx.chooseImage({
-            count: 9,
-            sizeType: ["original", "compressed"],
-            sourceType: ["album", "camera"],
-            success: function(i) {
-                wx.showLoading({
-                    title: "正在上传"
-                }), i.tempFilePaths.forEach(function(i, r) {
-                    t.push(i), console.log("", i), wx.uploadFile({
-                        url: s.
-                        default.OrderUploadsImg,
-                        filePath: i,
-                        header: {
-                            "content-type": "application/x-www-form-urlencoded"
-                        },
-                        name: "image",
-                        success: function(e) {
-                            var e = JSON.parse(e.data);
-                            setTimeout(function() {
-                                wx.hideLoading()
-                            }, 1500), 1 == e.code ? a.push(e.url) : wx.showModal({
-                                title: "提示",
-                                content: "圖片上傳失敗",
-                                showCancel: !1
-                            })
-                        },
-                        fail: function(e) {}
-                    }), e.setData({
-                        multiImage: t,
-                        Imagecollection: a
-                    })
-                })
-            }
-        })
-    },
-    multiImageDeleteByIndex: function(e) {
-        var t = e.currentTarget.dataset.index,
-            a = this.data.multiImage,
-            i = c.deleteByIndex({
-                dataArr: a,
-                index: t
-            }),
-            r = this.data.Imagecollection;
-        r.splice(t, 1), console.log(r, "Imagecollection"), this.setData({
-            multiImage: i,
-            Imagecollection: r
-        })
     }
+  },
+  //表單提交
+  formSubmit: function (e) {
+    var formId = e.detail.formId;
+    console.log(formId);
+    var t = this;
+
+    var talk = t.data.voiceList;
+    var talktime = t.data.voiceDuration;
+
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    var f = e.detail.value;
+    console.log(f.times);
+    if (f.getAddress) {
+
+    } else {
+      wx.showToast({
+        title: '請填寫收貨信息',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    //var photoslist = this.data.chooseImageList;//圖片列表
+    console.log(t.data.chooseImageList);
+    var cartype = t.data.dlyTypeId;
+    if (cartype == 0) {
+      cartype = '電單車';
+    } else {
+      cartype = '私家車';
+    }
+    console.log(cartype)
+    wx.showLoading({
+      title: "正在支付"
+    });
+
+
+    t.validates() && d.request({
+      url: s.
+       default.insertorder,
+      data: {
+        distype: 0,
+        goodsname: '',
+        select_name: cartype,
+        myadds: f.buyAddress + f.dateilsAddress,//取貨地址
+        mudadds: f.getAddress + f.getDateilsAddress,//收貨地址
+        times: f.sendTime,//配送時間
+        price: t.data.lastPrice,//價格
+        uid: wx.getStorageSync("uid"),
+        redbao: 0,//紅包
+        xphoto: '',//圖片 
+        yinpin: talk,//語音文件
+        tip: 0,//小費
+        bid: wx.getStorageSync("bid"),
+        ins: 0,//保險金額
+        message: '',//備註
+        type: "帮我送",
+        username: f.getName,//收貨人姓名
+        my_username: f.buyName,//取貨人姓名
+        phone: f.getNameTel,//收貨電話
+        distance: f.distance,//距離
+        proxy_id: 0,
+        audiotime: talktime,//语音时长
+        imgurl: t.data.uploadphoto.join(','),//圖片集
+        my_phone: f.buyNameTel,//取货人电话
+        pre_price: f.pre_price//預計價格
+
+      },
+    
+      success: function (t) {
+        console.log(t);
+        1 == t.code ? d.request({
+          url: s.order.pricePay,
+          method: "post",
+          data: {
+            uid: wx.getStorageSync("uid"),
+            order_no: t.data,
+            openid: wx.getStorageSync("openid"),
+            formId: formId,
+          },
+          success: function (e) {
+            console.log(e)
+            wx.hideLoading(), 1 == e.code ? wx.showToast({
+              title: e.msg,
+              duration: 1e3,
+              success: function () {
+                wx.showModal({
+                  title: '提示',
+                  content: '代購商品需經車手確認商品金額后再次向車手支付，請確保您的錢包餘額充足 車手并無義務墊付資金，金額將支付給車手做爲墊付商品金額的交收！',
+                  cancelText: "知道了",
+                  confirmText: "立即充值",
+                  success: function (res) {
+                    if (res.confirm) {//这里是点击了立即充值
+                      setTimeout(function () {
+                        wx.redirectTo({
+                          url: "/sd_liferuning/pages/constmer/balance-management/index"
+                        })
+                      }, 1e3)
+                      console.log('立即充值')
+                    } else {//这里是点击了知道了
+                      setTimeout(function () {
+                        wx.redirectTo({
+                          url: "/sd_liferuning/pages/constmer/order-list/index"
+                        })
+                      }, 1e3)
+                      console.log('知道了')
+                    }
+                  }
+                })
+
+              }
+            }) : wx.showToast({
+              title: e.msg,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        }) : wx.showToast({
+          title: t.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    });
+
+
+  },
+  validates: function () {
+    var a = this;
+    return !a.data.voiceList || a.data.voiceList.length <= 0 ? (wx.showToast({
+      title: "錄音不得為空",
+      icon: "none",
+      mask: !0
+    }), !1) : !a.data.deliveryAddress || a.data.deliveryAddress.length <= 0 ? (wx.showToast({
+      title: "取貨地址不得為空",
+      icon: "none",
+      mask: !0
+    }), !1) : !a.data.receivingAddress || a.data.receivingAddress.length <= 0 ? (wx.showToast({
+      title: "收貨地址不得為空",
+      icon: "none",
+      mask: !0
+    }), !1) : !(!a.data.lastPrice || 0 == a.data.lastPrice) || (wx.showToast({
+      title: "價格不能為0",
+      icon: "none",
+      mask: !0
+    }), !1);
+  }
+
 });

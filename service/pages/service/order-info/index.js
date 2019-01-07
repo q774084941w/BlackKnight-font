@@ -24,7 +24,16 @@ Page({
                 height: 50
             },
             clickable: !0
-        } ]
+        } ],
+      hiddenmodalput:true,
+      yupay:0.00,
+      dianpay:0.00,
+      getpay:0.00,
+      uid:0,
+      runid:0,
+      orderid:0,
+      worth_type:0,
+      pay_type: 0,
     },
     markertap: function(t) {
         var e = this, a = t.markerId, o = e.data.markers[a];
@@ -69,11 +78,17 @@ Page({
                 orderid: i.id
             },
             success: function(t) {
-                console.log("sfhasjkfhaskj", t);
+                console.log("訂單詳情", t);
                 var a = t.data;
                 "" != a.yinpin && 0 != a.yinpin && (o.src = a.yinpin, o.autoplay = !0, n.data.soundRecording.tempPath = a.yinpin, 
                 n.data.soundRecording.duration = o.duration), n.setData({
-                    data: t.data
+                    data: t.data,
+                    yupay: t.data.pre_price,
+                    dianpay: t.data.worth,
+                    uid: t.data.uid,
+                    runid: t.data.rid,
+                    orderid: t.data.id,
+                    worth_type: t.data.worth_type,
                 }), "帮我买" == a.type ? n.setData({
                     fa: "購買地址",
                     shou: "收貨地址"
@@ -194,17 +209,22 @@ Page({
     },
     OkOrder: function(e) {
         var o = this;
+        wx.showLoading({
+          title: '結算中...',
+        })
         a.request({
             url: t.default.OkOrder,
             data: {
                 orderid: e.currentTarget.dataset.id,
                 bid: wx.getStorageSync("bid"),
                 uid: wx.getStorageSync("uid"),
+                pay_type: o.data.pay_type,
                 code: o.data.confirmCode ? o.data.confirmCode : ""
             },
             success: function(t) {
-                console.log("订单详情", t), 1 == t.data ? wx.showToast({
-                    title: "感謝您的付出，您將有豐厚的回報！",
+                console.log("订单详情", t), 1 == t.code ? 
+                wx.showToast({
+                    title: t.msg,
                     duration: 1e3,
                     success: function() {
                         setTimeout(function() {
@@ -214,8 +234,9 @@ Page({
                         }, 1e3);
                     }
                 }) : wx.showToast({
-                    title: "收货码错误",
-                    duration: 1e3
+                    title: t.msg,
+                    icon: 'none',
+                    duration: 1e3,
                 });
             }
         });
@@ -232,7 +253,7 @@ Page({
       },
       success: function (t) {
         console.log("订单详情", t), wx.showToast({
-          title: "等待付款",
+          title: "等待結算",
           duration: 1e3,
           success: function () {
             setTimeout(function () {
@@ -297,8 +318,50 @@ Page({
         });
     },
     changeConfirmCodeStatus: function() {
-        console.log(this.data.distype), 1 == this.data.distype && this.setData({
+      var t=this.data;
+      if(t.worth_type==0){
+        if (t.yupay < t.dianpay) {
+          var payment = t.dianpay - t.yupay;
+          this.setData({
+            hiddenmodalput: !this.data.hiddenmodalput,
+            getpay: payment.toFixed(2)
+
+          })
+        } else {
+          this.setData({
             confirmCodeStatus: !this.data.confirmCodeStatus
+          });
+        } 
+      }else{
+        this.setData({
+          confirmCodeStatus: !this.data.confirmCodeStatus
         });
-    }
+      }
+       
+    },
+  changeConfirmCodeStatus1:function(){
+      console.log(this.data.distype), 1 == this.data.distype && this.setData({
+             confirmCodeStatus: !this.data.confirmCodeStatus
+         });
+  },
+  //现金按钮  
+  cancel: function () {
+    
+    this.setData({
+      hiddenmodalput: true,
+      confirmCodeStatus: !this.data.confirmCodeStatus,
+      pay_type: 1
+    });
+    
+      
+    
+  },
+  //钱包确认  
+  confirm: function () {
+    this.setData({
+      hiddenmodalput: true,
+      confirmCodeStatus: !this.data.confirmCodeStatus,
+      pay_type: 2
+    })
+  }
 });

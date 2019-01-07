@@ -24,25 +24,27 @@ Page({
       name: c//姓名
     }), "idcard" == t && e.setData({
       idcard: c//電話
-      }), "carname" == t && e.setData({
+    }), "carname" == t && e.setData({
       carname: c//商家名称
-      }),"carcodes" == t && e.setData({
+    }), "carcodes" == t && e.setData({
       carcodes: c//商家地址
     });
   },
   sendRequest: function () {
     var t = this;
-    t.validate() && e.request({
+    t.validate1() && e.request({
       url: a.default.sellersave,
       method: "post",
       data: {
-        
+        id: t.data.id,
+        thisType: t.data.thisType,//狀態
         uid: wx.getStorageSync("uid"),//商家id
         uname: t.data.name,//負責人姓名
         utel: t.data.idcard,//負責人電話
         uaddress: t.data.carcodes,//地址
         uimg: t.data.cardImg,//執照圖
-        carname: t.data.carname//商家名稱
+        carname: t.data.carname,//商家名稱
+        formId: t.data.formId,//formid
       },
       success: function (a) {
         1 == a.code ? (wx.setStorage({
@@ -67,7 +69,7 @@ Page({
       }
     });
   },
-  validate: function () {
+  validate1: function () {
     var a = this;
     return !a.data.name || a.data.name.length <= 0 ? (wx.showToast({
       title: "姓名不得為空",
@@ -85,7 +87,7 @@ Page({
       title: "商家地址不得為空",
       icon: "none",
       mask: !0
-   }), !1) : 11 != a.data.idcard.length  && 8 != a.data.idcard.length ? (wx.showToast({
+    }), !1) : 11 != a.data.idcard.length && 8 != a.data.idcard.length ? (wx.showToast({
       title: "手機證號碼不正確，請重新輸入！",
       icon: "none",
       mask: !0
