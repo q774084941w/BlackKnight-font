@@ -90,8 +90,7 @@
             </view>
             <view class="info">
                 <image class="phone-icon" src="{{icons}}/resource/common/image/service/user/icon8.png" wx:if="{{icons}}"></image>
-                <text wx:if="{{data.my_username!=''&&data.my_username!=0}}">{{data.my_phone}} ({{data.my_username}})</text>
-                <text wx:else>{{data.my_phone}}</text>
+                <text >{{data.my_phone}}</text>
             </view>
         </view>
         <view bindtap="maps" class="inline" data-id="0" wx:if="{{data.type=='代驾'}}">
@@ -122,7 +121,7 @@
                 <view class="info_mes">點擊導航</view>
             </view>
         </view>
-        <view bindtap="toPhone" class="inline" data-phone="{{data.phone}}">
+        <view bindtap="toPhone" class="inline" data-phone="{{data.phone}}" wx:if="{{data.phone!='' }}">
             <view class="label">
                 <text>聯繫電話：</text>
             </view>

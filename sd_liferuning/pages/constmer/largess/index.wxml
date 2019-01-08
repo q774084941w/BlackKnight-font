@@ -15,20 +15,19 @@
                           <input type="text" placeholder="補充詳細地址. 如樓層門牌號" placeholder-class="input-add-detail" name='dateilsAddress' />
                       </view>
                       <view class="address-tel">
-                          <input type="text" placeholder="取貨聯緊電話" placeholder-class="input-add-tel" value="{{deliveryName == ''? '請填寫聯繫人姓名': deliveryName}},{{deliveryTel == ''? '電話': deliveryTel}}" disabled />
-                          <input type='text' name='buyName' value='{{deliveryName}}' hidden/>
+                          <input type="text" placeholder="請填寫聯繫人電話" placeholder-class="input-add-tel" value="{{deliveryTel}}"  bindtap='changeInput'  data-name="deliveryTel"/>
                           <input type='text' name='buyNameTel' value='{{deliveryTel}}' hidden/>
                       </view>
                   </view>
-                   <navigator  url="/sd_liferuning/pages/constmer/address-list/index?addressClass=1">
+                
                   <view class="pg-add-right">
                   
-                      <image src="http://83img.chaojiyuanma.com/img/icon-map.png" class="img-map" data-type='0'></image>
-                      <navigator class="selected-addo" >
+                      <image src="http://83img.chaojiyuanma.com/img/icon-map.png" class="img-map" data-type='0' bindtap="chooseLocation"></image>
+                      <navigator class="selected-addo"  bindtap='commonly' data-id='1' >
                         <view class="address-btn" hover-class="active">常用地址</view>
                       </navigator> 
                   </view>
-                  </navigator> 
+                
               </view>
 
               <view class="pg-address-item">
@@ -42,19 +41,19 @@
                           <input type="text" placeholder="補充詳細地址. 如樓層門牌號" placeholder-class="input-add-detail" name='getDateilsAddress' />
                       </view>
                       <view class="address-tel">
-                          <input type="text" class="color2" value="{{receivingName == ''? '請填寫聯繫人姓名,': receivingName}},{{receivingTel == ''? '電話': receivingTel}}" placeholder="收貨人和聯緊電話" placeholder-class="input-add-tel-color2" disabled />
+                          <input type="text" class="color2" bindtap='changeInput'  data-name="receivingTel" value="{{receiving}}"  />
                           <input type='text' name='getName' value='{{receivingName}}' hidden/>
                           <input type='text' name='getNameTel' value='{{receivingTel}}' hidden/>
                       </view>
                   </view>
-                   <navigator  url="/sd_liferuning/pages/constmer/address-list/index?addressClass=0">
+                 
                   <view class="pg-add-right">
-                      <image src="http://83img.chaojiyuanma.com/img/icon-map.png" class="img-map"  data-type='1'></image>
-                      <navigator class="selected-addo" >
+                      <image src="http://83img.chaojiyuanma.com/img/icon-map.png" class="img-map"  data-type='1' bindtap="chooseLocation"></image>
+                      <navigator class="selected-addo"  bindtap='commonly' data-id='0'>
                         <view class="address-btn" hover-class="active">常用地址</view>
                       </navigator>  
                   </view>
-                  </navigator> 
+                
               </view>
           </view>
 

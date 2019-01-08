@@ -15,6 +15,7 @@ Page({
     receivingAddress: '',   //收货地址
     receivingTel: "", //收貨電話
     receivingName: "",//收貨人名字
+    receiving:'請填寫聯繫人電話',
     defaultDelyTime: [0, 16],
     deliveryTime: [],   //配送的时间
     dlyTypeId: 0, //配送方式
@@ -80,51 +81,22 @@ Page({
       }
     });
   },
+ 
+  
   onShow: function () {
 
     d.pageOnLoad(this);
     //取货常用地址
     var a = this,
       t = wx.getStorageSync("uid");
-    d.request({
-      url: s.
-        default.mrAddress,
-      method: "get",
-      data: {
-        uid: t,
-        bid: wx.getStorageSync("bid"),
-        type:1
-      },
-      success: function (t) {
-        console.log(t)
-        a.setData({
-          deliveryAddress: t.data.adress,
-          deliveryTel: t.data.phone,
-          deliveryName: t.data.name,
-        })
-        a.AddressPrice();
-      }
-    });
+
+    '' == a.data.deliveryAddress ? 
+    a.deliveryAddress()
+    :'';
     //收货地址
-    d.request({
-      url: s.
-        default.mrAddress,
-      method: "get",
-      data: {
-        uid: t,
-        bid: wx.getStorageSync("bid"),
-        type:0
-      },
-      success: function (t) {
-        console.log(t)
-        a.setData({
-          receivingAddress: t.data.adress,
-          receivingTel: t.data.phone,
-          receivingName: t.data.name,
-        })
-        a.AddressPrice();
-      }
-    });
+    '' == a.data.receivingAddress ? 
+    a.receivingAddress()
+   :'';
    
     //時間調整
     var date = new Date();
@@ -231,22 +203,12 @@ Page({
         if (type == 0) {
           //取货地址
           this.setData({
-            deliveryDateilsAddress: '',
-            hasLocation: !0,
-            location: {
-              longitude: res.longitude,
-              latitude: res.latitude
-            },
             deliveryAddress: res.address,
-            wd: res.latitude,
-            jd: res.longitude
           });
         } else if (type == 1) {
           //收货地址
           this.setData({
-
             receivingAddress: res.address,
-
           });
         }
         console.log(res);
@@ -254,7 +216,7 @@ Page({
       },
       complete: function () {
         wx.hideLoading();
-        t.AddressPrice()
+        t.AddressPrice();
       }
     });
   },
@@ -493,6 +455,34 @@ Page({
       }
     })
   },
+  commonly : function (e) {
+    var t=this,
+     a = e.currentTarget.dataset.id;
+     0==a ?
+     t.setData ({
+       receivingAddress:''
+       }) : 
+       t.setData({
+         deliveryAddress: ''
+       });
+      wx.navigateTo({
+        url: '/sd_liferuning/pages/constmer/address-list/index?addressClass='+a,
+      })
+  },
+  changeInput:function (e) {
+    var t = this,
+      a = e.currentTarget.dataset.name,
+      i = e.detail.value;
+      ''!=i && undefined !=i ?
+    "receivingTel" == a && t.setData({
+      receivingTel: i,
+      receivingName:''
+        }) || 
+        "deliveryTel" == a && t.setData({
+          deliveryTel: i
+        })
+    :'';
+  },
   countPrice: function () {
     var e = this,
       t = Number(e.data.price) + Number(e.data.timeprice) + Number(e.data.weight_price);
@@ -537,9 +527,7 @@ Page({
     var talk = t.data.voiceList;
     var talktime = t.data.voiceDuration;
 
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
     var f = e.detail.value;
-    console.log(f.times);
     if (f.getAddress) {
 
     } else {
@@ -549,8 +537,6 @@ Page({
         duration: 2000
       })
     }
-    //var photoslist = this.data.chooseImageList;//圖片列表
-    console.log(t.data.chooseImageList);
     var cartype = t.data.dlyTypeId;
     if (cartype == 0) {
       cartype = '電單車';
@@ -562,7 +548,7 @@ Page({
       title: "正在支付"
     });
 
-
+    console.log(f); console.log(t.data);
     t.validates() && d.request({
       url: s.
        default.insertorder,
@@ -584,7 +570,6 @@ Page({
         message: '',//備註
         type: "帮我送",
         username: f.getName,//收貨人姓名
-        my_username: f.buyName,//取貨人姓名
         phone: f.getNameTel,//收貨電話
         distance: f.distance,//距離
         proxy_id: 0,
@@ -672,6 +657,50 @@ Page({
       icon: "none",
       mask: !0
     }), !1);
+  },
+  deliveryAddress: function () {
+    var a = this,
+      t = wx.getStorageSync("uid");
+    d.request({
+      url: s.default.mrAddress,
+      method: "get",
+      data: {
+        uid: t,
+        bid: wx.getStorageSync("bid"),
+        type: 1
+      },
+      success: function (t) {
+        console.log(t)
+        a.setData({
+          deliveryAddress: t.data.adress,
+          deliveryTel: t.data.phone,
+        })
+        a.AddressPrice();
+      }
+    })
+  },
+  receivingAddress: function () {
+    var a = this,
+      t = wx.getStorageSync("uid");
+    d.request({
+      url: s.default.mrAddress,
+      method: "get",
+      data: {
+        uid: t,
+        bid: wx.getStorageSync("bid"),
+        type: 0
+      },
+      success: function (t) {
+        console.log(t)
+        a.setData({
+          receivingAddress: t.data.adress,
+          receivingTel: t.data.phone,
+          receivingName: t.data.name,
+          receiving: t.data.name + "," + t.data.phone
+        })
+        a.AddressPrice();
+      }
+    })
   }
 
 });
